@@ -1,6 +1,15 @@
 import tkinter as tk
 from tkinter import font as tkfont
 import sys
+import os
+
+
+def ruta_relativa(ruta):
+    if getattr(sys, "frozen", False):
+        base = sys._MEIPASS
+    else:
+        base = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(base, ruta)
 
 
 COLORES = {
@@ -102,7 +111,7 @@ class LoginApp:
         self.panel_izq.pack_propagate(False)
 
         from PIL import Image, ImageTk, ImageOps
-        logo = Image.open("img/Fixmol3.png")
+        logo = Image.open(ruta_relativa("img/Fixmol3.png"))
         logo = logo.resize((130, 130))
         logo_tk = ImageTk.PhotoImage(logo)
         lbl_logo = tk.Label(self.panel_izq, image=logo_tk, bg=COLORES["panel_izq"])

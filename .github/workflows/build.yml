@@ -1,0 +1,63 @@
+name: Build Ejecutables
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Compilar ejecutable Windows
+        run: >
+          pyinstaller --onefile --windowed
+          --name "SistemaAsistencia"
+          --add-data "img/Fixmol3.png;img"
+          primeraventana.py
+
+      - name: Subir artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: SistemaAsistencia-Windows
+          path: dist/SistemaAsistencia.exe
+
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependencias del sistema
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-tk
+
+      - name: Instalar dependencias Python
+        run: pip install -r requirements.txt
+
+      - name: Compilar ejecutable Linux
+        run: >
+          pyinstaller --onefile --windowed
+          --name "SistemaAsistencia"
+          --add-data "img/Fixmol3.png:img"
+          primeraventana.py
+
+      - name: Subir artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: SistemaAsistencia-Linux
+          path: dist/SistemaAsistencia

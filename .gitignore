@@ -3,3 +3,8 @@ __pycache__/
 *.pyo
 .env
 venv/
+build/
+dist/
+*.spec
+__pycache__/
+.venv/
