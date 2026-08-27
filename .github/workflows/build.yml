@@ -23,7 +23,9 @@ jobs:
         run: >
           pyinstaller --onefile --windowed
           --name "SistemaAsistencia"
+          --icon icon/Fixmol_icon.ico
           --add-data "img/Fixmol3.png;img"
+          --add-data "icon/Fixmol_icon.ico;icon"
           primeraventana.py
 
       - name: Subir artefacto
