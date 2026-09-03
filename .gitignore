@@ -8,3 +8,5 @@ dist/
 *.spec
 __pycache__/
 .venv/
+config/
+*-firebase-adminsdk-*.json

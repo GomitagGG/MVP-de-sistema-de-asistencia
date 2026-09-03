@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import font as tkfont
 import sys
 import os
+import firebase_admin
+from firebase_admin import credentials, firestore
 
 
 def ruta_relativa(ruta):
@@ -13,6 +15,7 @@ def ruta_relativa(ruta):
 
 
 COLORES = {
+    
     "bg_oscuro":        "#0d1117",
     "panel_izq":        "#161b22",
     "panel_der":        "#0d1117",
@@ -40,6 +43,10 @@ ALTO = 500
 
 class LoginApp:
     def __init__(self):
+        if not firebase_admin._apps:
+            cred = credentials.Certificate(ruta_relativa("config/firebase-key.json"))
+            firebase_admin.initialize_app(cred)
+        self.db = firestore.client()
         self.ventana = tk.Tk()
         self.ventana.title("Sistema de Asistencia")
         self.ventana.config(bg=COLORES["bg_oscuro"])
