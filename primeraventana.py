@@ -297,11 +297,18 @@ class LoginApp:
             self._shake()
             return
 
-        if usuario == "admin" and clave == "admin123":
+        if usuario == "ana" and clave == "ana123":
             self._mostrar_exito("Inicio de sesion exitoso")
+            self._abrir_usuario()
         else:
             self._mostrar_error("Usuario o contrasena incorrectos.")
             self._shake()
+
+    def _abrir_usuario(self):
+        import subprocess
+        base = os.path.dirname(os.path.abspath(__file__))
+        self.ventana.after(400, lambda: self.ventana.destroy())
+        subprocess.Popen([sys.executable, os.path.join(base, "usuarioventana.py")])
 
     def _mostrar_error(self, msg):
         self.lbl_error.config(text=f"  \u26a0  {msg}", fg=COLORES["error"])
