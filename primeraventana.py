@@ -295,6 +295,8 @@ class LoginApp:
         c.create_text(w // 2, h // 2, text="INICIAR SESI\u00d3N",
                       fill=COLORES["texto_blanco"], font=("Helvetica", 11, "bold"))
 
+
+
     def _intentar_login(self):
         usuario = self.entry_usuario.get().strip()
         clave = self.entry_clave.get().strip()
@@ -304,18 +306,27 @@ class LoginApp:
             self._shake()
             return
 
-        if usuario == "ana" and clave == "ana123":
-            self._mostrar_exito("Inicio de sesion exitoso")
-            self._abrir_usuario()
-        else:
-            self._mostrar_error("Usuario o contrasena incorrectos.")
+        try:
+            usuarios_ref = self.db.collection("usuarios")
+            docs = usuarios_ref.where("usuario", "==", usuario).limit(1).get()
+            if len(docs) == 0:
+                self._mostrar_error("Usuario o contrasena incorrectos.")
+                self._shake()
+                return
+
+            doc = docs[0].to_dict()
+            if doc.get("clave") == clave:
+                self.ventana.destroy()
+                import usuarioventana
+                usuarioventana.UsuarioApp()
+            else:
+                self._mostrar_error("Usuario o contrasena incorrectos.")
+                self._shake()
+        except Exception as e:
+            self._mostrar_error(f"Error de conexion: {e}")
             self._shake()
 
-    def _abrir_usuario(self):
-        import subprocess
-        base = os.path.dirname(os.path.abspath(__file__))
-        self.ventana.after(400, lambda: self.ventana.destroy())
-        subprocess.Popen([sys.executable, os.path.join(base, "usuarioventana.py")])
+
 
     def _mostrar_error(self, msg):
         self.lbl_error.config(text=f"  \u26a0  {msg}", fg=COLORES["error"])

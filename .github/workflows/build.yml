@@ -19,6 +19,12 @@ jobs:
       - name: Instalar dependencias
         run: pip install -r requirements.txt
 
+      - name: Crear credenciales de Firebase
+        shell: bash
+        run: |
+          mkdir -p config
+          echo '${{ secrets.FIREBASE_KEY }}' > config/firebase-key.json
+
       - name: Compilar ejecutable Windows
         run: >
           pyinstaller --onefile --windowed
@@ -26,7 +32,8 @@ jobs:
           --icon icon/Fixmol_icon.ico
           --add-data "img/Fixmol3.png;img"
           --add-data "icon/Fixmol_icon.ico;icon"
-          primeraventana.py
+          --add-data "config/firebase-key.json;config"
+          primeraventana.py usuarioventana.py
 
       - name: Subir artefacto
         uses: actions/upload-artifact@v5
@@ -51,12 +58,19 @@ jobs:
       - name: Instalar dependencias Python
         run: pip install -r requirements.txt
 
+      - name: Crear credenciales de Firebase
+        shell: bash
+        run: |
+          mkdir -p config
+          echo '${{ secrets.FIREBASE_KEY }}' > config/firebase-key.json
+
       - name: Compilar ejecutable Linux
         run: >
           pyinstaller --onefile --windowed
           --name "SistemaAsistencia"
           --add-data "img/Fixmol3.png:img"
-          primeraventana.py
+          --add-data "config/firebase-key.json:config"
+          primeraventana.py usuarioventana.py
 
       - name: Subir artefacto
         uses: actions/upload-artifact@v5
