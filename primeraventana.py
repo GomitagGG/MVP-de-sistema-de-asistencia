@@ -4,6 +4,8 @@ import sys
 import os
 import firebase_admin
 from firebase_admin import credentials, firestore
+import threading
+import json
 
 
 def ruta_relativa(ruta):
@@ -43,10 +45,10 @@ ALTO = 500
 
 class LoginApp:
     def __init__(self):
-        if not firebase_admin._apps:
-            cred = credentials.Certificate(ruta_relativa("config/firebase-key.json"))
-            firebase_admin.initialize_app(cred)
-        self.db = firestore.client()
+        self.firebase_listo = False
+        self.db = None
+        self._cargar_cache_local()
+        threading.Thread(target=self._init_firebase, daemon=True).start()
         self.ventana = tk.Tk()
         self.ventana.title("Sistema de Asistencia")
         self.ventana.config(bg=COLORES["bg_oscuro"])
@@ -69,6 +71,32 @@ class LoginApp:
         self.barra_titulo.bind("<B1-Motion>", self._arrastrar)
 
         self.ventana.mainloop()
+
+    def _init_firebase(self):
+        try:
+            if not firebase_admin._apps:
+                key_file = "config/firebase-key.json"
+                if not os.path.exists(ruta_relativa(key_file)):
+                    key_file = "config/registro-asistencia-bfe64-firebase-adminsdk-fbsvc-236f010224.json"
+                cred = credentials.Certificate(ruta_relativa(key_file))
+                firebase_admin.initialize_app(cred)
+            self.db = firestore.client()
+            self.firebase_listo = True
+        except Exception as e:
+            print(f"Error Firebase: {e}")
+
+    def _cargar_cache_local(self):
+        try:
+            with open("cache_usuarios.json") as f:
+                self.cache_usuarios = json.load(f)
+        except:
+            self.cache_usuarios = {}
+
+    def _guardar_cache_local(self, usuario, datos):
+        self.cache_usuarios[usuario] = datos
+        with open("cache_usuarios.json", "w") as f:
+            json.dump(self.cache_usuarios, f)
+
 
     def _centrar_ventana(self, w, h):
         sw = self.ventana.winfo_screenwidth()
@@ -306,25 +334,49 @@ class LoginApp:
             self._shake()
             return
 
-        try:
-            usuarios_ref = self.db.collection("usuarios")
-            docs = usuarios_ref.where("usuario", "==", usuario).limit(1).get()
-            if len(docs) == 0:
-                self._mostrar_error("Usuario o contrasena incorrectos.")
-                self._shake()
-                return
-
-            doc = docs[0].to_dict()
+        if usuario in self.cache_usuarios:
+            doc = self.cache_usuarios[usuario]
             if doc.get("clave") == clave:
                 self.ventana.destroy()
                 import usuarioventana
                 usuarioventana.UsuarioApp()
+                return
+
+        if not self.firebase_listo:
+            self._mostrar_error("Conectando... espera un momento")
+            self.ventana.after(500, self._intentar_login)
+            return
+
+        self._mostrar_cargando("Verificando credenciales...")
+        threading.Thread(target=self._verificar_en_firebase, args=(usuario, clave), daemon=True).start()
+
+    def _verificar_en_firebase(self, usuario, clave):
+        try:
+            usuarios_ref = self.db.collection("usuarios")
+            docs = usuarios_ref.where("usuario", "==", usuario).limit(1).get()
+            if len(docs) == 0:
+                self.ventana.after(0, self._error_login, "Usuario o contrasena incorrectos.")
+                return
+            doc = docs[0].to_dict()
+            if doc.get("clave") == clave:
+                self._guardar_cache_local(usuario, doc)
+                self.ventana.after(0, self._login_exitoso)
             else:
-                self._mostrar_error("Usuario o contrasena incorrectos.")
-                self._shake()
+                self.ventana.after(0, self._error_login, "Usuario o contrasena incorrectos.")
         except Exception as e:
-            self._mostrar_error(f"Error de conexion: {e}")
-            self._shake()
+            self.ventana.after(0, self._error_login, f"Error de conexion: {e}")
+
+    def _login_exitoso(self):
+        self.ventana.destroy()
+        import usuarioventana
+        usuarioventana.UsuarioApp()
+
+    def _error_login(self, msg):
+        self._mostrar_error(msg)
+        self._shake()
+
+    def _mostrar_cargando(self, msg):
+        self.lbl_error.config(text=f"  \u23f3  {msg}", fg=COLORES["texto_gris"])
 
 
 
