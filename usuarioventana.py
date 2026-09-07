@@ -36,11 +36,14 @@ COLORES = {
 ANCHO = 820
 ALTO = 500
 
-USUARIO_TRABAJADOR = "ana"
-
 
 class UsuarioApp:
-    def __init__(self):
+    def __init__(self, usuario="", datos=None):
+        datos = datos or {}
+        self.usuario = usuario
+        self.nombre = datos.get("nombre") or usuario.capitalize()
+        self.rol = datos.get("rol", "")
+
         self.ventana = tk.Tk()
         self.ventana.title("Sistema de Asistencia")
         self.ventana.config(bg=COLORES["bg_oscuro"])
@@ -146,6 +149,17 @@ class UsuarioApp:
         )
         self.btn_cerrar_sesion.pack(side="bottom", pady=20, padx=40, fill="x")
 
+        if "administrador" in self.rol.lower():
+            self.btn_gestion = tk.Button(
+                self.panel_izq, text="GESTI\u00d3N DE USUARIOS",
+                bg=COLORES["accento"], fg=COLORES["texto_blanco"],
+                activebackground=COLORES["accento_oscuro"], activeforeground=COLORES["texto_blanco"],
+                font=("Helvetica", 9, "bold"), relief="flat",
+                highlightthickness=0, cursor="hand2",
+                command=self._abrir_gestion_usuarios,
+            )
+            self.btn_gestion.pack(side="bottom", pady=(0, 8), padx=40, fill="x")
+
     def _crear_panel_derecho(self):
         panel_der = tk.Frame(self.ventana, bg=COLORES["panel_der"])
         panel_der.pack(side="right", fill="both", expand=True)
@@ -153,7 +167,7 @@ class UsuarioApp:
         frame_form = tk.Frame(panel_der, bg=COLORES["panel_der"])
         frame_form.place(relx=0.5, rely=0.48, anchor="center", width=420, height=420)
 
-        nombre = USUARIO_TRABAJADOR.capitalize()
+        nombre = self.nombre
         self.lbl_saludo = tk.Label(
             frame_form, text=f"Hola, {nombre}",
             bg=COLORES["panel_der"], fg=COLORES["texto_blanco"],
@@ -267,6 +281,10 @@ class UsuarioApp:
             text=msg,
             fg=COLORES["exito"] if exito else COLORES["error"],
         )
+
+    def _abrir_gestion_usuarios(self):
+        import gestion_usuarios
+        gestion_usuarios.GestionUsuariosApp(self.ventana, self.usuario)
 
     def _cerrar_sesion(self):
         self.ventana.destroy()

@@ -1,0 +1,40 @@
+rules_version = '2';
+
+// Reglas de seguridad para Cloud Firestore del sistema de asistencia.
+//
+// IMPORTANTE: la aplicación usa firebase-admin (cuenta de servicio), la cual
+// OMPITE estas reglas (tiene acceso total por diseño). Estas reglas sirven
+// como capa de defensa si en el futuro se migra a Firebase Authentication.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Colección de usuarios: solo lectura/escritura para administradores.
+    match /usuarios/{usuarioId} {
+      function esAdmin() {
+        return request.auth != null &&
+               request.auth.token.role == 'administrador';
+      }
+
+      allow read: if esAdmin();
+      allow write: if esAdmin();
+    }
+
+    // Colección de marcaciones de asistencia.
+    match /marcaciones/{marcacionId} {
+      // Un trabajador autenticado puede crear su propia marcación.
+      allow create: if request.auth != null &&
+                     request.resource.data.usuario == request.auth.uid;
+      // Leer y administrar marcaciones: solo administradores.
+      allow read: if request.auth != null &&
+                   (request.auth.token.role == 'administrador' ||
+                    request.resource.data.usuario == request.auth.uid);
+      allow update, delete: if false;
+    }
+
+    // Denegado por defecto para el resto.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

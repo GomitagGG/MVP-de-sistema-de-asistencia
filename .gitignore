@@ -5,8 +5,10 @@ __pycache__/
 venv/
 build/
 dist/
-*.spec
 __pycache__/
 .venv/
 config/
 *-firebase-adminsdk-*.json
+
+# Archivo de caché local con credenciales (no debe versionarse)
+cache_usuarios.json

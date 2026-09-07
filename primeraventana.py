@@ -85,16 +85,24 @@ class LoginApp:
         except Exception as e:
             print(f"Error Firebase: {e}")
 
+    def _ruta_cache(self):
+        if getattr(sys, "frozen", False):
+            carpeta = os.path.join(os.environ.get("APPDATA", os.path.expanduser("~")), "SistemaAsistencia")
+        else:
+            carpeta = os.path.dirname(os.path.abspath(__file__))
+        os.makedirs(carpeta, exist_ok=True)
+        return os.path.join(carpeta, "cache_usuarios.json")
+
     def _cargar_cache_local(self):
         try:
-            with open("cache_usuarios.json") as f:
+            with open(self._ruta_cache()) as f:
                 self.cache_usuarios = json.load(f)
         except:
             self.cache_usuarios = {}
 
     def _guardar_cache_local(self, usuario, datos):
         self.cache_usuarios[usuario] = datos
-        with open("cache_usuarios.json", "w") as f:
+        with open(self._ruta_cache(), "w") as f:
             json.dump(self.cache_usuarios, f)
 
 
@@ -337,12 +345,15 @@ class LoginApp:
         if usuario in self.cache_usuarios:
             doc = self.cache_usuarios[usuario]
             if doc.get("clave") == clave:
-                self.ventana.destroy()
-                import usuarioventana
-                usuarioventana.UsuarioApp()
+                self._login_exitoso(usuario, doc)
                 return
 
         if not self.firebase_listo:
+            self._intentos_espera = getattr(self, "_intentos_espera", 0) + 1
+            if self._intentos_espera > 10:
+                self._intentos_espera = 0
+                self._mostrar_error("No se pudo conectar a Firebase. Revisa config/firebase-key.json")
+                return
             self._mostrar_error("Conectando... espera un momento")
             self.ventana.after(500, self._intentar_login)
             return
@@ -360,16 +371,16 @@ class LoginApp:
             doc = docs[0].to_dict()
             if doc.get("clave") == clave:
                 self._guardar_cache_local(usuario, doc)
-                self.ventana.after(0, self._login_exitoso)
+                self.ventana.after(0, self._login_exitoso, usuario, doc)
             else:
                 self.ventana.after(0, self._error_login, "Usuario o contrasena incorrectos.")
         except Exception as e:
             self.ventana.after(0, self._error_login, f"Error de conexion: {e}")
 
-    def _login_exitoso(self):
+    def _login_exitoso(self, usuario, doc=None):
         self.ventana.destroy()
         import usuarioventana
-        usuarioventana.UsuarioApp()
+        usuarioventana.UsuarioApp(usuario, doc or {})
 
     def _error_login(self, msg):
         self._mostrar_error(msg)
