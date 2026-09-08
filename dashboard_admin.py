@@ -47,6 +47,7 @@ ANCHO_SIDEBAR = 244
 
 HORA_ENTRADA_DEFECTO = "09:30"
 HORA_SALIDA_DEFECTO = "17:30"
+POLL_INTERVALO = 30000
 
 
 def _minutos_diff(hora_menor, hora_mayor):
@@ -330,6 +331,8 @@ class DashboardAdminApp:
         self._offset_x = 0
         self._offset_y = 0
         self._sidebar_colapsado = None
+        self._cerrando = False
+        self.pagina_actual = "inicio"
 
         configure_styles(self.ventana)
         self._construir_ui()
@@ -337,6 +340,7 @@ class DashboardAdminApp:
         self.ventana.bind("<Configure>", lambda e: self._aplicar_responsividad())
 
         threading.Thread(target=self._inicializar_db, daemon=True).start()
+        self._iniciar_polling()
 
         self.ventana.mainloop()
 
@@ -403,8 +407,51 @@ class DashboardAdminApp:
                 .where(filter=FieldFilter("fecha", "==", self._obtener_fecha_hoy())).get()
             self.marcaciones_hoy = [d.to_dict() for d in docs]
             self.ventana.after(0, self._refrescar_inicio)
+            self.ventana.after(100, self._refrescar_calendario)
         except Exception as e:
             print(e)
+
+    def _trabajadores(self):
+        return [u for u in self.usuarios
+                if u.get("rol") != "administrador"]
+
+    # ------------------------------------------------------------------
+    # REFRESCO AUTOMATICO
+    # ------------------------------------------------------------------
+    def _iniciar_polling(self):
+        if self._cerrando:
+            return
+        self.ventana.after(POLL_INTERVALO, self._poll)
+
+    def _poll(self):
+        if self._cerrando:
+            return
+        self._iniciar_polling()
+        if not getattr(self, "firebase_listo", False):
+            return
+        threading.Thread(target=self._poll_fetch, daemon=True).start()
+
+    def _poll_fetch(self):
+        try:
+            docs = self.db.collection("marcaciones") \
+                .where(filter=FieldFilter("fecha", "==",
+                                          self._obtener_fecha_hoy())).get()
+            marc = [d.to_dict() for d in docs]
+            self.ventana.after(0, lambda m=marc: self._aplicar_refresco(m))
+        except Exception as e:
+            print(e)
+
+    def _aplicar_refresco(self, marc):
+        self.marcaciones_hoy = marc
+        self._refrescar_inicio()
+        self._refrescar_calendario()
+        if self.pagina_actual == "asistencia" and self.db:
+            threading.Thread(target=self._generar_asistencia, daemon=True).start()
+
+    def _refrescar_manual(self):
+        self.lbl_estado_inicio.config(
+            text="Actualizando datos...", fg=C["text_secondary"])
+        self._poll()
 
     # ------------------------------------------------------------------
     # ESTRUCTURA
@@ -442,9 +489,26 @@ class DashboardAdminApp:
         btn_min.bind("<Leave>", lambda e: btn_min.config(fg=C["text_muted"]))
         btn_min.bind("<Button-1>", lambda e: self._minimizar())
 
+        btn_refrescar = tk.Label(topbar, text=" \u21bb ", bg=C["bg_topbar"],
+                                 fg=C["text_secondary"], font=("Segoe UI", 13),
+                                 cursor="hand2")
+        btn_refrescar.pack(side="right", padx=(0, 4), pady=6)
+        btn_refrescar.bind("<Enter>",
+                           lambda e: btn_refrescar.config(fg=C["accent"]))
+        btn_refrescar.bind("<Leave>",
+                           lambda e: btn_refrescar.config(fg=C["text_secondary"]))
+        btn_refrescar.bind("<Button-1>", lambda e: self._refrescar_manual())
+
+        cont_campana = tk.Frame(topbar, bg=C["bg_topbar"])
+        cont_campana.pack(side="right", padx=(0, 12), pady=7)
         campana = icons.crear_icono("campana", size=20, color=C["text_secondary"],
-                                    bg=C["bg_topbar"], master=topbar)
-        campana.pack(side="right", padx=(0, 14), pady=9)
+                                    bg=C["bg_topbar"], master=cont_campana)
+        campana.pack()
+        campana.bind("<Button-1>", lambda e: self._refrescar_manual())
+        self.badge_alertas = tk.Label(cont_campana, text="", bg=C["accent"],
+                                      fg=C["white"], font=F["small_bold"],
+                                      padx=4, pady=0, bd=0, highlightthickness=0)
+        self._actualizar_badge_alertas()
 
         cont_avatar = tk.Frame(topbar, bg=C["bg_topbar"])
         cont_avatar.pack(side="right", padx=(8, 8), pady=5)
@@ -476,6 +540,7 @@ class DashboardAdminApp:
         return (self.nombre[:2] or "AD").upper()
 
     def _cerrar_ventana_pura(self):
+        self._cerrando = True
         self.ventana.destroy()
 
     def _minimizar(self):
@@ -573,6 +638,7 @@ class DashboardAdminApp:
             self._scroll_window, height=max(contenido_h, e.height))
 
     def _mostrar_modulo(self, clave):
+        self.pagina_actual = clave
         for nombre, pagina in self.paginas.items():
             if nombre == clave:
                 pagina.pack(in_=self._scroll_frame, fill="both", expand=True)
@@ -717,11 +783,14 @@ class DashboardAdminApp:
     # ------------------------------------------------------------------
     def _refrescar_inicio(self):
         marc = self.marcaciones_hoy
-        usuarios = self.usuarios
+        trabajadores = self._trabajadores()
+        nombres_trabajo = {u.get("usuario") for u in trabajadores}
 
-        total = len(usuarios)
+        total = len(trabajadores)
         presentes = {}
         for m in marc:
+            if m.get("usuario") not in nombres_trabajo:
+                continue
             presentes.setdefault(m.get("usuario"), {"entrada": None, "salida": None})
             if m.get("tipo") == "entrada":
                 presentes[m["usuario"]]["entrada"] = m.get("hora")
@@ -734,10 +803,7 @@ class DashboardAdminApp:
         n_salida_ant = sum(1 for d in presentes.values()
                            if d["salida"] and d["salida"] < self.hora_salida)
 
-        ausentes = {
-            u.get("usuario") for u in usuarios
-            if u.get("usuario") not in presentes
-        }
+        ausentes = nombres_trabajo - set(presentes)
         n_ausentes = len(ausentes)
 
         self._actualizar_kpis([
@@ -749,9 +815,18 @@ class DashboardAdminApp:
 
         self._dibujar_donut(total, n_presentes, n_atrasados, n_ausentes)
         self._poblar_incidencias(presentes, ausentes, marc)
-        self._poblar_actividad(marc, usuarios)
+        self._poblar_actividad(marc, trabajadores)
         self._registrar_alertas_inasistencia(ausentes)
         self._cargar_alertas_pendientes()
+        self._marcar_ultima_actualizacion(n_presentes)
+
+    def _marcar_ultima_actualizacion(self, n_presentes=0):
+        hora = datetime.now().strftime("%H:%M:%S")
+        self.lbl_estado_inicio.config(
+            text=f"Conectado a Firestore \u00b7 {len(self._trabajadores())} "
+                 f"trabajadores \u00b7 Actualizado {hora} \u00b7 {n_presentes} "
+                 f"presente(s) registrado(s).",
+            fg=C["success"])
 
     def _dibujar_donut(self, total, presentes, atrasados, ausentes):
         c = self.canvas_donut
@@ -825,6 +900,7 @@ class DashboardAdminApp:
         for w in self.cont_incidencias.winfo_children():
             w.destroy()
 
+        trabajo_ids = {u.get("usuario") for u in self._trabajadores()}
         usuarios_nombres = {u.get("usuario"): (u.get("nombre") or u.get("usuario"))
                             for u in self.usuarios}
 
@@ -834,6 +910,8 @@ class DashboardAdminApp:
                           C["danger"]))
         combs = {}
         for m in marc:
+            if m.get("usuario") not in trabajo_ids:
+                continue
             combs.setdefault(m.get("usuario"), {})
             if m.get("tipo") == "entrada":
                 combs[m["usuario"]]["entrada"] = m.get("hora")
@@ -976,8 +1054,17 @@ class DashboardAdminApp:
                  a.get("hora") or a.get("fecha") or "", a.get("_id"))
                 for a in alertas
             ]
+            self._actualizar_badge_alertas()
         except Exception as e:
             print(e)
+
+    def _actualizar_badge_alertas(self):
+        n = len(getattr(self, "_alertas_pendientes", []) or [])
+        if n <= 0:
+            self.badge_alertas.place_forget()
+        else:
+            self.badge_alertas.config(text=str(n if n < 99 else "99+"))
+            self.badge_alertas.place(relx=0.85, rely=0.05, anchor="ne")
 
     # ------------------------------------------------------------------
     # ASISTENCIA
@@ -1080,7 +1167,7 @@ class DashboardAdminApp:
                 for d in docs:
                     m = d.to_dict()
                     por_fecha.setdefault(m.get("fecha"), set()).add(m.get("usuario"))
-                nombres = {u.get("usuario") for u in self.usuarios}
+                nombres = {u.get("usuario") for u in self._trabajadores()}
                 for fecha, presentes in por_fecha.items():
                     if len(presentes) == len(nombres) and nombres:
                         marcas[fecha] = C["success"]
@@ -1091,6 +1178,16 @@ class DashboardAdminApp:
         except Exception as e:
             print(e)
         return marcas
+
+    def _refrescar_calendario(self):
+        calendario = getattr(self, "calendario", None)
+        if calendario is None:
+            return
+        try:
+            calendario.marcas = self._marcas_calendario()
+            calendario._llenar_cuadricula()
+        except Exception as e:
+            print(e)
 
     def _seleccionar_fecha(self, fecha_str):
         self.fecha_seleccionada = fecha_str
@@ -1168,11 +1265,12 @@ class DashboardAdminApp:
             elif m.get("tipo") == "salida":
                 by_user[m["usuario"]]["salida"] = m.get("hora")
 
+        trabajadores = self._trabajadores()
         nombres = {u.get("usuario"): (u.get("nombre") or u.get("usuario"))
-                   for u in self.usuarios}
+                   for u in trabajadores}
 
         filas = []
-        for u in self.usuarios:
+        for u in trabajadores:
             d = by_user.get(u.get("usuario"), {"entrada": None, "salida": None})
             filas.append((
                 nombres.get(u.get("usuario"), u.get("usuario")),

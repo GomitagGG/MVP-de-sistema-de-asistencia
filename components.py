@@ -62,13 +62,13 @@ class MetricCard(SurfaceCard):
         for w in self.winfo_children():
             w.destroy()
         import icons
-        icono_canvas = icons.crear_icono(
-            self.icono, size=28, color=self.color, bg=self.bg, master=self)
         cir = tk.Canvas(self, width=58, height=58, bg=self.bg,
                         highlightthickness=0, bd=0)
         cir.create_oval(3, 3, 55, 55, outline=self.color, width=2)
         cir.create_oval(10, 10, 48, 48, outline=self.color, width=1)
-        icono_canvas.place(x=15, y=15)
+        icono = icons.crear_icono(self.icono, size=28, color=self.color,
+                                  bg=self.bg, master=cir)
+        icono.place(x=15, y=15)
         cir.grid(row=0, column=0, rowspan=2, padx=(0, 12), pady=6, sticky="w")
         tk.Label(self, text=self.titulo.upper(), bg=self.bg, fg=C["text_secondary"],
                  font=F["small_bold"], anchor="w").grid(row=0, column=1, sticky="sw")

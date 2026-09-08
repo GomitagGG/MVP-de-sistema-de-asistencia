@@ -29,15 +29,33 @@ def get_db():
 HORA_ENTRADA_LIMITE = "09:30"
 HORA_SALIDA_LIMITE = "17:30"
 
+# 25 trabajadores (el admin se crea aparte y NO se cuenta en asistencia)
 TRABAJADORES = [
-    ("juan",   "Juan",   "Perez"),
-    ("maria",  "Maria",  "Garcia"),
-    ("carlos", "Carlos", "Lopez"),
-    ("ana",    "Ana",    "Martinez"),
-    ("pedro",  "Pedro",  "Sanchez"),
-    ("lucia",  "Lucia",  "Ramirez"),
-    ("hector", "Hector", "Torres"),
-    ("sofia",  "Sofia",  "Flores"),
+    ("juan",       "Juan",       "Perez"),
+    ("maria",      "Maria",      "Garcia"),
+    ("carlos",     "Carlos",     "Lopez"),
+    ("ana",        "Ana",        "Martinez"),
+    ("pedro",      "Pedro",      "Sanchez"),
+    ("lucia",      "Lucia",      "Ramirez"),
+    ("hector",     "Hector",     "Torres"),
+    ("sofia",      "Sofia",      "Flores"),
+    ("diego",      "Diego",      "Morales"),
+    ("valentina",  "Valentina",  "Herrera"),
+    ("andres",     "Andres",     "Vega"),
+    ("camila",     "Camila",     "Reyes"),
+    ("fernando",   "Fernando",   "Castillo"),
+    ("isabel",     "Isabel",     "Rojas"),
+    ("jorge",      "Jorge",      "Medina"),
+    ("karen",      "Karen",      "Aguilar"),
+    ("leonardo",   "Leonardo",   "Gutierrez"),
+    ("marta",      "Marta",      "Ruiz"),
+    ("nicolas",    "Nicolas",    "Salazar"),
+    ("olivia",     "Olivia",     "Castro"),
+    ("pablo",      "Pablo",      "Ortiz"),
+    ("rosa",       "Rosa",       "Nunez"),
+    ("samuel",     "Samuel",     "Jimenez"),
+    ("tatiana",    "Tatiana",    "Blanco"),
+    ("victor",     "Victor",     "Campos"),
 ]
 
 
@@ -58,7 +76,7 @@ def crear_usuarios(db):
         "correo": "admin@empresa.com",
         "nombre": "Administrador",
     })
-    for i, (usr, nombre, apellido) in enumerate(TRABAJADORES, start=1):
+    for usr, nombre, apellido in TRABAJADORES:
         batch.set(db.collection("usuarios").document(usr), {
             "usuario": usr,
             "clave": "123456",
@@ -69,18 +87,20 @@ def crear_usuarios(db):
     batch.commit()
 
 
-def dias_ultimos(n):
+def dias_desde_inicio_mes():
     dias = []
     hoy = datetime.now()
-    for i in range(n, -1, -1):
-        d = hoy - timedelta(days=i)
+    primero = hoy.replace(day=1)
+    d = primero
+    while d <= hoy:
         if d.weekday() < 5:
             dias.append(d)
+        d += timedelta(days=1)
     return dias
 
 
 def limpiar_colecciones(db):
-    for coleccion in ("marcaciones", "alertas", "login_log"):
+    for coleccion in ("usuarios", "marcaciones", "alertas", "login_log"):
         n = 0
         batch = db.batch()
         docs = db.collection(coleccion).list_documents()
@@ -113,20 +133,26 @@ def hora_salida_random():
 
 def crear_marcaciones(db):
     total = 0
-    dias = dias_ultimos(14)
+    dias = dias_desde_inicio_mes()
     fecha_hoy = datetime.now().strftime("%Y-%m-%d")
     for d in dias:
         batch = db.batch()
         contador = 0
         fecha = d.strftime("%Y-%m-%d")
         es_hoy = fecha == fecha_hoy
+
+        # D\u00edas con asistencia completa (para marcar verde en calendario)
         if es_hoy:
-            presentes = random.sample(TRABAJADORES, k=len(TRABAJADORES))
+            presentes = TRABAJADORES[:]
+        elif random.random() < 0.4:
+            presentes = TRABAJADORES[:]
         else:
-            presentes = random.sample(TRABAJADORES, k=random.randint(6, 8))
+            presentes = random.sample(TRABAJADORES, k=random.randint(18, 24))
+
         for usr, _n, _a in presentes:
             entry_h = hora_entrada_random()
             if es_hoy:
+                entry_h = f"09:0{random.randint(1, 9)}:{random.randint(10, 59):02d}"
                 entry_h = f"09:{random.randint(10, 59):02d}:00"
             atrasado = entry_h[:5] > HORA_ENTRADA_LIMITE
             batch.set(db.collection("marcaciones").document(f"{usr}_{fecha}_entrada"), {
@@ -169,7 +195,7 @@ def crear_marcaciones(db):
 
 def crear_logins(db):
     total = 0
-    for d in dias_ultimos(14):
+    for d in dias_desde_inicio_mes():
         batch = db.batch()
         contador = 0
         n = random.randint(2, 6)
@@ -202,8 +228,8 @@ def main():
     n_marc = crear_marcaciones(db)
     n_log = crear_logins(db)
     print(f"\nSemilla cargada correctamente.")
-    print(f"  - 9 usuarios (1 admin + 8 trabajadores)")
-    print(f"  - {n_marc} marcaciones (14 dias habiles, incluyendo hoy)")
+    print(f"  - {len(TRABAJADORES) + 1} usuarios (1 admin + {len(TRABAJADORES)} trabajadores)")
+    print(f"  - {n_marc} marcaciones desde el 1 del mes hasta hoy")
     print(f"  - {n_log} logins")
     print(f"  - Admin: admin / admin123")
     print(f"  - Trabajador de ejemplo: juan / 123456")
