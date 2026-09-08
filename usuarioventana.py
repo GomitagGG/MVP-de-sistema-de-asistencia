@@ -2,6 +2,10 @@ import tkinter as tk
 from tkinter import font as tkfont
 import sys
 import os
+import threading
+
+import firebase_admin
+from firebase_admin import credentials, firestore
 
 
 def ruta_relativa(ruta):
@@ -10,6 +14,16 @@ def ruta_relativa(ruta):
     else:
         base = os.path.dirname(os.path.abspath(__file__))
     return os.path.join(base, ruta)
+
+
+def _get_firestore():
+    if not firebase_admin._apps:
+        key_file = "config/firebase-key.json"
+        if not os.path.exists(ruta_relativa(key_file)):
+            key_file = "config/registro-asistencia-bfe64-firebase-adminsdk-fbsvc-236f010224.json"
+        cred = credentials.Certificate(ruta_relativa(key_file))
+        firebase_admin.initialize_app(cred)
+    return firestore.client()
 
 
 COLORES = {
@@ -160,6 +174,27 @@ class UsuarioApp:
             )
             self.btn_gestion.pack(side="bottom", pady=(0, 8), padx=40, fill="x")
 
+            self.btn_registros = tk.Button(
+                self.panel_izq, text="GESTI\u00d3N DE REGISTROS",
+                bg=COLORES["accento_oscuro"], fg=COLORES["texto_blanco"],
+                activebackground=COLORES["entry_borde"], activeforeground=COLORES["texto_blanco"],
+                font=("Helvetica", 9, "bold"), relief="flat",
+                highlightthickness=0, cursor="hand2",
+                command=self._abrir_gestion_registros,
+            )
+            self.btn_registros.pack(side="bottom", pady=(0, 8), padx=40, fill="x")
+
+            self.btn_inasistencias = tk.Button(
+                self.panel_izq, text="REPORTE DE INASISTENCIAS",
+                bg=COLORES["panel_izq"], fg=COLORES["texto_gris"],
+                activebackground=COLORES["entry_borde"], activeforeground=COLORES["texto_blanco"],
+                font=("Helvetica", 9, "bold"), relief="flat",
+                highlightthickness=1, highlightbackground=COLORES["entry_borde"],
+                cursor="hand2",
+                command=self._abrir_reporte_inasistencias,
+            )
+            self.btn_inasistencias.pack(side="bottom", pady=(0, 8), padx=40, fill="x")
+
     def _crear_panel_derecho(self):
         panel_der = tk.Frame(self.ventana, bg=COLORES["panel_der"])
         panel_der.pack(side="right", fill="both", expand=True)
@@ -275,6 +310,26 @@ class UsuarioApp:
             self._modo_marcacion = "entrada"
 
         self._dibujar_boton()
+        threading.Thread(target=self._guardar_marcacion, args=(tipo, hora), daemon=True).start()
+
+    def _guardar_marcacion(self, tipo, hora):
+        from datetime import datetime
+        try:
+            db = _get_firestore()
+            fecha = datetime.now().strftime("%Y-%m-%d")
+            datos = {
+                "usuario": self.usuario,
+                "tipo": tipo,
+                "fecha": fecha,
+                "hora": hora,
+            }
+            db.collection("marcaciones").document(f"{self.usuario}_{fecha}_{tipo}").set(datos)
+            self.ventana.after(0, lambda: self._mostrar_estado(
+                f"  \u2713  {tipo.capitalize()} guardada a las {hora}", exito=True))
+        except Exception as e:
+            msg = str(e)
+            self.ventana.after(0, lambda: self._mostrar_estado(
+                f"  \u2717  No se pudo guardar en Firestore: {msg}", exito=False))
 
     def _mostrar_estado(self, msg, exito=False):
         self.lbl_estado.config(
@@ -285,6 +340,14 @@ class UsuarioApp:
     def _abrir_gestion_usuarios(self):
         import gestion_usuarios
         gestion_usuarios.GestionUsuariosApp(self.ventana, self.usuario)
+
+    def _abrir_gestion_registros(self):
+        import gestion_registros
+        gestion_registros.GestionRegistrosApp(self.ventana, self.usuario)
+
+    def _abrir_reporte_inasistencias(self):
+        import gestion_registros
+        gestion_registros.ReporteInasistenciasApp(self.ventana)
 
     def _cerrar_sesion(self):
         self.ventana.destroy()

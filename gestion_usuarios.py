@@ -17,6 +17,7 @@ def ruta_relativa(ruta):
     return os.path.join(base, ruta)
 
 
+
 COLORES = {
     "bg_oscuro":        "#0d1117",
     "panel_izq":        "#161b22",
@@ -91,12 +92,21 @@ class GestionUsuariosApp:
         self.ventana = tk.Toplevel(padre)
         self.ventana.title("Gesti\u00f3n de Usuarios")
         self.ventana.config(bg=COLORES["bg_oscuro"])
-        self.ventana.geometry("760x540")
+        self._centrar_ventana(760, 540)
+        self._offset_x = 0
+        self._offset_y = 0
         self.ventana.transient(padre)
         self.ventana.grab_set()
 
         self._construir_ui()
         threading.Thread(target=self._inicializar_db, daemon=True).start()
+
+    def _centrar_ventana(self, w, h):
+        sw = self.ventana.winfo_screenwidth()
+        sh = self.ventana.winfo_screenheight()
+        x = (sw - w) // 2
+        y = (sh - h) // 2
+        self.ventana.geometry(f"{w}x{h}+{x}+{y}")
 
     def _inicializar_db(self):
         try:
@@ -308,11 +318,18 @@ class GestionUsuarioForm:
         self.ventana = tk.Toplevel(gestor.ventana)
         self.ventana.title("Modificar Usuario" if usuario_existente else "Crear Usuario")
         self.ventana.config(bg=COLORES["bg_oscuro"])
-        self.ventana.geometry("440x480")
+        self._centrar_ventana(440, 480)
         self.ventana.transient(gestor.ventana)
         self.ventana.grab_set()
 
         self._construir_formulario()
+
+    def _centrar_ventana(self, w, h):
+        sw = self.ventana.winfo_screenwidth()
+        sh = self.ventana.winfo_screenheight()
+        x = (sw - w) // 2
+        y = (sh - h) // 2
+        self.ventana.geometry(f"{w}x{h}+{x}+{y}")
 
     def _construir_formulario(self):
         cont = tk.Frame(self.ventana, bg=COLORES["bg_oscuro"])
