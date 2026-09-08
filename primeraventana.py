@@ -7,6 +7,8 @@ from firebase_admin import credentials, firestore
 import threading
 import json
 
+from modelos import Usuario
+
 
 def ruta_relativa(ruta):
     if getattr(sys, "frozen", False):
@@ -104,6 +106,15 @@ class LoginApp:
         self.cache_usuarios[usuario] = datos
         with open(self._ruta_cache(), "w") as f:
             json.dump(self.cache_usuarios, f)
+
+    def _buscar_en_cache(self, identificador):
+        identificador = identificador.strip().lower()
+        for nombre, doc in self.cache_usuarios.items():
+            if nombre.strip().lower() == identificador:
+                return nombre, doc
+            if str(doc.get("correo") or "").strip().lower() == identificador:
+                return nombre, doc
+        return None, None
 
 
     def _centrar_ventana(self, w, h):
@@ -342,17 +353,16 @@ class LoginApp:
             self._shake()
             return
 
-        if usuario in self.cache_usuarios:
-            doc = self.cache_usuarios[usuario]
-            if doc.get("clave") == clave:
-                self._login_exitoso(usuario, doc)
-                return
+        nombre_cache, doc_cache = self._buscar_en_cache(usuario)
+        if doc_cache is not None and doc_cache.get("clave") == clave:
+            self._login_exitoso(usuario, doc_cache)
+            return
 
         if not self.firebase_listo:
             self._intentos_espera = getattr(self, "_intentos_espera", 0) + 1
             if self._intentos_espera > 10:
                 self._intentos_espera = 0
-                self._mostrar_error("No se pudo conectar a Firebase. Revisa config/firebase-key.json")
+                self._mostrar_error("Revisar conexion")
                 return
             self._mostrar_error("Conectando... espera un momento")
             self.ventana.after(500, self._intentar_login)
@@ -363,14 +373,12 @@ class LoginApp:
 
     def _verificar_en_firebase(self, usuario, clave):
         try:
-            usuarios_ref = self.db.collection("usuarios")
-            docs = usuarios_ref.where("usuario", "==", usuario).limit(1).get()
-            if len(docs) == 0:
+            doc = Usuario.buscar_por_identificador(self.db, usuario)
+            if doc is None:
                 self.ventana.after(0, self._error_login, "Usuario o contrasena incorrectos.")
                 return
-            doc = docs[0].to_dict()
-            if doc.get("clave") == clave:
-                self._guardar_cache_local(usuario, doc)
+            if Usuario.clave_valida(doc, clave):
+                self._guardar_cache_local(doc.get("usuario") or usuario, doc)
                 self.ventana.after(0, self._login_exitoso, usuario, doc)
             else:
                 self.ventana.after(0, self._error_login, "Usuario o contrasena incorrectos.")
@@ -378,9 +386,10 @@ class LoginApp:
             self.ventana.after(0, self._error_login, f"Error de conexion: {e}")
 
     def _login_exitoso(self, usuario, doc=None):
+        doc = doc or {}
         self.ventana.destroy()
         import usuarioventana
-        usuarioventana.UsuarioApp(usuario, doc or {})
+        usuarioventana.UsuarioApp(doc.get("usuario") or usuario, doc)
 
     def _error_login(self, msg):
         self._mostrar_error(msg)

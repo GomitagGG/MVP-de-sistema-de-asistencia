@@ -20,6 +20,7 @@ Aplicación de escritorio en **Python + Tkinter** para el control de asistencia 
 primeraventana.py      Ventana de Login (usa usuario + contraseña contra Firestore)
 usuarioventana.py      Ventana del trabajador (marcar entrada/salida, cerrar sesión)
 gestion_usuarios.py    Gestión de usuarios (CRUD, solo administrador)
+modelos.py             Clases del caso: Usuario y Marcacion (persistencia en Firestore)
 crear_exe.bat          Genera el ejecutable .exe con PyInstaller
 SistemaAsistencia.spec Configuración de PyInstaller
 requirements.txt       Dependencias de Python
@@ -68,6 +69,21 @@ Cada documento representa un usuario del sistema:
 | `nombre` | `Juan Perez` |
 | `fecha` | `2026-09-03` |
 | `hora` | `01:36:33` |
+
+### Colección `marcaciones`
+
+Cada documento representa una marcación de entrada o salida (requerimiento CA-01):
+
+| Campo | Ejemplo |
+|-------|---------|
+| `usuario` | `admin` |
+| `correo` | `admin@empresa.com` |
+| `accion` | `entrada` / `salida` |
+| `fecha` | `2026-09-07` |
+| `hora` | `08:10:22` |
+| `timestamp` | Fecha y hora exacta del registro |
+
+El login acepta **correo o usuario** como identificador. Ver `docs/` para el documento de requerimientos, el plan de pruebas y las preguntas de cierre.
 
 ## Cómo ejecutar el sistema
 

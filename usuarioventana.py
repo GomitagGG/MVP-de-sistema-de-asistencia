@@ -2,6 +2,9 @@ import tkinter as tk
 from tkinter import font as tkfont
 import sys
 import os
+import threading
+
+from modelos import get_db, Marcacion
 
 
 def ruta_relativa(ruta):
@@ -43,6 +46,9 @@ class UsuarioApp:
         self.usuario = usuario
         self.nombre = datos.get("nombre") or usuario.capitalize()
         self.rol = datos.get("rol", "")
+        self.correo = datos.get("correo", "")
+        self.db = None
+        self.db_ok = False
 
         self.ventana = tk.Tk()
         self.ventana.title("Sistema de Asistencia")
@@ -64,7 +70,24 @@ class UsuarioApp:
         self.barra_titulo.bind("<ButtonPress-1>", self._iniciar_arrastre)
         self.barra_titulo.bind("<B1-Motion>", self._arrastrar)
 
+        threading.Thread(target=self._iniciar_firebase, daemon=True).start()
         self.ventana.mainloop()
+
+    def _iniciar_firebase(self):
+        try:
+            self.db = get_db()
+            self.db_ok = True
+            self.ventana.after(0, self._cargar_jornada_desde_db)
+        except Exception as e:
+            print("Error Firebase:", e)
+
+    def _cargar_jornada_desde_db(self):
+        try:
+            entrada = Marcacion.buscar(self.db, self.usuario, accion=Marcacion.ENTRADA)
+            if entrada:
+                self._aplicar_entrada_bd(entrada)
+        except Exception:
+            pass
 
     def _centrar_ventana(self, w, h):
         sw = self.ventana.winfo_screenwidth()
@@ -201,6 +224,50 @@ class UsuarioApp:
         tk.Frame(card, bg=COLORES["entry_borde"], height=1).pack(fill="x", padx=14)
         self.lbl_salida = self._crear_fila_card(card, "HORA DE SALIDA", 1)
 
+        frame_hora = tk.Frame(frame_form, bg=COLORES["panel_der"])
+        frame_hora.pack(fill="x", padx=20, pady=(0, 8))
+
+        tk.Label(
+            frame_hora, text="HORA A MARCAR", bg=COLORES["panel_der"],
+            fg=COLORES["texto_gris"], font=("Helvetica", 9, "bold"), anchor="w",
+        ).pack(side="left", padx=(0, 10))
+
+        self.spn_hh = tk.Spinbox(
+            frame_hora, from_=0, to=23, width=3, format="%02.0f",
+            justify="center", font=("Helvetica", 11, "bold"),
+            bg=COLORES["entry_bg"], fg=COLORES["texto_blanco"],
+            insertbackground=COLORES["texto_blanco"], relief="flat",
+            highlightthickness=1, highlightbackground=COLORES["entry_borde"],
+            buttonbackground=COLORES["panel_izq"], buttoncursor="hand2",
+        )
+        self.spn_hh.pack(side="left")
+
+        tk.Label(
+            frame_hora, text=":", bg=COLORES["panel_der"],
+            fg=COLORES["texto_blanco"], font=("Helvetica", 12, "bold"),
+        ).pack(side="left", padx=2)
+
+        self.spn_mm = tk.Spinbox(
+            frame_hora, from_=0, to=59, width=3, format="%02.0f",
+            justify="center", font=("Helvetica", 11, "bold"),
+            bg=COLORES["entry_bg"], fg=COLORES["texto_blanco"],
+            insertbackground=COLORES["texto_blanco"], relief="flat",
+            highlightthickness=1, highlightbackground=COLORES["entry_borde"],
+            buttonbackground=COLORES["panel_izq"], buttoncursor="hand2",
+        )
+        self.spn_mm.pack(side="left")
+
+        self.btn_ahora = tk.Button(
+            frame_hora, text="AHORA", bg=COLORES["panel_izq"],
+            fg=COLORES["texto_gris"], activebackground=COLORES["entry_borde"],
+            activeforeground=COLORES["texto_blanco"], relief="flat",
+            highlightthickness=1, highlightbackground=COLORES["entry_borde"],
+            font=("Helvetica", 8, "bold"), cursor="hand2", command=self._fijar_hora_ahora,
+        )
+        self.btn_ahora.pack(side="right")
+
+        self._fijar_hora_ahora()
+
         self.lbl_estado = tk.Label(
             frame_form, text="", bg=COLORES["panel_der"],
             fg=COLORES["exito"], font=("Helvetica", 9),
@@ -259,21 +326,56 @@ class UsuarioApp:
                       fill=COLORES["texto_blanco"], font=("Helvetica", 11, "bold"))
 
     def _marcar(self):
-        from datetime import datetime
-        hora = datetime.now().strftime("%H:%M:%S")
+        if not self.db_ok or self.db is None:
+            self._mostrar_estado("Conectando a la base de datos...", exito=False)
+            return
+
         tipo = self._modo_marcacion
+        try:
+            if tipo == Marcacion.ENTRADA:
+                ent = Marcacion.buscar(self.db, self.usuario, accion=Marcacion.ENTRADA)
+                if ent:
+                    self._aplicar_entrada_bd(ent)
+                    self._mostrar_estado("  \u26a0  Ya registraste tu entrada hoy", exito=False)
+                    return
+            else:
+                ent = Marcacion.buscar(self.db, self.usuario, accion=Marcacion.ENTRADA)
+                if not ent:
+                    self._mostrar_estado("  \u26a0  Primero registra tu entrada", exito=False)
+                    return
 
-        self._jornada[tipo] = hora
+            marcacion = Marcacion.ahora(self.usuario, correo=self.correo, accion=tipo)
+            marcacion.hora = self._hora_seleccionada()
 
-        if tipo == "entrada":
-            self.lbl_entrada.config(text=hora)
-            self._mostrar_estado(f"  \u2713  Entrada registrada a las {hora}", exito=True)
-            self._modo_marcacion = "salida"
+            atrasado = marcacion.es_entrada_atrasada()
+            salida_anticipada = marcacion.es_salida_anticipada()
+            marcacion.guardar(self.db, atrasado=atrasado, salida_anticipada=salida_anticipada)
+
+            self._marcacion_guardada(marcacion, atrasado, salida_anticipada)
+        except Exception as e:
+            self._mostrar_estado(f"  \u26a0  Error al guardar: {e}", exito=False)
+
+    def _marcacion_guardada(self, marcacion, atrasado=False, salida_anticipada=False):
+        tipo = marcacion.accion
+        self._jornada[tipo] = marcacion.hora
+        if tipo == Marcacion.ENTRADA:
+            self.lbl_entrada.config(text=marcacion.hora)
+            if atrasado:
+                self.lbl_entrada.config(fg=COLORES["error"])
+                self._mostrar_estado(f"  \u26a0  Entrada {marcacion.hora} (ATRASADO)", exito=False)
+            else:
+                self.lbl_entrada.config(fg=COLORES["titulo_panel"])
+                self._mostrar_estado(f"  \u2713  Entrada guardada a las {marcacion.hora}", exito=True)
+            self._modo_marcacion = Marcacion.SALIDA
         else:
-            self.lbl_salida.config(text=hora)
-            self._mostrar_estado(f"  \u2713  Salida registrada a las {hora}", exito=True)
-            self._modo_marcacion = "entrada"
-
+            self.lbl_salida.config(text=marcacion.hora)
+            if salida_anticipada:
+                self.lbl_salida.config(fg=COLORES["error"])
+                self._mostrar_estado(f"  \u26a0  Salida {marcacion.hora} (SALIDA ANTICIPADA)", exito=False)
+            else:
+                self.lbl_salida.config(fg=COLORES["titulo_panel"])
+                self._mostrar_estado(f"  \u2713  Salida guardada a las {marcacion.hora}", exito=True)
+            self._modo_marcacion = Marcacion.ENTRADA
         self._dibujar_boton()
 
     def _mostrar_estado(self, msg, exito=False):
@@ -281,6 +383,35 @@ class UsuarioApp:
             text=msg,
             fg=COLORES["exito"] if exito else COLORES["error"],
         )
+
+    def _fijar_hora_ahora(self):
+        from datetime import datetime
+        ahora = datetime.now()
+        self.spn_hh.delete(0, tk.END)
+        self.spn_hh.insert(0, f"{ahora.hour:02d}")
+        self.spn_mm.delete(0, tk.END)
+        self.spn_mm.insert(0, f"{ahora.minute:02d}")
+
+    def _hora_seleccionada(self):
+        from datetime import datetime
+        try:
+            hh = max(0, min(23, int(self.spn_hh.get())))
+            mm = max(0, min(59, int(self.spn_mm.get())))
+            return f"{hh:02d}:{mm:02d}:00"
+        except ValueError:
+            return datetime.now().strftime("%H:%M:%S")
+
+    def _aplicar_entrada_bd(self, ent):
+        hora = ent.get("hora") or ""
+        self._jornada["entrada"] = hora
+        self.lbl_entrada.config(text=hora)
+        if ent.get("atrasado"):
+            self.lbl_entrada.config(fg=COLORES["error"])
+            self._mostrar_estado(f"  \u26a0  Entrada de hoy {hora} (ATRASADO)", exito=False)
+        else:
+            self.lbl_entrada.config(fg=COLORES["titulo_panel"])
+        self._modo_marcacion = Marcacion.SALIDA
+        self._dibujar_boton()
 
     def _abrir_gestion_usuarios(self):
         import gestion_usuarios
