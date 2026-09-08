@@ -27,11 +27,11 @@ jobs:
 
       - name: Compilar ejecutable Windows
         shell: bash
-        run: >
+        run: >-
           pyinstaller --onefile --windowed
           --name "SistemaAsistencia"
           --icon icon/Fixmol_icon.ico
-            --add-data "img/Fixmol3.png;img"
+          --add-data "img/Fixmol3.png;img"
           --add-data "icon/Fixmol_icon.ico;icon"
           --add-data "config/firebase-key.json;config"
           primeraventana.py usuarioventana.py gestion_usuarios.py
