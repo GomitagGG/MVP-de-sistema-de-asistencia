@@ -14,6 +14,21 @@ def ruta_relativa(ruta):
     return os.path.join(base, ruta)
 
 
+def configurar_icono(ventana):
+    try:
+        if sys.platform == "win32":
+            ventana.iconbitmap(ruta_relativa("icon/Fixmol_icon.ico"))
+        else:
+            from PIL import Image, ImageTk
+            icono = Image.open(ruta_relativa("img/Fixmol3.png"))
+            icono = icono.resize((64, 64), Image.LANCZOS)
+            foto = ImageTk.PhotoImage(icono)
+            ventana.iconphoto(True, foto)
+            ventana._icono_app = foto
+    except Exception:
+        pass
+
+
 COLORES = {
     "bg_oscuro":        "#0d1117",
     "panel_izq":        "#161b22",
@@ -51,6 +66,7 @@ class UsuarioApp:
 
         self.ventana = tk.Tk()
         self.ventana.title("Sistema de Asistencia")
+        configurar_icono(self.ventana)
         self.ventana.config(bg=COLORES["bg_oscuro"])
         self.ventana.overrideredirect(True)
         self.ventana.attributes("-alpha", 0.0)
@@ -484,7 +500,10 @@ class UsuarioApp:
 def subprocess_login():
     import subprocess
     base = os.path.dirname(os.path.abspath(__file__))
-    subprocess.Popen([sys.executable, os.path.join(base, "primeraventana.py")])
+    env = dict(os.environ)
+    env["SA_VOLVER_LOGIN"] = "1"
+    subprocess.Popen([sys.executable, os.path.join(base, "primeraventana.py")],
+                     env=env)
 
 
 if __name__ == "__main__":

@@ -5,6 +5,9 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 import threading
 import json
+import time
+
+import ctypes
 
 from modelos import Usuario
 
@@ -15,6 +18,21 @@ def ruta_relativa(ruta):
     else:
         base = os.path.dirname(os.path.abspath(__file__))
     return os.path.join(base, ruta)
+
+
+def configurar_icono(ventana):
+    try:
+        if sys.platform == "win32":
+            ventana.iconbitmap(ruta_relativa("icon/Fixmol_icon.ico"))
+        else:
+            from PIL import Image, ImageTk
+            icono = Image.open(ruta_relativa("img/Fixmol3.png"))
+            icono = icono.resize((64, 64), Image.LANCZOS)
+            foto = ImageTk.PhotoImage(icono)
+            ventana.iconphoto(True, foto)
+            ventana._icono_app = foto
+    except Exception:
+        pass
 
 
 COLORES = {
@@ -43,35 +61,131 @@ COLORES = {
 ANCHO = 820
 ALTO = 500
 
+MIN_SPLASH_MS = 2000
+MAX_SPLASH_MS = 12000
+KEY_TRANSPARENTE = "#ff00f6"
+
+
+class PantallaCarga(tk.Toplevel):
+    def __init__(self, master, tamano_logo=340):
+        super().__init__(master)
+        self.overrideredirect(True)
+        self.attributes("-topmost", True)
+        fondo = KEY_TRANSPARENTE if sys.platform == "win32" else COLORES["bg_oscuro"]
+        self.configure(bg=fondo)
+        if sys.platform == "win32":
+            try:
+                self.attributes("-transparentcolor", KEY_TRANSPARENTE)
+            except tk.TclError:
+                pass
+
+        from PIL import Image, ImageTk
+        logo = Image.open(ruta_relativa("img/Fixmol3.png"))
+        logo = logo.resize((tamano_logo, tamano_logo), Image.LANCZOS)
+        self._logo_tk = ImageTk.PhotoImage(logo)
+
+        contenedor = tk.Frame(self, bg=fondo)
+        contenedor.pack(fill="both", expand=True)
+
+        tk.Label(contenedor, image=self._logo_tk, bg=fondo).pack(pady=(0, 14))
+
+        self.canvas = tk.Canvas(contenedor, width=100, height=100,
+                                bg=fondo, highlightthickness=0, bd=0)
+        self.canvas.pack()
+        self._angulo = 0
+        self._animar()
+
+        tk.Label(contenedor, text="CONECTANDO...", bg=fondo,
+                 fg="#94a3b8", font=("Helvetica", 9, "bold")).pack(pady=(14, 0))
+
+        self._centrar(tamano_logo + 60, tamano_logo + 190)
+        self.lift()
+
+    def _centrar(self, w, h):
+        self.update_idletasks()
+        sw = self.winfo_screenwidth()
+        sh = self.winfo_screenheight()
+        self._x = max(0, (sw - w) // 2)
+        self._y = max(0, (sh - h) // 2)
+        self.geometry(f"{w}x{h}+{self._x}+{self._y}")
+        self.deiconify()
+        self.after(30, self._reaplicar_centrado)
+
+    def _reaplicar_centrado(self):
+        try:
+            self.geometry(f"+{self._x}+{self._y}")
+            self.lift()
+        except tk.TclError:
+            pass
+
+    def _animar(self):
+        try:
+            self.winfo_exists()
+        except tk.TclError:
+            return
+        self.canvas.delete("rueda")
+        self.canvas.create_arc(
+            12, 12, 88, 88, start=self._angulo, extent=60, style="arc",
+            outline=COLORES["accento"], width=8, tags="rueda",
+        )
+        self._angulo = (self._angulo + 12) % 360
+        self.after(18, self._animar)
+
 
 class LoginApp:
     def __init__(self):
+        try:
+            ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("SistemaAsistencia")
+        except Exception:
+            pass
         self.firebase_listo = False
+        self._firebase_done = False
+        self._splash_inicio = None
+        self._fade_iniciado = False
+        self._ui_lista = False
         self.db = None
         self._cargar_cache_local()
         threading.Thread(target=self._init_firebase, daemon=True).start()
         self.ventana = tk.Tk()
+        self.ventana.withdraw()
+        configurar_icono(self.ventana)
         self.ventana.title("Sistema de Asistencia")
         self.ventana.config(bg=COLORES["bg_oscuro"])
-        self.ventana.overrideredirect(True)
-        self.ventana.attributes("-alpha", 0.0)
-        self._centrar_ventana(ANCHO, ALTO)
-        self.ventana.minsize(ANCHO, ALTO)
-        self.ventana.maxsize(ANCHO, ALTO)
+
+        self._volver_de_sesion = os.environ.pop("SA_VOLVER_LOGIN", "") == "1"
 
         self._usuario_visible = False
         self._animacion_idx = 0
         self._widgets_animar = []
 
+        self._splash_inicio = time.monotonic()
+        self._fade_iniciado = False
+
+        if self._volver_de_sesion:
+            self.ventana.after(0, self._preparar_y_mostrar_login)
+        else:
+            self._splash = PantallaCarga(self.ventana)
+            self.ventana.after(100, self._polear_inicio)
+
+        self.ventana.mainloop()
+
+    def _preparar_y_mostrar_login(self):
+        if self._ui_lista:
+            return
+        self._ui_lista = True
+        self.ventana.attributes("-alpha", 0.0)
+        self.ventana.overrideredirect(True)
+        self._centrar_ventana(ANCHO, ALTO)
+        self.ventana.minsize(ANCHO, ALTO)
+        self.ventana.maxsize(ANCHO, ALTO)
         self._construir_ui()
-        self._iniciar_animacion_entrada()
 
         self._offset_x = 0
         self._offset_y = 0
         self.barra_titulo.bind("<ButtonPress-1>", self._iniciar_arrastre)
         self.barra_titulo.bind("<B1-Motion>", self._arrastrar)
 
-        self.ventana.mainloop()
+        self.ventana.deiconify()
 
     def _init_firebase(self):
         try:
@@ -82,9 +196,15 @@ class LoginApp:
                 cred = credentials.Certificate(ruta_relativa(key_file))
                 firebase_admin.initialize_app(cred)
             self.db = firestore.client()
+            try:
+                list(self.db.collection("usuarios").limit(1).get())
+            except Exception:
+                pass
             self.firebase_listo = True
         except Exception as e:
             print(f"Error Firebase: {e}")
+        finally:
+            self._firebase_done = True
 
     def _ruta_cache(self):
         if getattr(sys, "frozen", False):
@@ -447,6 +567,26 @@ class LoginApp:
                 f"+{(self.ventana.winfo_screenheight() - ALTO) // 2}"
             )
             self.ventana.after(40, self._shake, paso + 1, desplazamientos)
+
+    def _polear_inicio(self):
+        if self._fade_iniciado:
+            return
+        transcurrido = (time.monotonic() - self._splash_inicio) * 1000
+        listo = getattr(self, "_firebase_done", False)
+        if (listo and transcurrido >= MIN_SPLASH_MS) or transcurrido >= MAX_SPLASH_MS:
+            self._cerrar_splash()
+            return
+        self.ventana.after(100, self._polear_inicio)
+
+    def _cerrar_splash(self):
+        self._fade_iniciado = True
+        try:
+            self._splash.destroy()
+        except Exception:
+            pass
+        self._splash = None
+        self._preparar_y_mostrar_login()
+        self._iniciar_animacion_entrada()
 
     def _iniciar_animacion_entrada(self):
         self.ventana.after(30, self._fade_in, 0.0)
