@@ -20,11 +20,17 @@ if not exist "config" mkdir config
 if not exist "config\firebase-key.json" (
     if exist "config\registro-asistencia-bfe64-firebase-adminsdk-fbsvc-236f010224.json" (
         copy /y "config\registro-asistencia-bfe64-firebase-adminsdk-fbsvc-236f010224.json" "config\firebase-key.json" >nul
-    ) else (
+    )
+)
+if not exist "config\firebase-key.json" (
+    if not exist "config\registro-asistencia-bfe64-firebase-adminsdk-fbsvc-236f010224.json" (
         echo.
         echo ATENCION: No se encontro la credencial de Firebase.
         echo Coloque el archivo .json en la carpeta config\ como
-        echo "firebase-key.json" para que el ejecutable pueda conectarse.
+        echo "firebase-key.json" o "registro-asistencia-bfe64-firebase-...json"
+        echo para que el ejecutable pueda conectarse.
+    ) else (
+        echo Usando la credencial registro-asistencia-...json (se empaquetara en el exe).
     )
 )
 

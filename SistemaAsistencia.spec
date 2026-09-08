@@ -18,9 +18,16 @@ a = Analysis(
 )
 
 # Incluir la credencial de Firebase SOLO si existe (evita fallar el build)
-credencial = os.path.join('config', 'firebase-key.json')
-if os.path.exists(credencial):
-    a.datas += [('config/firebase-key.json', credencial, 'DATA')]
+# Se usa cualquiera de los dos nombres para que el exe siempre tenga credencial.
+credenciales = [
+    ('config/firebase-key.json', os.path.join('config', 'firebase-key.json')),
+    ('config/registro-asistencia-bfe64-firebase-adminsdk-fbsvc-236f010224.json',
+     os.path.join('config', 'registro-asistencia-bfe64-firebase-adminsdk-fbsvc-236f010224.json')),
+]
+for destino, fuente in credenciales:
+    if os.path.exists(fuente):
+        a.datas += [(destino, fuente, 'DATA')]
+        print(f"Credencial de Firebase incluida: {fuente}")
 
 pyz = PYZ(a.pure)
 

@@ -63,7 +63,6 @@ ALTO = 500
 
 MIN_SPLASH_MS = 2000
 MAX_SPLASH_MS = 12000
-KEY_TRANSPARENTE = "#ff00f6"
 
 
 class PantallaCarga(tk.Toplevel):
@@ -71,13 +70,8 @@ class PantallaCarga(tk.Toplevel):
         super().__init__(master)
         self.overrideredirect(True)
         self.attributes("-topmost", True)
-        fondo = KEY_TRANSPARENTE if sys.platform == "win32" else COLORES["bg_oscuro"]
+        fondo = COLORES["bg_oscuro"]
         self.configure(bg=fondo)
-        if sys.platform == "win32":
-            try:
-                self.attributes("-transparentcolor", KEY_TRANSPARENTE)
-            except tk.TclError:
-                pass
 
         from PIL import Image, ImageTk
         logo = Image.open(ruta_relativa("img/Fixmol3.png"))
@@ -188,20 +182,29 @@ class LoginApp:
         self.ventana.deiconify()
 
     def _init_firebase(self):
+        self._firebase_error = ""
         try:
             if not firebase_admin._apps:
                 key_file = "config/firebase-key.json"
                 if not os.path.exists(ruta_relativa(key_file)):
                     key_file = "config/registro-asistencia-bfe64-firebase-adminsdk-fbsvc-236f010224.json"
+                if not os.path.exists(ruta_relativa(key_file)):
+                    raise FileNotFoundError(
+                        f"No se encontro la credencial de Firebase. Archivos revisados en "
+                        f"'{ruta_relativa('config')}': firebase-key.json y "
+                        f"registro-asistencia-bfe64-firebase-adminsdk-fbsvc-236f010224.json"
+                    )
                 cred = credentials.Certificate(ruta_relativa(key_file))
                 firebase_admin.initialize_app(cred)
             self.db = firestore.client()
             try:
                 list(self.db.collection("usuarios").limit(1).get())
-            except Exception:
-                pass
-            self.firebase_listo = True
+                self.firebase_listo = True
+            except Exception as e:
+                self._firebase_error = f"Credencial verificada, pero no se pudo leer Firestore: {e}"
+                print(f"Error Firestore lectura: {e}")
         except Exception as e:
+            self._firebase_error = str(e)
             print(f"Error Firebase: {e}")
         finally:
             self._firebase_done = True
@@ -481,7 +484,8 @@ class LoginApp:
             self._intentos_espera = getattr(self, "_intentos_espera", 0) + 1
             if self._intentos_espera > 10:
                 self._intentos_espera = 0
-                self._mostrar_error("Revisar conexion")
+                detalle = getattr(self, "_firebase_error", "") or ""
+                self._mostrar_error("No hay conexion a la base de datos" + (f": {detalle[:120]}" if detalle else ""))
                 return
             self._mostrar_error("Conectando... espera un momento")
             self.ventana.after(500, self._intentar_login)

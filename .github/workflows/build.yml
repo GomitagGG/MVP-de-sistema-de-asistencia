@@ -23,18 +23,18 @@ jobs:
         shell: bash
         run: |
           mkdir -p config
-          echo '${{ secrets.FIREBASE_KEY }}' > config/firebase-key.json
+          if [ -z "${{ secrets.FIREBASE_KEY }}" ]; then
+            echo "::error::El secreto FIREBASE_KEY no está configurado. El exe no podrá conectarse."
+            exit 1
+          fi
+          cat > config/firebase-key.json <<'EOF'
+          ${{ secrets.FIREBASE_KEY }}
+          EOF
+          test -s config/firebase-key.json && echo "Credencial creada ($(wc -c < config/firebase-key.json) bytes)"
 
       - name: Compilar ejecutable Windows
         shell: bash
-        run: >-
-          pyinstaller --onefile --windowed
-          --name "SistemaAsistencia"
-          --icon icon/Fixmol_icon.ico
-          --add-data "img/Fixmol3.png;img"
-          --add-data "icon/Fixmol_icon.ico;icon"
-          --add-data "config/firebase-key.json;config"
-          primeraventana.py usuarioventana.py gestion_usuarios.py
+        run: pyinstaller SistemaAsistencia.spec --noconfirm
 
       - name: Subir artefacto
         uses: actions/upload-artifact@v5
@@ -63,15 +63,17 @@ jobs:
         shell: bash
         run: |
           mkdir -p config
-          echo '${{ secrets.FIREBASE_KEY }}' > config/firebase-key.json
+          if [ -z "${{ secrets.FIREBASE_KEY }}" ]; then
+            echo "::error::El secreto FIREBASE_KEY no está configurado. El exe no podrá conectarse."
+            exit 1
+          fi
+          cat > config/firebase-key.json <<'EOF'
+          ${{ secrets.FIREBASE_KEY }}
+          EOF
+          test -s config/firebase-key.json && echo "Credencial creada ($(wc -c < config/firebase-key.json) bytes)"
 
       - name: Compilar ejecutable Linux
-        run: >
-          pyinstaller --onefile --windowed
-          --name "SistemaAsistencia"
-          --add-data "img/Fixmol3.png:img"
-          --add-data "config/firebase-key.json:config"
-          primeraventana.py usuarioventana.py gestion_usuarios.py
+        run: pyinstaller SistemaAsistencia.spec --noconfirm
 
       - name: Subir artefacto
         uses: actions/upload-artifact@v5
