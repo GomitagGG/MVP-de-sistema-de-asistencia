@@ -5,6 +5,8 @@ import os
 import threading
 
 from modelos import get_db, Marcacion
+import firebase_admin
+from firebase_admin import credentials, firestore
 
 
 def ruta_relativa(ruta):
@@ -13,6 +15,16 @@ def ruta_relativa(ruta):
     else:
         base = os.path.dirname(os.path.abspath(__file__))
     return os.path.join(base, ruta)
+
+
+def _get_firestore():
+    if not firebase_admin._apps:
+        key_file = "config/firebase-key.json"
+        if not os.path.exists(ruta_relativa(key_file)):
+            key_file = "config/registro-asistencia-bfe64-firebase-adminsdk-fbsvc-236f010224.json"
+        cred = credentials.Certificate(ruta_relativa(key_file))
+        firebase_admin.initialize_app(cred)
+    return firestore.client()
 
 
 COLORES = {
@@ -182,6 +194,27 @@ class UsuarioApp:
                 command=self._abrir_gestion_usuarios,
             )
             self.btn_gestion.pack(side="bottom", pady=(0, 8), padx=40, fill="x")
+
+            self.btn_registros = tk.Button(
+                self.panel_izq, text="GESTI\u00d3N DE REGISTROS",
+                bg=COLORES["accento_oscuro"], fg=COLORES["texto_blanco"],
+                activebackground=COLORES["entry_borde"], activeforeground=COLORES["texto_blanco"],
+                font=("Helvetica", 9, "bold"), relief="flat",
+                highlightthickness=0, cursor="hand2",
+                command=self._abrir_gestion_registros,
+            )
+            self.btn_registros.pack(side="bottom", pady=(0, 8), padx=40, fill="x")
+
+            self.btn_inasistencias = tk.Button(
+                self.panel_izq, text="REPORTE DE INASISTENCIAS",
+                bg=COLORES["panel_izq"], fg=COLORES["texto_gris"],
+                activebackground=COLORES["entry_borde"], activeforeground=COLORES["texto_blanco"],
+                font=("Helvetica", 9, "bold"), relief="flat",
+                highlightthickness=1, highlightbackground=COLORES["entry_borde"],
+                cursor="hand2",
+                command=self._abrir_reporte_inasistencias,
+            )
+            self.btn_inasistencias.pack(side="bottom", pady=(0, 8), padx=40, fill="x")
 
     def _crear_panel_derecho(self):
         panel_der = tk.Frame(self.ventana, bg=COLORES["panel_der"])
@@ -416,6 +449,14 @@ class UsuarioApp:
     def _abrir_gestion_usuarios(self):
         import gestion_usuarios
         gestion_usuarios.GestionUsuariosApp(self.ventana, self.usuario)
+
+    def _abrir_gestion_registros(self):
+        import gestion_registros
+        gestion_registros.GestionRegistrosApp(self.ventana, self.usuario)
+
+    def _abrir_reporte_inasistencias(self):
+        import gestion_registros
+        gestion_registros.ReporteInasistenciasApp(self.ventana)
 
     def _cerrar_sesion(self):
         self.ventana.destroy()

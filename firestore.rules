@@ -25,11 +25,18 @@ service cloud.firestore {
       // Un trabajador autenticado puede crear su propia marcación.
       allow create: if request.auth != null &&
                      request.resource.data.usuario == request.auth.uid;
-      // Leer y administrar marcaciones: solo administradores.
+      // Leer marcaciones: administradores o el dueño de la marcación.
       allow read: if request.auth != null &&
                    (request.auth.token.role == 'administrador' ||
                     request.resource.data.usuario == request.auth.uid);
-      allow update, delete: if false;
+      // Modificar marcaciones: administradores o el dueño de la marcación.
+      allow update: if request.auth != null &&
+                     (request.auth.token.role == 'administrador' ||
+                      request.resource.data.usuario == request.auth.uid);
+      // Eliminar marcaciones: administradores o el dueño de la marcación.
+      allow delete: if request.auth != null &&
+                     (request.auth.token.role == 'administrador' ||
+                      resource.data.usuario == request.auth.uid);
     }
 
     // Denegado por defecto para el resto.
