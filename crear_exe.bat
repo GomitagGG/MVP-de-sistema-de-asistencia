@@ -18,12 +18,12 @@ echo.
 echo [2/3] Verificando credencial de Firebase...
 if not exist "config" mkdir config
 if not exist "config\firebase-key.json" (
-    if exist "config\registro-asistencia-bfe64-firebase-adminsdk-fbsvc-236f010224.json" (
-        copy /y "config\registro-asistencia-bfe64-firebase-adminsdk-fbsvc-236f010224.json" "config\firebase-key.json" >nul
+    if exist "config\registro-asistencia-bfe64-firebase-adminsdk-fbsvc-1d738c49d5.json" (
+        copy /y "config\registro-asistencia-bfe64-firebase-adminsdk-fbsvc-1d738c49d5.json" "config\firebase-key.json" >nul
     )
 )
 if not exist "config\firebase-key.json" (
-    if not exist "config\registro-asistencia-bfe64-firebase-adminsdk-fbsvc-236f010224.json" (
+    if not exist "config\registro-asistencia-bfe64-firebase-adminsdk-fbsvc-1d738c49d5.json" (
         echo.
         echo ATENCION: No se encontro la credencial de Firebase.
         echo Coloque el archivo .json en la carpeta config\ como

@@ -1927,11 +1927,14 @@ class DashboardAdminApp:
 
 def subprocess_login():
     import subprocess
-    base = os.path.dirname(os.path.abspath(__file__))
     env = dict(os.environ)
     env["SA_VOLVER_LOGIN"] = "1"
-    subprocess.Popen([sys.executable, os.path.join(base, "primeraventana.py")],
-                     env=env)
+    if getattr(sys, "frozen", False):
+        subprocess.Popen([sys.executable], env=env)
+    else:
+        base = os.path.dirname(os.path.abspath(__file__))
+        subprocess.Popen([sys.executable, os.path.join(base, "primeraventana.py")],
+                         env=env)
 
 
 if __name__ == "__main__":

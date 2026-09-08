@@ -1,33 +1,40 @@
 # -*- mode: python ; coding: utf-8 -*-
 import os
+from PyInstaller.utils.hooks import collect_all
+
+datas = [("img", "img"), ("icon", "icon")]
+binaries = []
+hiddenimports = []
+
+# Incluir la credencial de Firebase SOLO si existe (evita fallar el build).
+# Se copia como firebase-key.json para que el exe siempre la encuentre.
+for nombre in ["firebase-key.json", "registro-asistencia-bfe64-firebase-adminsdk-fbsvc-1d738c49d5.json"]:
+    fuente = os.path.join("config", nombre)
+    if os.path.exists(fuente):
+        datos_credencial = fuente
+        a_datas = [(os.path.join("config", "firebase-key.json"), datos_credencial, "DATA")]
+        datas += a_datas
+        print(f"Credencial de Firebase incluida: {fuente}")
+
+# Reunir datos/binarios/imports ocultos de los paquetes de Google/Firebase.
+for modulo in ["google.cloud.firestore_v1", "google.api_core", "google.auth", "google.cloud"]:
+    d, b, h = collect_all(modulo)
+    datas += d
+    binaries += b
+    hiddenimports += h
 
 a = Analysis(
-    ['primeraventana.py', 'usuarioventana.py', 'gestion_usuarios.py', 'dashboard_admin.py', 'modelos.py', 'gestion_registros.py', 'theme.py', 'icons.py', 'components.py'],
+    ["primeraventana.py"],
     pathex=[],
-    binaries=[],
-    datas=[
-        ('img/Fixmol3.png', 'img'),
-        ('icon/Fixmol_icon.ico', 'icon'),
-    ],
-    hiddenimports=['gestion_usuarios', 'dashboard_admin', 'modelos', 'gestion_registros', 'theme', 'icons', 'components'],
+    binaries=binaries,
+    datas=datas,
+    hiddenimports=hiddenimports,
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
     excludes=[],
     noarchive=False,
 )
-
-# Incluir la credencial de Firebase SOLO si existe (evita fallar el build)
-# Se usa cualquiera de los dos nombres para que el exe siempre tenga credencial.
-credenciales = [
-    ('config/firebase-key.json', os.path.join('config', 'firebase-key.json')),
-    ('config/registro-asistencia-bfe64-firebase-adminsdk-fbsvc-236f010224.json',
-     os.path.join('config', 'registro-asistencia-bfe64-firebase-adminsdk-fbsvc-236f010224.json')),
-]
-for destino, fuente in credenciales:
-    if os.path.exists(fuente):
-        a.datas += [(destino, fuente, 'DATA')]
-        print(f"Credencial de Firebase incluida: {fuente}")
 
 pyz = PYZ(a.pure)
 
@@ -37,7 +44,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='SistemaAsistencia',
+    name="SistemaAsistencia",
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -45,10 +52,5 @@ exe = EXE(
     upx_exclude=[],
     runtime_tmpdir=None,
     console=False,
-    disable_windowed_traceback=False,
-    argv_emulation=False,
-    target_arch=None,
-    codesign_identity=None,
-    entitlements_file=None,
-    icon='icon/Fixmol_icon.ico',
+    icon="icon/Fixmol_icon.ico",
 )
