@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import font as tkfont
 import sys
 import os
 import firebase_admin
@@ -164,7 +163,7 @@ class LoginApp:
         self.panel_izq.pack(side="left", fill="y")
         self.panel_izq.pack_propagate(False)
 
-        from PIL import Image, ImageTk, ImageOps
+        from PIL import Image, ImageTk
         logo = Image.open(ruta_relativa("img/Fixmol3.png"))
         logo = logo.resize((130, 130))
         logo_tk = ImageTk.PhotoImage(logo)
@@ -387,13 +386,48 @@ class LoginApp:
 
     def _login_exitoso(self, usuario, doc=None):
         doc = doc or {}
+        self._registrar_log(usuario, doc.get("correo", ""), "exitoso")
+        rol = str(doc.get("rol", "")).lower()
         self.ventana.destroy()
-        import usuarioventana
-        usuarioventana.UsuarioApp(doc.get("usuario") or usuario, doc)
+        if rol in ("admin", "administrador", "dueño", "dueno"):
+            import dashboard_admin
+            dashboard_admin.DashboardAdminApp()
+        else:
+            import usuarioventana
+            usuarioventana.UsuarioApp(
+                usuario=doc.get("usuario") or usuario,
+                datos=doc,
+            )
 
     def _error_login(self, msg):
+        self._registrar_log(
+            self.entry_usuario.get().strip(),
+            "",
+            "fallido" if "incorrectos" in msg else "",
+        )
         self._mostrar_error(msg)
         self._shake()
+
+    def _registrar_log(self, usuario, correo, resultado):
+        if not usuario:
+            return
+
+        def _registrar():
+            try:
+                from datetime import datetime
+                if not self.firebase_listo:
+                    return
+                self.db.collection("login_log").add({
+                    "usuario": usuario,
+                    "correo": correo,
+                    "fecha": datetime.now().strftime("%Y-%m-%d"),
+                    "hora": datetime.now().strftime("%H:%M:%S"),
+                    "resultado": resultado,
+                })
+            except Exception as e:
+                print(f"Error log: {e}")
+
+        threading.Thread(target=_registrar, daemon=True).start()
 
     def _mostrar_cargando(self, msg):
         self.lbl_error.config(text=f"  \u23f3  {msg}", fg=COLORES["texto_gris"])

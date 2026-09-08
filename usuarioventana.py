@@ -1,12 +1,9 @@
 import tkinter as tk
-from tkinter import font as tkfont
 import sys
 import os
 import threading
 
-from modelos import get_db, Marcacion
-import firebase_admin
-from firebase_admin import credentials, firestore
+from modelos import get_db, Marcacion, Alerta
 
 
 def ruta_relativa(ruta):
@@ -15,16 +12,6 @@ def ruta_relativa(ruta):
     else:
         base = os.path.dirname(os.path.abspath(__file__))
     return os.path.join(base, ruta)
-
-
-def _get_firestore():
-    if not firebase_admin._apps:
-        key_file = "config/firebase-key.json"
-        if not os.path.exists(ruta_relativa(key_file)):
-            key_file = "config/registro-asistencia-bfe64-firebase-adminsdk-fbsvc-236f010224.json"
-        cred = credentials.Certificate(ruta_relativa(key_file))
-        firebase_admin.initialize_app(cred)
-    return firestore.client()
 
 
 COLORES = {
@@ -363,6 +350,9 @@ class UsuarioApp:
             self._mostrar_estado("Conectando a la base de datos...", exito=False)
             return
 
+        threading.Thread(target=self._guardar_marcacion, daemon=True).start()
+
+    def _guardar_marcacion(self):
         tipo = self._modo_marcacion
         try:
             if tipo == Marcacion.ENTRADA:
@@ -383,6 +373,16 @@ class UsuarioApp:
             atrasado = marcacion.es_entrada_atrasada()
             salida_anticipada = marcacion.es_salida_anticipada()
             marcacion.guardar(self.db, atrasado=atrasado, salida_anticipada=salida_anticipada)
+
+            try:
+                if atrasado:
+                    Alerta.crear(self.db, Alerta.TIPO_ATRASO, self.usuario,
+                                 marcacion.fecha, marcacion.hora)
+                if salida_anticipada:
+                    Alerta.crear(self.db, Alerta.TIPO_SALIDA_ANTICIPADA, self.usuario,
+                                 marcacion.fecha, marcacion.hora)
+            except Exception:
+                pass
 
             self._marcacion_guardada(marcacion, atrasado, salida_anticipada)
         except Exception as e:

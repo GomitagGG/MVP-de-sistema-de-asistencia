@@ -2,14 +2,14 @@
 import os
 
 a = Analysis(
-    ['primeraventana.py', 'usuarioventana.py', 'gestion_usuarios.py'],
+    ['primeraventana.py', 'usuarioventana.py', 'gestion_usuarios.py', 'dashboard_admin.py', 'modelos.py', 'gestion_registros.py', 'theme.py', 'icons.py', 'components.py'],
     pathex=[],
     binaries=[],
     datas=[
         ('img/Fixmol3.png', 'img'),
         ('icon/Fixmol_icon.ico', 'icon'),
     ],
-    hiddenimports=['gestion_usuarios'],
+    hiddenimports=['gestion_usuarios', 'dashboard_admin', 'modelos', 'gestion_registros', 'theme', 'icons', 'components'],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],

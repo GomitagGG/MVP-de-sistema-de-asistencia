@@ -1,0 +1,218 @@
+import os
+import sys
+import random
+from datetime import datetime, timedelta
+
+import firebase_admin
+from firebase_admin import credentials, firestore
+from google.cloud.firestore_v1.base_query import FieldFilter
+
+
+def ruta_relativa(ruta):
+    if getattr(sys, "frozen", False):
+        base = sys._MEIPASS
+    else:
+        base = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(base, ruta)
+
+
+def get_db():
+    if not firebase_admin._apps:
+        key_file = "config/firebase-key.json"
+        if not os.path.exists(ruta_relativa(key_file)):
+            key_file = "config/registro-asistencia-bfe64-firebase-adminsdk-fbsvc-236f010224.json"
+        cred = credentials.Certificate(ruta_relativa(key_file))
+        firebase_admin.initialize_app(cred)
+    return firestore.client()
+
+
+HORA_ENTRADA_LIMITE = "09:30"
+HORA_SALIDA_LIMITE = "17:30"
+
+TRABAJADORES = [
+    ("juan",   "Juan",   "Perez"),
+    ("maria",  "Maria",  "Garcia"),
+    ("carlos", "Carlos", "Lopez"),
+    ("ana",    "Ana",    "Martinez"),
+    ("pedro",  "Pedro",  "Sanchez"),
+    ("lucia",  "Lucia",  "Ramirez"),
+    ("hector", "Hector", "Torres"),
+    ("sofia",  "Sofia",  "Flores"),
+]
+
+
+def crear_config(db):
+    db.collection("config").document("empresa").set({
+        "nombre": "Empresa Qu\u00edmica",
+        "hora_entrada": HORA_ENTRADA_LIMITE,
+        "hora_salida": HORA_SALIDA_LIMITE,
+    })
+
+
+def crear_usuarios(db):
+    batch = db.batch()
+    batch.set(db.collection("usuarios").document("admin"), {
+        "usuario": "admin",
+        "clave": "admin123",
+        "rol": "administrador",
+        "correo": "admin@empresa.com",
+        "nombre": "Administrador",
+    })
+    for i, (usr, nombre, apellido) in enumerate(TRABAJADORES, start=1):
+        batch.set(db.collection("usuarios").document(usr), {
+            "usuario": usr,
+            "clave": "123456",
+            "rol": "trabajador",
+            "correo": f"{usr}@empresa.com",
+            "nombre": f"{nombre} {apellido}",
+        })
+    batch.commit()
+
+
+def dias_ultimos(n):
+    dias = []
+    hoy = datetime.now()
+    for i in range(n, -1, -1):
+        d = hoy - timedelta(days=i)
+        if d.weekday() < 5:
+            dias.append(d)
+    return dias
+
+
+def limpiar_colecciones(db):
+    for coleccion in ("marcaciones", "alertas", "login_log"):
+        n = 0
+        batch = db.batch()
+        docs = db.collection(coleccion).list_documents()
+        for doc in docs:
+            batch.delete(doc)
+            n += 1
+            if n % 400 == 0:
+                batch.commit()
+                batch = db.batch()
+        if n % 400 != 0:
+            batch.commit()
+        print(f"  - Coleccion '{coleccion}' limpiada ({n})")
+
+
+def hora_entrada_random():
+    if random.random() < 0.65:
+        return f"09:{random.randint(0, 29):02d}:00"
+    if random.random() < 0.7:
+        return f"09:{random.randint(31, 59):02d}:00"
+    return f"10:{random.randint(0, 15):02d}:00"
+
+
+def hora_salida_random():
+    if random.random() < 0.3:
+        return f"16:{random.randint(0, 59):02d}:00"
+    if random.random() < 0.5:
+        return f"17:{random.randint(30, 59):02d}:00"
+    return f"18:{random.randint(0, 20):02d}:00"
+
+
+def crear_marcaciones(db):
+    total = 0
+    dias = dias_ultimos(14)
+    fecha_hoy = datetime.now().strftime("%Y-%m-%d")
+    for d in dias:
+        batch = db.batch()
+        contador = 0
+        fecha = d.strftime("%Y-%m-%d")
+        es_hoy = fecha == fecha_hoy
+        if es_hoy:
+            presentes = random.sample(TRABAJADORES, k=len(TRABAJADORES))
+        else:
+            presentes = random.sample(TRABAJADORES, k=random.randint(6, 8))
+        for usr, _n, _a in presentes:
+            entry_h = hora_entrada_random()
+            if es_hoy:
+                entry_h = f"09:{random.randint(10, 59):02d}:00"
+            atrasado = entry_h[:5] > HORA_ENTRADA_LIMITE
+            batch.set(db.collection("marcaciones").document(f"{usr}_{fecha}_entrada"), {
+                "usuario": usr,
+                "correo": f"{usr}@empresa.com",
+                "tipo": "entrada",
+                "fecha": fecha,
+                "hora": entry_h,
+                "atrasado": atrasado,
+                "salida_anticipada": False,
+            })
+            total += 1
+            contador += 1
+
+            if es_hoy or random.random() < 0.9:
+                exit_h = hora_salida_random()
+                if es_hoy:
+                    exit_h = f"18:{random.randint(0, 20):02d}:00"
+                salida_ant = exit_h[:5] < HORA_SALIDA_LIMITE
+                batch.set(db.collection("marcaciones").document(f"{usr}_{fecha}_salida"), {
+                    "usuario": usr,
+                    "correo": f"{usr}@empresa.com",
+                    "tipo": "salida",
+                    "fecha": fecha,
+                    "hora": exit_h,
+                    "atrasado": False,
+                    "salida_anticipada": salida_ant,
+                })
+                total += 1
+                contador += 1
+
+            if contador >= 400:
+                batch.commit()
+                batch = db.batch()
+                contador = 0
+        if contador:
+            batch.commit()
+    return total
+
+
+def crear_logins(db):
+    total = 0
+    for d in dias_ultimos(14):
+        batch = db.batch()
+        contador = 0
+        n = random.randint(2, 6)
+        for i in range(n):
+            usr = random.choice([u[0] for u in TRABAJADORES] + ["admin"])
+            batch.set(db.collection("login_log").document(f"{usr}_{d.strftime('%Y-%m-%d')}_{i}"), {
+                "usuario": usr,
+                "correo": f"{usr}@empresa.com",
+                "fecha": d.strftime("%Y-%m-%d"),
+                "hora": f"{random.randint(7, 9):02d}:{random.randint(0, 59):02d}:{random.randint(0, 59):02d}",
+                "resultado": random.choice(["exitoso", "exitoso", "exitoso", "fallido"]),
+            })
+            total += 1
+            contador += 1
+            if contador >= 400:
+                batch.commit()
+                batch = db.batch()
+                contador = 0
+        if contador:
+            batch.commit()
+    return total
+
+
+def main():
+    db = get_db()
+    print("Limpiando datos anteriores...")
+    limpiar_colecciones(db)
+    crear_config(db)
+    crear_usuarios(db)
+    n_marc = crear_marcaciones(db)
+    n_log = crear_logins(db)
+    print(f"\nSemilla cargada correctamente.")
+    print(f"  - 9 usuarios (1 admin + 8 trabajadores)")
+    print(f"  - {n_marc} marcaciones (14 dias habiles, incluyendo hoy)")
+    print(f"  - {n_log} logins")
+    print(f"  - Admin: admin / admin123")
+    print(f"  - Trabajador de ejemplo: juan / 123456")
+
+    hoy = datetime.now().strftime("%Y-%m-%d")
+    docs_hoy = db.collection("marcaciones") \
+        .where(filter=FieldFilter("fecha", "==", hoy)).get()
+    print(f"  - Marcaciones de hoy ({hoy}): {len(docs_hoy)}")
+
+
+if __name__ == "__main__":
+    main()

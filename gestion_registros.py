@@ -5,8 +5,7 @@ import json
 import os
 import sys
 
-import firebase_admin
-from firebase_admin import credentials, firestore
+from modelos import get_db
 
 
 def ruta_relativa(ruta):
@@ -37,16 +36,6 @@ COLORES = {
     "titulo_panel":     "#f0f6fc",
     "card_bg":          "#161b22",
 }
-
-
-def _get_firestore():
-    if not firebase_admin._apps:
-        key_file = "config/firebase-key.json"
-        if not os.path.exists(ruta_relativa(key_file)):
-            key_file = "config/registro-asistencia-bfe64-firebase-adminsdk-fbsvc-236f010224.json"
-        cred = credentials.Certificate(ruta_relativa(key_file))
-        firebase_admin.initialize_app(cred)
-    return firestore.client()
 
 
 def _ruta_cache():
@@ -153,7 +142,7 @@ class GestionRegistrosApp:
 
     def _inicializar_db(self):
         try:
-            self.db = _get_firestore()
+            self.db = get_db()
             self.firebase_ok = True
             self._cargar_registros()
         except Exception as e:
@@ -567,7 +556,7 @@ class ReporteInasistenciasApp:
 
     def _inicializar_db(self):
         try:
-            self.db = _get_firestore()
+            self.db = get_db()
             self._cargar_datos()
         except Exception as e:
             msg = str(e)

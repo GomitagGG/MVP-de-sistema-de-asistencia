@@ -1,14 +1,28 @@
+# Python
 __pycache__/
 *.pyc
 *.pyo
+
+# Entorno
 .env
 venv/
+.venv/
+
+# Build
 build/
 dist/
-__pycache__/
-.venv/
+*.spec
+
+# Firebase (credenciales)
 config/
 *-firebase-adminsdk-*.json
 
-# Archivo de caché local con credenciales (no debe versionarse)
+# Caché local
 cache_usuarios.json
+cache_registros.json
+
+# IDE
+.vscode/
+
+# Tests
+.pytest_cache/

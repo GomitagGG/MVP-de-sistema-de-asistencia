@@ -10,21 +10,33 @@ Aplicación de escritorio en **Python + Tkinter** para el control de asistencia 
 | GU-01 | Crear usuarios (solo administrador) | ✅ |
 | GU-02 | Modificar usuarios (solo administrador) | ✅ |
 | GU-03 | Eliminar usuarios (solo administrador) | ✅ |
-| RE-01 | Reporte de atrasos (después de 9:30 am) | Pendiente |
-| RE-02 | Reporte de salidas anticipadas (antes de 17:30 pm) | Pendiente |
-| RE-03 | Reporte de inasistencias | Pendiente |
+| RE-01 | Reporte de atrasos (después de 9:30 am) | ✅ |
+| RE-02 | Reporte de salidas anticipadas (antes de 17:30 pm) | ✅ |
+| RE-03 | Reporte de inasistencias | ✅ |
 
 ## Estructura del proyecto
 
 ```
 primeraventana.py      Ventana de Login (usa usuario + contraseña contra Firestore)
 usuarioventana.py      Ventana del trabajador (marcar entrada/salida, cerrar sesión)
+dashboard_admin.py     Dashboard del administrador (Inicio, Asistencia, Reportes, Configuración)
 gestion_usuarios.py    Gestión de usuarios (CRUD, solo administrador)
 modelos.py             Clases del caso: Usuario y Marcacion (persistencia en Firestore)
 crear_exe.bat          Genera el ejecutable .exe con PyInstaller
 SistemaAsistencia.spec Configuración de PyInstaller
 requirements.txt       Dependencias de Python
 ```
+
+## Flujo por rol
+
+- **Trabajador**: tras iniciar sesión ve la vista de marcación (entrada/salida). Sus marcaciones se guardan en la colección `marcaciones` de Firestore.
+- **Administrador**: tras iniciar sesión ve el **dashboard administrativo**:
+  - **Inicio**: tarjetas de resumen (registrados, presentes, incidencias, sin registro), gráfico de estado, incidencias prioritarias y actividad reciente.
+  - **Asistencia**: tabla diaria de registros con filtro por fecha.
+  - **Reportes**: atrasos, salidas anticipadas, inasistencias y log-ins, con rango de fechas.
+  - **Usuarios**: CRUD de usuarios.
+  - **Configuración**: horas límite de entrada/salida y nombre de la empresa.
+- El administrador **no** marca su propia asistencia desde este avance (solo administra).
 
 ## Requisitos
 
@@ -78,12 +90,23 @@ Cada documento representa una marcación de entrada o salida (requerimiento CA-0
 |-------|---------|
 | `usuario` | `admin` |
 | `correo` | `admin@empresa.com` |
-| `accion` | `entrada` / `salida` |
+| `tipo` | `entrada` / `salida` |
 | `fecha` | `2026-09-07` |
 | `hora` | `08:10:22` |
 | `timestamp` | Fecha y hora exacta del registro |
+| `atrasado` | `true` si la entrada fue después de las 09:30 |
+| `salida_anticipada` | `true` si la salida fue antes de las 17:30 |
 
 El login acepta **correo o usuario** como identificador. Ver `docs/` para el documento de requerimientos, el plan de pruebas y las preguntas de cierre.
+
+### Colecciones de Firestore
+
+| Colección | Uso |
+|-----------|-----|
+| `usuarios` | Usuarios del sistema y credenciales |
+| `marcaciones` | Marcaciones de entrada/salida (los trabajadores las crean al marcar) |
+| `login_log` | Historial de accesos al sistema (exitosos/fallidos) |
+| `config` | Parámetros de la empresa (horas límite, nombre), documento `empresa` |
 
 ## Cómo ejecutar el sistema
 
