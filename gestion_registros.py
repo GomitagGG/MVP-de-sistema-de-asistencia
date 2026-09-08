@@ -612,7 +612,13 @@ class ReporteInasistenciasApp:
             cuerpo, text="Calculando inasistencias...", bg=COLORES["bg_oscuro"],
             fg=COLORES["texto_gris"], font=("Helvetica", 9),
         )
-        self.lbl_estado.pack(anchor="w", pady=(0, 6))
+        self.lbl_estado.pack(anchor="w", pady=(0, 2))
+
+        tk.Label(
+            cuerpo, text="Solo se consideran usuarios con al menos una marcaci\u00f3n registrada.",
+            bg=COLORES["bg_oscuro"], fg=COLORES["texto_placeholder"],
+            font=("Helvetica", 8),
+        ).pack(anchor="w", pady=(0, 6))
 
         cont_tabla = tk.Frame(cuerpo, bg=COLORES["card_bg"])
         cont_tabla.pack(fill="both", expand=True)
@@ -670,13 +676,18 @@ class ReporteInasistenciasApp:
             registros = []
             for d in self.db.collection("marcaciones").get():
                 registros.append(d.to_dict())
+            usuarios_activos = self._usuarios_con_marcaciones(registros)
             self.inasistencias = detectar_inasistencias(
-                registros, self.usuarios, fecha_inicio, fecha_fin)
+                registros, usuarios_activos, fecha_inicio, fecha_fin)
             self.ventana.after(0, self._refrescar_tabla)
         except Exception as e:
             msg = str(e)
             self.ventana.after(0, lambda: self.lbl_estado.config(
                 text=f"Error: {msg}", fg=COLORES["error"]))
+
+    def _usuarios_con_marcaciones(self, registros):
+        con_marcas = {m.get("usuario") for m in registros if m.get("usuario")}
+        return [u for u in self.usuarios if u.get("usuario") in con_marcas]
 
     def _refrescar_tabla(self):
         for item in self.tabla.get_children():
