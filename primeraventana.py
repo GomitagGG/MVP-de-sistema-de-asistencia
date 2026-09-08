@@ -187,12 +187,12 @@ class LoginApp:
             if not firebase_admin._apps:
                 key_file = "config/firebase-key.json"
                 if not os.path.exists(ruta_relativa(key_file)):
-                    key_file = "config/registro-asistencia-bfe64-firebase-adminsdk-fbsvc-236f010224.json"
+                    key_file = "config/registro-asistencia-bfe64-firebase-adminsdk-fbsvc-1d738c49d5.json"
                 if not os.path.exists(ruta_relativa(key_file)):
                     raise FileNotFoundError(
                         f"No se encontro la credencial de Firebase. Archivos revisados en "
                         f"'{ruta_relativa('config')}': firebase-key.json y "
-                        f"registro-asistencia-bfe64-firebase-adminsdk-fbsvc-236f010224.json"
+                        f"registro-asistencia-bfe64-firebase-adminsdk-fbsvc-1d738c49d5.json"
                     )
                 cred = credentials.Certificate(ruta_relativa(key_file))
                 firebase_admin.initialize_app(cred)
