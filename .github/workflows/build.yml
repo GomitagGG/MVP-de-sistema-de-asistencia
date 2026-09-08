@@ -26,6 +26,7 @@ jobs:
           echo '${{ secrets.FIREBASE_KEY }}' > config/firebase-key.json
 
       - name: Compilar ejecutable Windows
+        shell: bash
         run: >
           pyinstaller --onefile --windowed
           --name "SistemaAsistencia"
