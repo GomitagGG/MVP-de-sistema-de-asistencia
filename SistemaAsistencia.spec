@@ -4,16 +4,15 @@ from PyInstaller.utils.hooks import collect_all
 
 datas = [("img", "img"), ("icon", "icon")]
 binaries = []
-hiddenimports = []
+hiddenimports = ["gestion_usuarios", "usuarioventana"]
 
 # Incluir la credencial de Firebase SOLO si existe (evita fallar el build).
 # Se copia como firebase-key.json para que el exe siempre la encuentre.
-for nombre in ["firebase-key.json", "registro-asistencia-bfe64-firebase-adminsdk-fbsvc-1d738c49d5.json"]:
+for nombre in ["firebase-key.json",
+               "registro-asistencia-bfe64-firebase-adminsdk-fbsvc-1d738c49d5.json"]:
     fuente = os.path.join("config", nombre)
     if os.path.exists(fuente):
-        datos_credencial = fuente
-        a_datas = [(os.path.join("config", "firebase-key.json"), datos_credencial, "DATA")]
-        datas += a_datas
+        datas.append(("config/firebase-key.json", "config"))
         print(f"Credencial de Firebase incluida: {fuente}")
 
 # Reunir datos/binarios/imports ocultos de los paquetes de Google/Firebase.
@@ -24,7 +23,7 @@ for modulo in ["google.cloud.firestore_v1", "google.api_core", "google.auth", "g
     hiddenimports += h
 
 a = Analysis(
-    ["primeraventana.py"],
+    ["primeraventana.py", "usuarioventana.py", "gestion_usuarios.py"],
     pathex=[],
     binaries=binaries,
     datas=datas,
