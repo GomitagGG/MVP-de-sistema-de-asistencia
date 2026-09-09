@@ -47,6 +47,26 @@ requirements.txt       Dependencias de Python
   venv\Scripts\pip install -r requirements.txt
   ```
 
+## Ejecutar el sistema en un PC nuevo (tras clonar el repo)
+
+El código sí queda en GitHub, pero **la credencial de Firebase NO sube al repositorio** (es un secreto). En cada PC nuevo hay que:
+
+1. **Clonar** el repo:
+   ```
+   git clone <url-del-repo>
+   cd MVP-de-sistema-de-asistencia
+   ```
+2. **Instalar dependencias**:
+   ```
+   py -m venv venv
+   venv\Scripts\pip install -r requirements.txt
+   ```
+3. **Configurar Firebase** con `configurar_firebase.bat` (busca la credencial en Downloads/Escritorio o guía dónde ponerla como `config\firebase-key.json`). Sin ese archivo la app abre pero no conecta a Firebase.
+
+4. **Ejecutar**: `venv\Scripts\python.exe primeraventana.py`.
+
+> **Base de datos**: todos los PC apuntan a la misma base en la nube (Firestore), por lo que los datos son compartidos. Con `semilla.py` se pueden poblar usuarios/marcaciones de prueba en el proyecto configurado en `config\firebase-key.json`.
+
 ## Configuración de Firebase
 
 1. Crea un proyecto en [Firebase Console](https://console.firebase.google.com/).
