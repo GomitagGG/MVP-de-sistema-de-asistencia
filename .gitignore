@@ -26,3 +26,8 @@ cache_registros.json
 
 # Tests
 .pytest_cache/
+
+# Temporales de Word/Office y bloqueos
+~$*
+*.tmp
+*.~*
