@@ -5,7 +5,7 @@ import json
 import os
 import sys
 
-from modelos import get_db
+from modelos import get_db, FERIADOS
 
 
 def ruta_relativa(ruta):
@@ -111,7 +111,7 @@ def _dias_habiles(fecha_inicio, fecha_fin):
     dias = []
     d = inicio
     while d <= fin:
-        if d.weekday() < 5:
+        if d.weekday() < 5 and d.isoformat() not in FERIADOS:
             dias.append(d.isoformat())
         d += timedelta(days=1)
     return dias
@@ -191,6 +191,12 @@ class GestionRegistrosApp:
         threading.Thread(target=self._inicializar_db, daemon=True).start()
 
     def _centrar_ventana(self, w, h):
+        """Centra la ventana en la pantalla.
+
+        @param w: Ancho de la ventana.
+        @param h: Alto de la ventana.
+        @return None: Aplica la geometría centrada a la ventana.
+        """
         sw = self.ventana.winfo_screenwidth()
         sh = self.ventana.winfo_screenheight()
         x = (sw - w) // 2
@@ -198,6 +204,10 @@ class GestionRegistrosApp:
         self.ventana.geometry(f"{w}x{h}+{x}+{y}")
 
     def _inicializar_db(self):
+        """Conecta con Firestore y carga los registros de asistencia.
+
+        @return None: Configura la conexión o muestra un error de diálogo.
+        """
         try:
             self.db = get_db()
             self.firebase_ok = True
@@ -261,6 +271,13 @@ class GestionRegistrosApp:
         barra.pack(fill="x", pady=(10, 0))
 
         def _btn(texto, comando, color):
+            """Crea un botón de acción dentro de la barra de herramientas.
+
+            @param texto: Texto mostrado en el botón.
+            @param comando: Función a ejecutar al hacer clic.
+            @param color: Color de fondo del botón.
+            @return tk.Button: Botón configurado para la barra de acciones.
+            """
             return tk.Button(
                 barra, text=texto, bg=color, fg=COLORES["texto_blanco"],
                 activebackground=COLORES["accento_oscuro"],
@@ -484,6 +501,12 @@ class GestionRegistroForm:
         self._construir_formulario()
 
     def _centrar_ventana(self, w, h):
+        """Centra la ventana del formulario en la pantalla.
+
+        @param w: Ancho de la ventana.
+        @param h: Alto de la ventana.
+        @return None: Aplica la geometría centrada a la ventana.
+        """
         sw = self.ventana.winfo_screenwidth()
         sh = self.ventana.winfo_screenheight()
         x = (sw - w) // 2
@@ -513,6 +536,12 @@ class GestionRegistroForm:
         ]
 
         def _campo(clave, etiqueta):
+            """Construye un campo de entrada con etiqueta dentro del formulario.
+
+            @param clave: Clave del campo en el diccionario de entradas.
+            @param etiqueta: Texto de la etiqueta mostrada sobre la entrada.
+            @return tk.Entry: Caja de entrada construida para el campo.
+            """
             cont_campo = tk.Frame(cont, bg=COLORES["bg_oscuro"])
             cont_campo.pack(fill="x", pady=5)
             tk.Label(
@@ -698,6 +727,12 @@ class ReporteInasistenciasApp:
         threading.Thread(target=self._inicializar_db, daemon=True).start()
 
     def _centrar_ventana(self, w, h):
+        """Centra la ventana del reporte en la pantalla.
+
+        @param w: Ancho de la ventana.
+        @param h: Alto de la ventana.
+        @return None: Aplica la geometría centrada a la ventana.
+        """
         sw = self.ventana.winfo_screenwidth()
         sh = self.ventana.winfo_screenheight()
         x = (sw - w) // 2
@@ -705,6 +740,10 @@ class ReporteInasistenciasApp:
         self.ventana.geometry(f"{w}x{h}+{x}+{y}")
 
     def _inicializar_db(self):
+        """Conecta con Firestore y carga los datos del reporte.
+
+        @return None: Configura la conexión o muestra un error de diálogo.
+        """
         try:
             self.db = get_db()
             self._cargar_datos()

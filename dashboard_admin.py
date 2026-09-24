@@ -1,12 +1,20 @@
+"""Dashboard del administrador del sistema de asistencia.
+
+Ventana principal (1120x700) con los módulos Inicio, Asistencia, Reportes y
+Configuración. Se conecta a Firestore, consulta las marcaciones del día y
+actualiza los indicadores periódicamente (auto-refresco cada POLL_INTERVALO).
+Incluye los widgets de navegación lateral (NavButton) y de calendario
+(CalendarWidget) reutilizables por el resto del sistema.
+"""
+
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
 import sys
 import os
-import csv
 import threading
 from datetime import datetime, timedelta
 
-from modelos import get_db, Alerta
+from modelos import get_db, Alerta, FERIADOS
 from google.cloud.firestore_v1.base_query import FieldFilter
 
 from theme import COLORS as C, FONTS as F, configure_styles
@@ -18,6 +26,11 @@ import icons
 
 
 def ruta_relativa(ruta):
+    """Devuelve la ruta absoluta de un recurso dentro del proyecto.
+
+    Compatible con ejecutables generados por PyInstaller: en modo "frozen"
+    resuelve desde el directorio temporal (_MEIPASS).
+    """
     if getattr(sys, "frozen", False):
         base = sys._MEIPASS
     else:
@@ -26,6 +39,7 @@ def ruta_relativa(ruta):
 
 
 def configurar_icono(ventana):
+    """Asigna el ícono de la aplicación a la ventana según la plataforma."""
     try:
         if sys.platform == "win32":
             ventana.iconbitmap(ruta_relativa("icon/Fixmol_icon.ico"))
@@ -47,23 +61,39 @@ ANCHO_SIDEBAR = 244
 
 HORA_ENTRADA_DEFECTO = "09:30"
 HORA_SALIDA_DEFECTO = "17:30"
-POLL_INTERVALO = 30000
+POLL_INTERVALO = 60000
 
 
 def _minutos_diff(hora_menor, hora_mayor):
-    try:
-        t1 = datetime.strptime(hora_menor, "%H:%M:%S")
-        t2 = datetime.strptime(hora_mayor, "%H:%M:%S")
-    except ValueError:
+    """Diferencia en minutos entre dos horas HH:MM o HH:MM:SS (nunca negativa).
+
+    Args:
+        hora_menor (str): Hora inicial en formato HH:MM o HH:MM:SS.
+        hora_mayor (str): Hora final en formato HH:MM o HH:MM:SS.
+
+    Returns:
+        int: Minutos de diferencia; 0 si el formato no es válido.
+    """
+
+    def _a_minutos(valor):
+        """Convierte HH:MM[ :SS] a minutos totales; None si es inválido."""
         try:
-            t1 = datetime.strptime(hora_menor, "%H:%M")
-            t2 = datetime.strptime(hora_mayor, "%H:%M")
-        except ValueError:
-            return 0
-    return max(0, int((t2 - t1).total_seconds() // 60))
+            partes = valor.split(":")
+            return int(partes[0]) * 60 + int(partes[1])
+        except (ValueError, IndexError):
+            return None
+
+    t1 = _a_minutos(hora_menor)
+    t2 = _a_minutos(hora_mayor)
+    if t1 is None or t2 is None:
+        return 0
+    return max(0, t2 - t1)
 
 
 def _es_dia_habl(fecha_str):
+    """Indica si la fecha dada (YYYY-MM-DD) es día hábil y no feriado."""
+    if fecha_str in FERIADOS:
+        return False
     try:
         d = datetime.strptime(fecha_str, "%Y-%m-%d")
     except Exception:
@@ -72,6 +102,7 @@ def _es_dia_habl(fecha_str):
 
 
 def _hora_valida(valor):
+    """Valida que un texto sea una hora en formato HH:MM."""
     try:
         datetime.strptime(valor, "%H:%M")
         return True
@@ -80,7 +111,10 @@ def _hora_valida(valor):
 
 
 class NavButton(tk.Frame):
+    """Botón de navegación del sidebar con ícono, texto y estado activo/hover."""
+
     def __init__(self, master, texto, icono, command, tamano=(216, 56)):
+        """Inicializa el botón del sidebar con ícono, texto y comando de clic."""
         super().__init__(master, bg=C["bg_sidebar"], height=tamano[1],
                          cursor="hand2")
         self.pack_propagate(False)
@@ -103,6 +137,7 @@ class NavButton(tk.Frame):
         self.bind("<Button-1>", self._click)
 
     def _vincular(self, w):
+        """Vincula clic y hover a un widget y a todos sus hijos."""
         for hijo in w.winfo_children():
             self._vincular(hijo)
         w.bind("<Button-1>", self._click)
@@ -110,9 +145,11 @@ class NavButton(tk.Frame):
         w.bind("<Leave>", lambda e: self.set_hover(False))
 
     def _click(self, e):
+        """Ejecuta el comando asociado al botón."""
         self.command()
 
     def _redibujar(self):
+        """Redibuja los colores, tipografía e ícono según el estado del botón."""
         color_fg = C["text_primary"] if (self.activo or self.hover) else C["text_secondary"]
         bg = C["surface_raised"] if self.activo else (C["surface_hover"] if self.hover else C["bg_sidebar"])
         fuente = F["nav_active"] if (self.activo or self.hover) else F["nav"]
@@ -130,21 +167,26 @@ class NavButton(tk.Frame):
             self._ind = None
 
     def set_activo(self, valor):
+        """Define el estado activo del botón y lo redibuja."""
         self.activo = bool(valor)
         self._redibujar()
 
     def set_hover(self, valor):
+        """Define el estado de hover del botón y lo redibuja."""
         self.hover = bool(valor)
         self._redibujar()
 
 
 class CalendarWidget(tk.Frame):
+    """Calendario mensual con selección de día y marcas de color por fecha."""
+
     NOMBRES_DIAS = ["Lu", "Ma", "Mi", "Ju", "Vi", "S\u00e1", "Do"]
     NOMBRES_MES = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
                    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre",
                    "Diciembre"]
 
     def __init__(self, master, seleccionada=None, on_seleccion=None, marcas=None):
+        """Inicializa el calendario con la fecha seleccionada, callback y marcas."""
         super().__init__(master, bg=C["surface"], highlightthickness=1,
                          highlightbackground=C["border"], width=330, height=520)
         self.pack_propagate(False)
@@ -156,6 +198,7 @@ class CalendarWidget(tk.Frame):
         self._dibujar()
 
     def _dibujar(self):
+        """Construye la navegación, la cabecera de días, la cuadrícula y la leyenda."""
         for w in self.winfo_children():
             w.destroy()
         self._celdas = {}
@@ -211,6 +254,7 @@ class CalendarWidget(tk.Frame):
         self._actualizar_titulo()
 
     def _mover_mes(self, delta):
+        """Desplaza el mes visible: -1 para el anterior, 1 para el siguiente."""
         mes = self.mostrando.month - 1 + delta
         anio = self.mostrando.year + (mes // 12)
         mes = mes % 12 + 1
@@ -219,6 +263,7 @@ class CalendarWidget(tk.Frame):
         self._actualizar_titulo()
 
     def _ir_hoy(self):
+        """Selecciona el día de hoy y notifica al callback de selección."""
         hoy = datetime.now().date()
         self.mostrando = hoy
         self.seleccionada = hoy
@@ -228,6 +273,7 @@ class CalendarWidget(tk.Frame):
             self.on_seleccion(hoy.isoformat())
 
     def _celda_click(self, dia, anio, mes):
+        """Selecciona un día al hacer clic y notifica al callback de selección."""
         try:
             fecha = datetime(anio, mes, dia).date()
         except ValueError:
@@ -238,10 +284,12 @@ class CalendarWidget(tk.Frame):
             self.on_seleccion(fecha.isoformat())
 
     def _actualizar_titulo(self):
+        """Actualiza el rótulo "Mes Año" de la cabecera del calendario."""
         self._lbl_mes.config(
             text=f"{self.NOMBRES_MES[self.mostrando.month - 1]} {self.mostrando.year}")
 
     def _llenar_cuadricula(self):
+        """Rellena las celdas del mes mostrado (selección, hoy y marcas de color)."""
         for w in self._cuadricula.winfo_children():
             w.destroy()
         self._celdas = {}
@@ -293,6 +341,12 @@ class CalendarWidget(tk.Frame):
 
 
 class DashboardAdminApp:
+    """Ventana principal del administrador.
+
+    Agrupa los módulos Inicio, Asistencia, Reportes y Configuración en un
+    área desplazable, con sidebar de navegación y topbar de acciones.
+    """
+
     MODULOS = [
         ("inicio", "Inicio", "home"),
         ("asistencia", "Asistencia", "reloj"),
@@ -301,6 +355,12 @@ class DashboardAdminApp:
     ]
 
     def __init__(self, usuario="admin", datos=None):
+        """Configura el estado, crea la ventana y arranca carga y auto-refresco.
+
+        Args:
+            usuario (str): Nombre de usuario que inició sesión.
+            datos (dict | None): Datos del usuario (nombre, correo, rol).
+        """
         datos = datos or {}
         self.usuario = usuario
         self.nombre = datos.get("nombre") or "Administrador"
@@ -334,6 +394,10 @@ class DashboardAdminApp:
         self._sidebar_colapsado = None
         self._cerrando = False
         self.pagina_actual = "inicio"
+        self._alertas_pendientes = []
+        self._alertas_popup = None
+        self._after_reportes_id = None
+        self._generando_reportes = False
 
         configure_styles(self.ventana)
         self._construir_ui()
@@ -346,6 +410,7 @@ class DashboardAdminApp:
         self.ventana.mainloop()
 
     def _centrar_ventana(self, w, h):
+        """Centra la ventana en la pantalla con el tamaño indicado."""
         sw = self.ventana.winfo_screenwidth()
         sh = self.ventana.winfo_screenheight()
         x = (sw - w) // 2
@@ -356,6 +421,7 @@ class DashboardAdminApp:
     # BD
     # ------------------------------------------------------------------
     def _inicializar_db(self):
+        """Conecta a Firestore y carga la configuración (se ejecuta en un hilo)."""
         try:
             self.db = get_db()
             self.firebase_listo = True
@@ -365,6 +431,7 @@ class DashboardAdminApp:
             self.ventana.after(0, self._mostrar_aviso_sin_db)
 
     def _mostrar_aviso_sin_db(self):
+        """Muestra un aviso de error en la etiqueta de estado si Firebase falla."""
         if getattr(self, "_cerrando", False):
             return
         self.lbl_estado_inicio.config(
@@ -372,6 +439,7 @@ class DashboardAdminApp:
             fg=C["danger"])
 
     def _cargar_config(self):
+        """Lee la configuración de empresa desde Firestore y la aplica."""
         try:
             doc = self.db.collection("config").document("empresa").get()
             if doc.exists:
@@ -386,6 +454,7 @@ class DashboardAdminApp:
         self._cargar_usuarios()
 
     def _cargar_usuarios(self):
+        """Carga todos los usuarios de Firestore y refresca las marcaciones de hoy."""
         try:
             docs = self.db.collection("usuarios").get()
             usuarios = []
@@ -402,9 +471,11 @@ class DashboardAdminApp:
             print(e)
 
     def _obtener_fecha_hoy(self):
+        """Devuelve la fecha actual en formato YYYY-MM-DD."""
         return datetime.now().strftime("%Y-%m-%d")
 
     def _cargar_marcaciones_hoy(self):
+        """Carga las marcaciones de hoy desde Firestore y refresca la interfaz."""
         try:
             docs = self.db.collection("marcaciones") \
                 .where(filter=FieldFilter("fecha", "==", self._obtener_fecha_hoy())).get()
@@ -415,6 +486,11 @@ class DashboardAdminApp:
             print(e)
 
     def _trabajadores(self):
+        """Lista de usuarios con rol distinto a administrador.
+
+        Returns:
+            list: Usuarios que son trabajadores.
+        """
         return [u for u in self.usuarios
                 if u.get("rol") != "administrador"]
 
@@ -422,11 +498,16 @@ class DashboardAdminApp:
     # REFRESCO AUTOMATICO
     # ------------------------------------------------------------------
     def _iniciar_polling(self):
+        """Programa el siguiente ciclo de auto-refresco después de POLL_INTERVALO ms."""
         if self._cerrando:
             return
         self._poll_after_id = self.ventana.after(POLL_INTERVALO, self._poll)
 
     def _detener_polling(self):
+        """Cancela el ciclo de polling programado si existe.
+
+        @return None: Detiene el auto-refresco antes de cerrar la ventana.
+        """
         pid = getattr(self, "_poll_after_id", None)
         if pid is not None:
             try:
@@ -436,6 +517,7 @@ class DashboardAdminApp:
             self._poll_after_id = None
 
     def _poll(self):
+        """Ciclo de polling: reprograma el siguiente y lanza la lectura en un hilo."""
         if self._cerrando:
             return
         self._iniciar_polling()
@@ -444,6 +526,7 @@ class DashboardAdminApp:
         threading.Thread(target=self._poll_fetch, daemon=True).start()
 
     def _poll_fetch(self):
+        """Lee las marcaciones de hoy desde Firestore (hilo) y aplica el refresco."""
         try:
             docs = self.db.collection("marcaciones") \
                 .where(filter=FieldFilter("fecha", "==",
@@ -452,8 +535,26 @@ class DashboardAdminApp:
             self.ventana.after(0, lambda m=marc: self._aplicar_refresco(m))
         except Exception as e:
             print(e)
+            self._reintentar_carga_base()
+
+    def _reintentar_carga_base(self):
+        """Reintenta la carga de usuarios si la lectura inicial falló.
+
+        Si el arranque del dashboard ocurrió sin lectura disponible (por
+        ejemplo por cuota de lectura agotada), deja usuarios vacío. Este
+        método relanza la carga en un hilo para que el siguiente ciclo de
+        polling repueble los datos sin necesidad de reiniciar la aplicación.
+
+        @return None: Relanza `_cargar_usuarios` en un hilo secundario.
+        """
+        if self._cerrando or not getattr(self, "firebase_listo", False):
+            return
+        if getattr(self, "usuarios", None):
+            return
+        threading.Thread(target=self._cargar_usuarios, daemon=True).start()
 
     def _aplicar_refresco(self, marc):
+        """Aplica nuevos datos de marcaciones y refresca las páginas visibles."""
         if getattr(self, "_cerrando", False):
             return
         self.marcaciones_hoy = marc
@@ -461,8 +562,11 @@ class DashboardAdminApp:
         self._refrescar_calendario()
         if self.pagina_actual == "asistencia" and self.db:
             threading.Thread(target=self._generar_asistencia, daemon=True).start()
+        if self.pagina_actual == "reportes" and self.db:
+            self._programar_generar_reportes()
 
     def _refrescar_manual(self):
+        """Fuerza un refresco manual de datos desde el topbar."""
         self.lbl_estado_inicio.config(
             text="Actualizando datos...", fg=C["text_secondary"])
         self._poll()
@@ -471,10 +575,12 @@ class DashboardAdminApp:
     # ESTRUCTURA
     # ------------------------------------------------------------------
     def _construir_ui(self):
+        """Construye la topbar y el cuerpo de la ventana."""
         self._crear_topbar()
         self._crear_cuerpo()
 
     def _crear_topbar(self):
+        """Crea la barra superior: título, acciones, campana de alertas y avatar."""
         topbar = tk.Frame(self.ventana, bg=C["bg_topbar"], height=ALTO_TOPBAR)
         topbar.pack(fill="x", side="top")
         topbar.pack_propagate(False)
@@ -518,7 +624,8 @@ class DashboardAdminApp:
         campana = icons.crear_icono("campana", size=20, color=C["text_secondary"],
                                     bg=C["bg_topbar"], master=cont_campana)
         campana.pack()
-        campana.bind("<Button-1>", lambda e: self._refrescar_manual())
+        campana.bind("<Button-1>", lambda e: self._toggle_popup_alertas())
+        self._campana = campana
         self.badge_alertas = tk.Label(cont_campana, text="", bg=C["accent"],
                                       fg=C["white"], font=F["small_bold"],
                                       padx=4, pady=0, bd=0, highlightthickness=0)
@@ -540,30 +647,38 @@ class DashboardAdminApp:
         topbar.bind("<B1-Motion>", self._arrastrar)
         for hijo in topbar.winfo_children():
             self._bind_arrastre(hijo)
+        campana.bind("<Button-1>", lambda e: self._toggle_popup_alertas())
+        self.badge_alertas.bind("<Button-1>",
+                                lambda e: self._toggle_popup_alertas())
 
     def _bind_arrastre(self, w):
+        """Vincula los eventos de arrastre a un widget y a todos sus hijos."""
         for hijo in w.winfo_children():
             self._bind_arrastre(hijo)
         w.bind("<ButtonPress-1>", self._iniciar_arrastre)
         w.bind("<B1-Motion>", self._arrastrar)
 
     def _iniciales(self):
+        """Devuelve las iniciales del nombre para el avatar del usuario."""
         partes = [p for p in self.nombre.split() if p]
         if len(partes) >= 2:
             return (partes[0][0] + partes[1][0]).upper()
         return (self.nombre[:2] or "AD").upper()
 
     def _cerrar_ventana_pura(self):
+        """Marca el cierre y destruye la ventana del dashboard."""
         self._cerrando = True
         self._detener_polling()
         self.ventana.destroy()
 
     def _minimizar(self):
+        """Minimiza la ventana desactivando temporalmente overrideredirect."""
         self.ventana.overrideredirect(False)
         self.ventana.iconify()
         self.ventana.after(600, lambda: self.ventana.overrideredirect(True))
 
     def _crear_cuerpo(self):
+        """Crea el contenedor principal con la sidebar y el área de contenido."""
         self.cuerpo = tk.Frame(self.ventana, bg=C["bg_app"])
         self.cuerpo.pack(fill="both", expand=True)
         self.cuerpo.rowconfigure(0, weight=1)
@@ -573,6 +688,7 @@ class DashboardAdminApp:
         self._crear_contenido(self.cuerpo)
 
     def _crear_sidebar(self, padre):
+        """Crea la barra lateral con branding, navegación y botón de salir."""
         self.sidebar = tk.Frame(padre, bg=C["bg_sidebar"], width=ANCHO_SIDEBAR)
         self.sidebar.grid(row=0, column=0, sticky="nsew")
         self.sidebar.grid_propagate(False)
@@ -608,6 +724,7 @@ class DashboardAdminApp:
         btn_salir.pack(side="bottom", fill="x", padx=14, pady=16)
 
     def _crear_contenido(self, padre):
+        """Crea el área desplazable y las cuatro páginas (módulos)."""
         cont_outer = tk.Frame(padre, bg=C["bg_app"])
         cont_outer.grid(row=0, column=1, sticky="nsew")
         cont_outer.rowconfigure(0, weight=1)
@@ -646,6 +763,7 @@ class DashboardAdminApp:
         self._mostrar_modulo("inicio")
 
     def _ajustar_scroll(self, e):
+        """Ajusta el área interna al ancho y alto del canvas de scroll."""
         self._scroll_canvas.itemconfigure(self._scroll_window, width=e.width)
         bbox = self._scroll_canvas.bbox("all")
         contenido_h = bbox[3] if bbox else 0
@@ -653,6 +771,7 @@ class DashboardAdminApp:
             self._scroll_window, height=max(contenido_h, e.height))
 
     def _mostrar_modulo(self, clave):
+        """Muestra el módulo indicado y actualiza la navegación lateral."""
         self.pagina_actual = clave
         for nombre, pagina in self.paginas.items():
             if nombre == clave:
@@ -662,8 +781,16 @@ class DashboardAdminApp:
         self._scroll_canvas.yview_moveto(0)
         for nombre, btn in self.nav_botones.items():
             btn.set_activo(nombre == clave)
+        self._cerrar_popup_alertas()
+        if not self.firebase_listo:
+            return
+        if clave == "asistencia" and self.db:
+            threading.Thread(target=self._generar_asistencia, daemon=True).start()
+        elif clave == "reportes":
+            self._lanzar_generar_reportes()
 
     def _aplicar_responsividad(self):
+        """Ajusta el ancho de la sidebar y los paddings según el ancho de la ventana."""
         if getattr(self, "_cerrando", False):
             return
         try:
@@ -708,6 +835,7 @@ class DashboardAdminApp:
     # INICIO
     # ------------------------------------------------------------------
     def _crear_inicio(self):
+        """Construye la página Inicio: KPI, estado, incidencias y actividad."""
         frame = tk.Frame(self._scroll_frame, bg=C["bg_app"])
         self.paginas["inicio"] = frame
 
@@ -731,13 +859,12 @@ class DashboardAdminApp:
             ("kpi_presentes", "Presentes", "success", "reloj"),
             ("kpi_atrasados", "Atrasados", "warning", "exclamacion"),
             ("kpi_ausentes", "Ausentes", "danger", "cerrar"),
-            ("kpi_total", "Total trabajadores", "info", "usuarios"),
         ]
         for i, (clave, texto, color, icono) in enumerate(defs):
             card = MetricCard(fila_kpis, texto, "--", "de hoy",
                               color=C[color], icono=icono, tamano=(None, 116))
             card.pack(side="left", fill="both", expand=True,
-                      padx=(0 if i == 0 else 8, 0 if i == 3 else 8))
+                      padx=(0 if i == 0 else 8, 0 if i == 2 else 8))
             self.kpis[clave] = card._dibujar
             self._metric_cards.append(card)
 
@@ -752,6 +879,7 @@ class DashboardAdminApp:
         self._crear_card_actividad(frame)
 
     def _actualizar_kpis(self, valores):
+        """Actualiza las tarjetas de KPI con los valores dados (clave, valor, sub)."""
         for clave, valor, sub in valores:
             for card in self._metric_cards:
                 if card.titulo.lower().replace(" ", "_") == clave.replace("kpi_", ""):
@@ -760,6 +888,7 @@ class DashboardAdminApp:
                     card._dibujar()
 
     def _crear_card_estado(self, padre):
+        """Crea el card ESTADO DE ASISTENCIA con las barras horizontales."""
         card = SurfaceCard(padre)
         card.grid(row=0, column=0, sticky="nsew", padx=(0, 4), pady=4)
 
@@ -770,14 +899,11 @@ class DashboardAdminApp:
         cont = tk.Frame(card, bg=C["surface"])
         cont.pack(fill="both", expand=True, padx=8, pady=(0, 10))
 
-        self.canvas_donut = tk.Canvas(cont, width=210, height=210, bg=C["surface"],
-                                      highlightthickness=0, bd=0)
-        self.canvas_donut.pack(side="left", padx=(8, 10))
-
-        self.leyenda_donut = tk.Frame(cont, bg=C["surface"])
-        self.leyenda_donut.pack(side="left", fill="both", expand=True)
+        self.cont_barras = tk.Frame(cont, bg=C["surface"])
+        self.cont_barras.pack(fill="both", expand=True)
 
     def _crear_card_incidencias(self, padre):
+        """Crea el card de incidencias del día."""
         card = SurfaceCard(padre)
         card.grid(row=0, column=1, sticky="nsew", padx=(4, 0), pady=4)
 
@@ -789,6 +915,7 @@ class DashboardAdminApp:
         self.cont_incidencias.pack(fill="both", expand=True, padx=10, pady=(0, 12))
 
     def _crear_card_actividad(self, frame):
+        """Crea el card de actividad reciente (últimas marcaciones)."""
         card = SurfaceCard(frame, padding=10)
         card.pack(fill="x", padx=24, pady=(2, 14))
 
@@ -806,6 +933,7 @@ class DashboardAdminApp:
     # INICIO - REFRESCO
     # ------------------------------------------------------------------
     def _refrescar_inicio(self):
+        """Recalcula KPIs, barras, incidencias, actividad y alertas con datos del día."""
         marc = self.marcaciones_hoy
         trabajadores = self._trabajadores()
         nombres_trabajo = {u.get("usuario") for u in trabajadores}
@@ -834,17 +962,19 @@ class DashboardAdminApp:
             ("kpi_presentes", n_presentes, "de hoy"),
             ("kpi_atrasados", n_atrasados, "de hoy"),
             ("kpi_ausentes", n_ausentes, "de hoy"),
-            ("kpi_total", total, "% del equipo"),
         ])
 
-        self._dibujar_donut(total, n_presentes, n_atrasados, n_ausentes)
+        self._dibujar_barras(total, n_presentes, n_atrasados, n_ausentes)
         self._poblar_incidencias(presentes, ausentes, marc)
         self._poblar_actividad(marc, trabajadores)
-        self._registrar_alertas_inasistencia(ausentes)
-        self._cargar_alertas_pendientes()
+        threading.Thread(target=self._registrar_alertas_inasistencia,
+                         args=(ausentes,), daemon=True).start()
+        threading.Thread(target=self._cargar_alertas_pendientes,
+                         daemon=True).start()
         self._marcar_ultima_actualizacion(n_presentes)
 
     def _marcar_ultima_actualizacion(self, n_presentes=0):
+        """Actualiza la etiqueta de estado con hora, conteos y trabajadores."""
         hora = datetime.now().strftime("%H:%M:%S")
         self.lbl_estado_inicio.config(
             text=f"Conectado a Firestore \u00b7 {len(self._trabajadores())} "
@@ -852,10 +982,16 @@ class DashboardAdminApp:
                  f"presente(s) registrado(s).",
             fg=C["success"])
 
-    def _dibujar_donut(self, total, presentes, atrasados, ausentes):
-        c = self.canvas_donut
-        c.delete("all")
-        for w in self.leyenda_donut.winfo_children():
+    def _dibujar_barras(self, total, presentes, atrasados, ausentes):
+        """Dibuja las barras horizontales de Presentes, Atrasados y Ausentes.
+
+        Args:
+            total (int): Total de trabajadores.
+            presentes (int): Trabajadores con registro de hoy.
+            atrasados (int): Trabajadores con entrada después de la hora límite.
+            ausentes (int): Trabajadores sin registro.
+        """
+        for w in self.cont_barras.winfo_children():
             w.destroy()
 
         segmentos = [
@@ -864,63 +1000,42 @@ class DashboardAdminApp:
             ("Ausentes", ausentes, C["danger"]),
         ]
 
-        cx, cy, radio = 105, 122, 88
-        r_inner = 46
-        # Bounding boxes (c\u00edrculo completo; el arco dibuja s\u00f3lo la mitad superior 0\u00b0..180\u00b0)
-        ext_bbox = (cx - radio, cy - radio, cx + radio, cy + radio)
-        int_bbox = (cx - r_inner, cy - r_inner, cx + r_inner, cy + r_inner)
-
         if total == 0:
-            c.create_arc(*ext_bbox, start=0, extent=180, style="arc",
-                         outline=C["border"], width=24)
-            c.create_text(cx, 110, text="Sin datos", fill=C["text_muted"],
-                          font=F["body_bold"])
+            tk.Label(self.cont_barras, text="Sin datos", bg=C["surface"],
+                     fg=C["text_muted"], font=F["body_bold"]).pack(
+                anchor="center", pady=18)
             return
 
-        cum = 0.0
+        alto_track = 14
         for nombre, valor, color in segmentos:
-            if valor <= 0:
-                continue
-            f = valor / total
-            a_lo = 180 - 180 * (cum + f) + 1.2
-            a_hi = 180 - 180 * cum - 1.2
-            extent = a_hi - a_lo
-            if extent > 0:
-                c.create_arc(*ext_bbox, start=a_lo, extent=extent,
-                             fill=color, outline="")
-            cum += f
+            fila = tk.Frame(self.cont_barras, bg=C["surface"])
+            fila.pack(fill="x", pady=6)
+            fila.columnconfigure(1, weight=1)
 
-        # Hueco interior (semic\u00edrculo superior del color de la tarjeta)
-        c.create_arc(*int_bbox, start=0, extent=180, fill=C["surface"],
-                     outline="")
-        # Limpia debajo de la l\u00ednea de di\u00e1metro (colas de los sectores)
-        c.create_rectangle(cx - radio, cy, cx + radio, cy + radio,
-                           fill=C["surface"], outline="")
-
-        principal = max(segmentos, key=lambda s: s[1]) if total else segmentos[0]
-        pct = int(principal[1] * 100 / total) if total else 0
-        c.create_text(cx, cy - 33, text=principal[0], fill=C["text_secondary"],
-                      font=F["small_bold"])
-        c.create_text(cx, cy - 12, text=str(principal[1]), fill=C["text_primary"],
-                      font=F["metric_value"])
-        c.create_text(cx, cy + 26, text=f"{pct}% del equipo", fill=C["text_muted"],
-                      font=F["small"])
-
-        for nombre, valor, color in segmentos:
-            fila = tk.Frame(self.leyenda_donut, bg=C["surface"])
-            fila.pack(fill="x", pady=4)
-            tk.Canvas(fila, width=12, height=12, bg=C["surface"],
-                      highlightthickness=0, bd=0).pack(side="left")
-            cdot = tk.Canvas(fila, width=12, height=12, bg=C["surface"],
-                             highlightthickness=0, bd=0)
-            cdot.create_oval(1, 1, 11, 11, fill=color, outline="")
-            cdot.pack(side="left", padx=(4, 8))
-            tk.Label(fila, text=nombre, bg=C["surface"], fg=C["text_secondary"],
+            izq = tk.Frame(fila, bg=C["surface"])
+            izq.grid(row=0, column=0, sticky="w")
+            dot = tk.Canvas(izq, width=12, height=12, bg=C["surface"],
+                            highlightthickness=0, bd=0)
+            dot.create_oval(1, 1, 11, 11, fill=color, outline="")
+            dot.pack(side="left", padx=(0, 8))
+            tk.Label(izq, text=nombre, bg=C["surface"], fg=C["text_secondary"],
                      font=F["small"]).pack(side="left")
-            tk.Label(fila, text=str(valor), bg=C["surface"], fg=C["text_primary"],
-                     font=F["body_bold"]).pack(side="right", padx=(0, 8))
+
+            track = tk.Frame(fila, bg=C["input_bg"], height=alto_track)
+            track.grid(row=0, column=1, sticky="ew", padx=(12, 0))
+            track.pack_propagate(False)
+
+            frac = valor / total if total else 0.0
+            if frac > 0:
+                barra = tk.Frame(track, bg=color)
+                barra.place(x=0, y=0, relwidth=frac, relheight=1)
+
+            tk.Label(fila, text=str(valor), bg=C["surface"],
+                     fg=C["text_primary"], font=F["body_bold"]).grid(
+                row=0, column=2, sticky="e", padx=(12, 0))
 
     def _poblar_incidencias(self, presentes, ausentes, marc):
+        """Llena el card de incidencias con inasistencias, atrasos y salidas anticipadas."""
         for w in self.cont_incidencias.winfo_children():
             w.destroy()
 
@@ -992,6 +1107,7 @@ class DashboardAdminApp:
                 .pack(side="right", padx=(4, 12), pady=18)
 
     def _ver_detalle_incidencia(self, nombre_usuario):
+        """Abre una ventana auxiliar con el detalle de una incidencia."""
         from tkinter import Toplevel
         ventana = Toplevel(self.ventana)
         ventana.title("Detalle de incidencia")
@@ -1012,6 +1128,7 @@ class DashboardAdminApp:
             side="bottom", anchor="e", padx=20, pady=14)
 
     def _poblar_actividad(self, marc, usuarios):
+        """Muestra los últimos eventos de entrada/salida registrados hoy."""
         for w in self.lista_actividad.winfo_children():
             w.destroy()
         nombres = {u.get("usuario"): (u.get("nombre") or u.get("usuario"))
@@ -1047,20 +1164,44 @@ class DashboardAdminApp:
                      font=F["small"]).pack(side="right", padx=(8, 0))
 
     def _registrar_alertas_inasistencia(self, ausentes):
+        """Reconcilia las alertas de inasistencia de hoy con los ausentes reales.
+
+        Elimina las alertas de inasistencia de hoy para trabajadores que sí
+        tienen marcación (falsos positivos generados cuando arranca sin datos)
+        y crea las que faltan para los ausentes reales.
+        """
         try:
             if not self.db:
                 return
+            if not getattr(self, "marcaciones_hoy", []):
+                return
             hoy = self._obtener_fecha_hoy()
-            for u in ausentes:
+            ausentes = set(ausentes)
+            existentes = set()
+            a_eliminar = []
+            for d in self.db.collection("alertas") \
+                    .where(filter=FieldFilter("fecha", "==", hoy)).get():
+                datos = d.to_dict()
+                if datos.get("tipo") != Alerta.TIPO_INASISTENCIA:
+                    continue
+                existentes.add(datos.get("usuario"))
+                if datos.get("usuario") not in ausentes:
+                    a_eliminar.append(d.reference)
+            for ref in a_eliminar:
+                ref.delete()
+            for u in ausentes - existentes:
                 Alerta.crear(self.db, Alerta.TIPO_INASISTENCIA, u, hoy)
         except Exception as e:
             print(e)
 
     def _cargar_alertas_pendientes(self):
+        """Carga, ordena y formatea las alertas pendientes para el badge."""
         try:
             if not self.db:
                 return
-            alertas = Alerta.listar(self.db, estado=Alerta.ESTADO_PENDIENTE)
+            hoy = self._obtener_fecha_hoy()
+            alertas = Alerta.listar(self.db, estado=Alerta.ESTADO_PENDIENTE,
+                                    fecha_inicio=hoy)
             orden = {Alerta.TIPO_ATRASO: 0, Alerta.TIPO_SALIDA_ANTICIPADA: 1,
                      Alerta.TIPO_INASISTENCIA: 2}
             alertas.sort(key=lambda a: (orden.get(a.get("tipo"), 3),
@@ -1078,11 +1219,14 @@ class DashboardAdminApp:
                  a.get("hora") or a.get("fecha") or "", a.get("_id"))
                 for a in alertas
             ]
-            self._actualizar_badge_alertas()
+            self.ventana.after(0, lambda: (
+                self._actualizar_badge_alertas(),
+                self._reconstruir_popup_alertas()))
         except Exception as e:
             print(e)
 
     def _actualizar_badge_alertas(self):
+        """Muestra u oculta el badge con el conteo de alertas pendientes."""
         n = len(getattr(self, "_alertas_pendientes", []) or [])
         if n <= 0:
             self.badge_alertas.place_forget()
@@ -1090,10 +1234,141 @@ class DashboardAdminApp:
             self.badge_alertas.config(text=str(n if n < 99 else "99+"))
             self.badge_alertas.place(relx=0.85, rely=0.05, anchor="ne")
 
+    def _toggle_popup_alertas(self):
+        """Alterna la apertura de la campana de alertas pendientes."""
+        pop = getattr(self, "_alertas_popup", None)
+        if pop is not None and pop.winfo_exists():
+            self._cerrar_popup_alertas()
+            return
+        self._abrir_popup_alertas()
+        threading.Thread(target=self._cargar_alertas_pendientes,
+                         daemon=True).start()
+
+    def _cerrar_popup_alertas(self):
+        """Destruye el desplegable de la campana si está abierto."""
+        pop = getattr(self, "_alertas_popup", None)
+        if pop is not None:
+            try:
+                pop.destroy()
+            except Exception:
+                pass
+        self._alertas_popup = None
+
+    def _abrir_popup_alertas(self):
+        """Abre el desplegable de alertas pendientes debajo de la campana."""
+        self._cerrar_popup_alertas()
+        if not getattr(self, "firebase_listo", False):
+            self._mostrar_toast("Sin conexión a la base de datos", ok=False)
+            return
+        pop = tk.Toplevel(self.ventana)
+        pop.overrideredirect(True)
+        pop.configure(bg=C["surface"], highlightthickness=1,
+                      highlightbackground=C["border"])
+        try:
+            pop.attributes("-topmost", True)
+        except tk.TclError:
+            pass
+        self._alertas_popup = pop
+        self._reconstruir_popup_alertas()
+
+    def _reconstruir_popup_alertas(self):
+        """Pinta el contenido del desplegable de alertas (reconstruible)."""
+        pop = getattr(self, "_alertas_popup", None)
+        if pop is None or not pop.winfo_exists():
+            return
+        for hijo in pop.winfo_children():
+            hijo.destroy()
+        pendientes = list(getattr(self, "_alertas_pendientes", []) or [])
+        ancho = 320
+
+        cab = tk.Frame(pop, bg=C["surface_raised"], padx=10, pady=6)
+        cab.pack(fill="x")
+        tk.Label(cab, text="Alertas pendientes", bg=C["surface_raised"],
+                 fg=C["text_primary"], font=F["small_bold"]).pack(side="left")
+        tk.Label(cab, text=f"({len(pendientes)})", bg=C["surface_raised"],
+                 fg=C["accent"], font=F["small_bold"]).pack(side="right")
+
+        if not pendientes:
+            tk.Label(pop, text="Sin alertas pendientes", bg=C["surface"],
+                     fg=C["text_muted"], font=F["small"], pady=16).pack(fill="x")
+
+        for nombre, etiqueta, hora, alerta_id in pendientes[:8]:
+            fila = tk.Frame(pop, bg=C["surface"], padx=10, pady=5)
+            fila.pack(fill="x")
+            izq = tk.Frame(fila, bg=C["surface"])
+            izq.pack(side="left", fill="x", expand=True)
+            tk.Label(izq, text=f"{nombre} · {etiqueta}", bg=C["surface"],
+                     fg=C["text_primary"], font=F["small_bold"]).pack(anchor="w")
+            tk.Label(izq, text=hora, bg=C["surface"], fg=C["text_muted"],
+                     font=F["small"]).pack(anchor="w")
+            lnk = tk.Label(fila, text="Leída", bg=C["surface"], fg=C["accent"],
+                           font=F["small_bold"], cursor="hand2")
+            lnk.pack(side="right", padx=(6, 4))
+            lnk.bind("<Button-1>",
+                     lambda e, i=alerta_id: self._marcar_alerta_popup([i]))
+            lnk.bind("<Enter>", lambda e, l=lnk: l.config(fg=C["text_primary"]))
+            lnk.bind("<Leave>", lambda e, l=lnk: l.config(fg=C["accent"]))
+
+        if len(pendientes) > 8:
+            tk.Label(pop, text=f"+{len(pendientes) - 8} más...", bg=C["surface"],
+                     fg=C["text_muted"], font=F["small"]).pack(fill="x")
+
+        pie = tk.Frame(pop, bg=C["surface_raised"], padx=10, pady=6)
+        pie.pack(fill="x")
+        if pendientes:
+            btn_todas = tk.Label(pie, text="Marcar todas", bg=C["surface_raised"],
+                                 fg=C["accent"], font=F["small_bold"],
+                                 cursor="hand2")
+            btn_todas.pack(side="left")
+            btn_todas.bind("<Button-1>", lambda e: self._marcar_alerta_popup(
+                [a[3] for a in pendientes]))
+        btn_ver = tk.Label(pie, text="Ver en Reportes", bg=C["surface_raised"],
+                           fg=C["accent"], font=F["small_bold"], cursor="hand2")
+        btn_ver.pack(side="right")
+        btn_ver.bind("<Button-1>", lambda e: self._ir_a_alertas_reportes())
+
+        pop.update_idletasks()
+        x = self._campana.winfo_rootx() - ancho + 24
+        y = self._campana.winfo_rooty() + self._campana.winfo_height() + 4
+        pop.geometry(f"{ancho}x{pop.winfo_reqheight()}+{x}+{y}")
+
+    def _marcar_alerta_popup(self, ids):
+        """Marca como leídas alertas desde la campana, en un hilo."""
+        threading.Thread(target=self._marcar_alertas_leidas,
+                         args=(list(ids),), daemon=True).start()
+
+    def _marcar_alertas_leidas(self, ids):
+        """Marca alertas en Firestore y refresca campana, badge y reportes.
+
+        Se ejecuta en un hilo para no bloquear la interfaz de Tk.
+        """
+        for alerta_id in ids:
+            try:
+                Alerta.marcar_leida(self.db, alerta_id)
+            except Exception as e:
+                print(e)
+        self._cargar_alertas_pendientes()
+        self._generar_alertas(self.entry_desde.get().strip(),
+                              self.entry_hasta.get().strip())
+        self.ventana.after(0, lambda: (
+            self._actualizar_metricas(),
+            self._actualizar_titulos_tabs(),
+            self._aplicar_filtro_reporte(),
+            self._mostrar_toast(
+                f"{len(ids)} alerta(s) marcada(s) como leída(s)")))
+
+    def _ir_a_alertas_reportes(self):
+        """Cierra la campana y abre la pestaña Alertas de la página Reportes."""
+        self._cerrar_popup_alertas()
+        self._mostrar_modulo("reportes")
+        if hasattr(self, "notebook_reportes"):
+            self.notebook_reportes.select(3)
+
     # ------------------------------------------------------------------
     # ASISTENCIA
     # ------------------------------------------------------------------
     def _crear_asistencia(self):
+        """Construye la página Asistencia: calendario, búsqueda, filtros y tabla."""
         frame = tk.Frame(self._scroll_frame, bg=C["bg_app"])
         self.paginas["asistencia"] = frame
 
@@ -1147,12 +1422,6 @@ class DashboardAdminApp:
         self.combo_estado.bind("<<ComboboxSelected>>",
                                lambda e: self._aplicar_filtros_asistencia())
 
-        self.btn_generar_asistencia = PrimaryButton(barra, "GENERAR", icono="calendario")
-        self.btn_generar_asistencia.pack(side="left")
-        self.btn_generar_asistencia.config(
-            command=lambda: threading.Thread(
-                target=self._generar_asistencia, daemon=True).start())
-
         self.lbl_asistencia = tk.Label(barra, text="", bg=C["bg_app"],
                                        fg=C["text_secondary"], font=F["small"])
         self.lbl_asistencia.pack(side="left", padx=8)
@@ -1183,10 +1452,28 @@ class DashboardAdminApp:
         self.tabla_asistencia.configure(yscrollcommand=scroll.set)
 
     def _marcas_calendario(self):
+        """Devuelve un color por fecha según la proporción de presentes.
+
+        Returns:
+            dict: Fecha (YYYY-MM-DD) como clave y color como valor.
+        """
         marcas = {}
         try:
             if self.db:
-                docs = self.db.collection("marcaciones").get()
+                base = getattr(getattr(self, "calendario", None), "mostrando",
+                           datetime.now().date())
+                inicio = base.replace(day=1)
+                if inicio.month == 12:
+                    fin = inicio.replace(year=inicio.year + 1, month=1,
+                                         day=1) - timedelta(days=1)
+                else:
+                    fin = inicio.replace(month=inicio.month + 1,
+                                         day=1) - timedelta(days=1)
+                docs = self.db.collection("marcaciones") \
+                    .where(filter=FieldFilter("fecha", ">=",
+                                              inicio.strftime("%Y-%m-%d"))) \
+                    .where(filter=FieldFilter("fecha", "<=",
+                                              fin.strftime("%Y-%m-%d"))).get()
                 por_fecha = {}
                 for d in docs:
                     m = d.to_dict()
@@ -1204,30 +1491,42 @@ class DashboardAdminApp:
         return marcas
 
     def _refrescar_calendario(self):
+        """Recalcula las marcas del calendario y redibuja su cuadrícula."""
         calendario = getattr(self, "calendario", None)
         if calendario is None:
             return
-        try:
-            calendario.marcas = self._marcas_calendario()
-            calendario._llenar_cuadricula()
-        except Exception as e:
-            print(e)
+
+        def _obtener_marcas():
+            """Consulta las marcas en un hilo y las aplica al calendario."""
+            try:
+                marcas = self._marcas_calendario()
+                self.ventana.after(
+                    0, lambda: (setattr(calendario, "marcas", marcas),
+                                calendario._llenar_cuadricula()))
+            except Exception as e:
+                print(e)
+
+        threading.Thread(target=_obtener_marcas, daemon=True).start()
 
     def _seleccionar_fecha(self, fecha_str):
+        """Guarda la fecha elegida y lanza la generación de la tabla en un hilo."""
         self.fecha_seleccionada = fecha_str
         threading.Thread(target=self._generar_asistencia, daemon=True).start()
 
     def _placeholder_quitar(self, e):
+        """Borra el texto de ejemplo del buscador al recibir el foco."""
         if self.entry_buscar_asistencia.get() == "Buscar trabajador...":
             self.entry_buscar_asistencia.delete(0, "end")
             self.entry_buscar_asistencia.config(fg=C["text_primary"])
 
     def _placeholder_volver(self, e):
+        """Reinserta el texto de ejemplo si el buscador queda vacío."""
         if not self.entry_buscar_asistencia.get().strip():
             self.entry_buscar_asistencia.insert(0, "Buscar trabajador...")
             self.entry_buscar_asistencia.config(fg=C["text_muted"])
 
     def _configurar_tags_estado(self, tabla, col_estado):
+        """Configura los colores de estado de una tabla y guarda su índice."""
         self._tag_col = col_estado
         tabla.tag_configure("normal", foreground=C["success"])
         tabla.tag_configure("atraso", foreground=C["warning"])
@@ -1235,6 +1534,7 @@ class DashboardAdminApp:
         tabla.tag_configure("pendiente", foreground=C["text_secondary"])
 
     def _poblar_tabla_estado(self, tabla, filas):
+        """Rellena una tabla con las filas de estado y colorea la columna de estado."""
         for item in tabla.get_children():
             tabla.delete(item)
         if not filas:
@@ -1252,6 +1552,7 @@ class DashboardAdminApp:
             tabla.insert("", "end", values=f, tags=(tag,))
 
     def _aplicar_filtros_asistencia(self):
+        """Filtra las filas de asistencia por texto y estado, y repuebla la tabla."""
         if not hasattr(self, "_filas_asistencia"):
             return
         busqueda = self.entry_buscar_asistencia.get().strip().lower()
@@ -1268,16 +1569,21 @@ class DashboardAdminApp:
         self._poblar_tabla_estado(self.tabla_asistencia, filas)
 
     def _generar_asistencia(self):
+        """Consulta Firestore y arma las filas de estado de todos los trabajadores."""
         fecha = self.fecha_seleccionada
-        self.ventana.after(0, lambda: self.btn_generar_asistencia.set_loading(
-            True, "CARGANDO..."))
+        if fecha in FERIADOS:
+            self._filas_asistencia = []
+            self.ventana.after(0, lambda: (
+                self._aplicar_filtros_asistencia(),
+                self.lbl_asistencia.config(
+                    text="D\u00eda no laboral (feriado).", fg=C["text_secondary"])))
+            return
         try:
             docs = self.db.collection("marcaciones") \
                 .where(filter=FieldFilter("fecha", "==", fecha)).get()
         except Exception as e:
             self.ventana.after(0, lambda e=e: self.lbl_asistencia.config(
                 text=str(e), fg=C["danger"]))
-            self.ventana.after(0, lambda: self.btn_generar_asistencia.set_loading(False))
             return
 
         by_user = {}
@@ -1307,10 +1613,19 @@ class DashboardAdminApp:
         self._filas_asistencia = filas
         self.ventana.after(0, lambda: (
             self._aplicar_filtros_asistencia(),
-            self.btn_generar_asistencia.set_loading(False),
             self.lbl_asistencia.config(text="", fg=C["text_secondary"])))
 
     def _calcular_estado(self, entrada, salida):
+        """Clasifica la marcación del día según entrada, salida y horarios.
+
+        Args:
+            entrada (str | None): Hora de entrada (HH:MM) o None.
+            salida (str | None): Hora de salida (HH:MM) o None.
+
+        Returns:
+            str: Inasistencia, Atrasado, Salida anticipada, Pendiente de salida,
+                 Solo salida, Atrasado y salida anticipada o Normal.
+        """
         if not entrada and not salida:
             return "Inasistencia"
         if not entrada:
@@ -1329,6 +1644,7 @@ class DashboardAdminApp:
     # REPORTES
     # ------------------------------------------------------------------
     def _crear_reportes(self):
+        """Construye la página Reportes: filtros, métricas, pestañas y exportación."""
         frame = tk.Frame(self._scroll_frame, bg=C["bg_app"])
         self.paginas["reportes"] = frame
 
@@ -1339,10 +1655,14 @@ class DashboardAdminApp:
         barra = tk.Frame(frame, bg=C["bg_app"])
         barra.pack(fill="x", padx=24, pady=(0, 10))
 
-        self.entry_desde = self._entry_fecha(barra, (datetime.now() - timedelta(days=6)).strftime("%Y-%m-%d"), 12)
+        self.entry_desde = self._combo_fecha(barra, (datetime.now() -
+                                                    timedelta(days=6)).strftime("%Y-%m-%d"))
         self.entry_desde.pack(side="left", padx=(0, 10))
-        self.entry_hasta = self._entry_fecha(barra, self._obtener_fecha_hoy(), 12)
+        self.entry_hasta = self._combo_fecha(barra, self._obtener_fecha_hoy())
         self.entry_hasta.pack(side="left", padx=(0, 10))
+        for campo in (self.entry_desde, self.entry_hasta):
+            campo.bind("<<ComboboxSelected>>",
+                       lambda e: self._programar_generar_reportes())
 
         self.entry_buscar_reporte = tk.Entry(
             barra, bg=C["input_bg"], fg=C["text_secondary"], relief="flat",
@@ -1357,16 +1677,18 @@ class DashboardAdminApp:
 
         self.btn_generar_reportes = PrimaryButton(barra, "GENERAR REPORTES", icono="grafica")
         self.btn_generar_reportes.pack(side="left", padx=(0, 10))
-        self.btn_generar_reportes.config(
-            command=lambda: threading.Thread(target=self._generar_reportes, daemon=True).start())
+        self.btn_generar_reportes.config(command=self._lanzar_generar_reportes)
 
-        self.btn_exportar = SecondaryButton(barra, "EXPORTAR CSV", icono=None)
+        self.btn_exportar = SecondaryButton(barra, "EXPORTAR EXCEL", icono=None)
         self.btn_exportar.pack(side="left")
-        self.btn_exportar.config(command=self._exportar_csv)
+        self.btn_exportar.config(command=self._exportar_excel)
 
-        self.lbl_reporte = tk.Label(barra, text="", bg=C["bg_app"],
-                                    fg=C["text_secondary"], font=F["small"])
-        self.lbl_reporte.pack(side="left", padx=8)
+        fila_estado = tk.Frame(frame, bg=C["bg_app"])
+        fila_estado.pack(fill="x", padx=24, pady=(0, 10))
+        self.lbl_reporte = tk.Label(fila_estado, text="", bg=C["bg_app"],
+                                    fg=C["text_secondary"], font=F["small"],
+                                    anchor="w", justify="left", wraplength=1000)
+        self.lbl_reporte.pack(fill="x")
 
         fila_metricas = tk.Frame(frame, bg=C["bg_app"])
         fila_metricas.pack(fill="x", padx=24, pady=(0, 10))
@@ -1394,6 +1716,17 @@ class DashboardAdminApp:
         self.notebook_reportes = notebook
 
         def _tab(titulo, clave, cols_def, con_check=False):
+            """Crea una pestaña del notebook de reportes con su tabla y scroll.
+
+            Args:
+                titulo (str): Texto de la pestaña.
+                clave (str): Clave del tipo de reporte.
+                cols_def (list): Definiciones (columna, título, ancho).
+                con_check (bool): Si incluye columna de checkboxes.
+
+            Returns:
+                ttk.Treeview: La tabla creada.
+            """
             tab = tk.Frame(notebook, bg=C["surface"])
             cont = tk.Frame(tab, bg=C["surface"])
             cont.pack(fill="both", expand=True, padx=6, pady=6)
@@ -1464,21 +1797,29 @@ class DashboardAdminApp:
         SecondaryButton(barra_acciones, "MARCAR COMO LE\u00cdDA",
                         command=self._marcar_alerta_leida).pack(side="left")
 
-    def _entry_fecha(self, padre, valor, ancho):
-        entry = tk.Entry(
-            padre, bg=C["input_bg"], fg=C["text_primary"], relief="flat",
-            insertbackground=C["text_primary"], font=F["body"], width=ancho,
-            highlightthickness=1, highlightbackground=C["border"],
-            highlightcolor=C["border_active"], justify="center")
-        entry.insert(0, valor)
-        return entry
+    def _combo_fecha(self, padre, valor):
+        """Crea un desplegable de fechas con valores solo hasta hoy.
+
+        Incluye los últimos 60 días y excluye fechas futuras para que el
+        rango de reportes no apunte a días sin marcaciones.
+        """
+        hoy = datetime.now()
+        opciones = [(hoy - timedelta(days=i)).strftime("%Y-%m-%d")
+                    for i in range(60, -1, -1)]
+        combo = ttk.Combobox(
+            padre, values=opciones, state="readonly", style="Dark.TCombobox",
+            font=F["body"], width=12, justify="center")
+        combo.set(valor)
+        return combo
 
     def _limpiar_placeholder_reporte(self, e):
+        """Borra el texto de ejemplo del buscador de reportes al recibir el foco."""
         if self.entry_buscar_reporte.get() == "Buscar trabajador...":
             self.entry_buscar_reporte.delete(0, "end")
         self.entry_buscar_reporte.config(fg=C["text_primary"])
 
     def _toggle_check_alerta(self, event):
+        """Marca o desmarca una alerta de la tabla cuando se hace clic en su fila."""
         region = self.tabla_alertas.identify("region", event.x, event.y)
         if region != "cell":
             return
@@ -1496,6 +1837,7 @@ class DashboardAdminApp:
         return "break"
 
     def _aplicar_filtro_reporte(self):
+        """Filtra los reportes cacheados por el texto del buscador y actualiza la UI."""
         texto = self.entry_buscar_reporte.get().strip().lower()
         if texto == "buscar trabajador...":
             texto = ""
@@ -1508,6 +1850,7 @@ class DashboardAdminApp:
         self._actualizar_metricas()
 
     def _poblar_tabla(self, tabla, filas):
+        """Rellena una tabla de reportes y muestra un aviso cuando no hay datos."""
         for item in tabla.get_children():
             tabla.delete(item)
         if not filas:
@@ -1517,6 +1860,7 @@ class DashboardAdminApp:
             tabla.insert("", "end", values=f, text="\u2610")
 
     def _ordenar_reporte(self, clave, col_id, col_idx):
+        """Alterna el orden de una pestaña por la columna indicada."""
         filas = self._cache_reportes.get(clave)
         if not filas:
             return
@@ -1527,6 +1871,7 @@ class DashboardAdminApp:
                                                          ordenadas))
 
     def _actualizar_titulos_tabs(self):
+        """Actualiza los títulos de las pestañas con el conteo de filas visibles."""
         nombres = {
             "atrasos": "Atrasos",
             "salidas": "Salidas anticipadas",
@@ -1541,6 +1886,7 @@ class DashboardAdminApp:
             self.notebook_reportes.tab(idx, text=f"{titulo} ({len(filas)})")
 
     def _actualizar_metricas(self):
+        """Recalcula las tarjetas de métricas a partir de las alertas cacheadas."""
         alertas = self._cache_reportes.get("alertas", [])
         total = len(alertas)
         pendientes = len([a for a in alertas if "Pendiente" in a[4]])
@@ -1550,25 +1896,60 @@ class DashboardAdminApp:
         self.metricas_reporte["resueltas"].config(text=str(resueltas))
 
     def _filtro_activo(self):
+        """Texto de búsqueda vigente en el buscador de reportes (o cadena vacía)."""
         texto = self.entry_buscar_reporte.get().strip().lower()
         if texto == "buscar trabajador...":
             return ""
         return texto
 
+    def _programar_generar_reportes(self):
+        """Agenda la regeneración de reportes tras cambiar el rango de fechas."""
+        if getattr(self, "_after_reportes_id", None):
+            self.ventana.after_cancel(self._after_reportes_id)
+        self._after_reportes_id = self.ventana.after(
+            650, self._lanzar_generar_reportes)
+
+    def _lanzar_generar_reportes(self):
+        """Lanza la generación de reportes en un hilo (evita recargas dobles)."""
+        if getattr(self, "_after_reportes_id", None):
+            self.ventana.after_cancel(self._after_reportes_id)
+            self._after_reportes_id = None
+        if not self.firebase_listo or getattr(self, "_generando_reportes", False):
+            return
+        self._generando_reportes = True
+        threading.Thread(target=self._hilo_generar_reportes, daemon=True).start()
+
+    def _hilo_generar_reportes(self):
+        """Ejecuta la generación de reportes y libera el candado al terminar."""
+        try:
+            self._generar_reportes()
+        finally:
+            self._generando_reportes = False
+
     def _generar_reportes(self):
+        """Valida el rango y genera los cuatro reportes (atrasos, salidas, etc.)."""
         desde = self.entry_desde.get().strip()
         hasta = self.entry_hasta.get().strip()
-        dias = set()
         try:
             d = datetime.strptime(desde, "%Y-%m-%d")
             h = datetime.strptime(hasta, "%Y-%m-%d")
-            while d <= h:
-                dias.add(d.strftime("%Y-%m-%d"))
-                d += timedelta(days=1)
         except Exception:
             self.ventana.after(0, lambda: self.lbl_reporte.config(
                 text="Rango de fechas inv\u00e1lido (usa AAAA-MM-DD).", fg=C["danger"]))
             return
+        if d > h:
+            d, h = h, d
+        if h > datetime.now():
+            self.ventana.after(0, lambda: self.lbl_reporte.config(
+                text="El rango no puede incluir fechas futuras.", fg=C["danger"]))
+            return
+        desde = d.strftime("%Y-%m-%d")
+        hasta = h.strftime("%Y-%m-%d")
+        dias = set()
+        dia = d
+        while dia <= h:
+            dias.add(dia.strftime("%Y-%m-%d"))
+            dia += timedelta(days=1)
 
         self.ventana.after(0, lambda: (
             self.btn_generar_reportes.set_loading(True, "GENERANDO..."),
@@ -1583,9 +1964,9 @@ class DashboardAdminApp:
             self._aplicar_filtro_reporte()))
 
     def _generar_atrasos(self, desde, hasta):
+        """Calcula los atrasos (entradas posteriores a la hora límite) del rango."""
         try:
             docs = self.db.collection("marcaciones") \
-                .where(filter=FieldFilter("tipo", "==", "entrada")) \
                 .where(filter=FieldFilter("fecha", ">=", desde)) \
                 .where(filter=FieldFilter("fecha", "<=", hasta)).get()
         except Exception as e:
@@ -1597,8 +1978,10 @@ class DashboardAdminApp:
         filas = []
         for d in docs:
             m = d.to_dict()
-            hora = m.get("hora") or ""
-            if hora > self.hora_entrada:
+            if m.get("tipo") != "entrada":
+                continue
+            hora = (m.get("hora") or "")[:5]
+            if hora and hora > self.hora_entrada:
                 filas.append((
                     nombres.get(m.get("usuario"), m.get("usuario") or "?"),
                     m.get("fecha", ""),
@@ -1610,9 +1993,9 @@ class DashboardAdminApp:
         self.ventana.after(0, lambda: self._poblar_tabla(self.tabla_atrasos, filas))
 
     def _generar_salidas(self, desde, hasta):
+        """Calcula las salidas anticipadas (anteriores a la hora límite) del rango."""
         try:
             docs = self.db.collection("marcaciones") \
-                .where(filter=FieldFilter("tipo", "==", "salida")) \
                 .where(filter=FieldFilter("fecha", ">=", desde)) \
                 .where(filter=FieldFilter("fecha", "<=", hasta)).get()
         except Exception as e:
@@ -1624,7 +2007,9 @@ class DashboardAdminApp:
         filas = []
         for d in docs:
             m = d.to_dict()
-            hora = m.get("hora") or ""
+            if m.get("tipo") != "salida":
+                continue
+            hora = (m.get("hora") or "")[:5]
             if hora and hora < self.hora_salida:
                 filas.append((
                     nombres.get(m.get("usuario"), m.get("usuario") or "?"),
@@ -1637,8 +2022,12 @@ class DashboardAdminApp:
         self.ventana.after(0, lambda: self._poblar_tabla(self.tabla_salidas, filas))
 
     def _generar_inasistencias(self, dias):
+        """Lista los días hábiles sin registro de cada trabajador en el rango."""
         try:
-            docs = self.db.collection("marcaciones").get()
+            desde, hasta = min(dias), max(dias)
+            docs = self.db.collection("marcaciones") \
+                .where(filter=FieldFilter("fecha", ">=", desde)) \
+                .where(filter=FieldFilter("fecha", "<=", hasta)).get()
         except Exception as e:
             self.ventana.after(0, lambda e=e: self.lbl_reporte.config(
                 text=str(e), fg=C["danger"]))
@@ -1650,9 +2039,10 @@ class DashboardAdminApp:
         nombres = {u.get("usuario"): (u.get("nombre") or u.get("usuario"))
                    for u in self.usuarios}
         filas = []
-        for u in self.usuarios:
+        hoy = self._obtener_fecha_hoy()
+        for u in self._trabajadores():
             for fecha in dias:
-                if not _es_dia_habl(fecha):
+                if not _es_dia_habl(fecha) or fecha > hoy:
                     continue
                 if (u.get("usuario"), fecha) not in registrados:
                     filas.append((
@@ -1668,6 +2058,7 @@ class DashboardAdminApp:
                                                          filas))
 
     def _generar_alertas(self, desde, hasta):
+        """Carga las alertas del rango y las asocia con su id para marcarlas leídas."""
         try:
             alertas = Alerta.listar(self.db, fecha_inicio=desde, fecha_fin=hasta)
         except Exception as e:
@@ -1698,6 +2089,7 @@ class DashboardAdminApp:
         self.ventana.after(0, lambda: self._poblar_tabla(self.tabla_alertas, filas))
 
     def _marcar_alerta_leida(self):
+        """Marca como leídas las alertas seleccionadas con los checkboxes."""
         a_marcar = []
         for fila in list(self._checkeos_reportes):
             alerta_id = self._alertas_por_fila.get(tuple(fila))
@@ -1707,54 +2099,145 @@ class DashboardAdminApp:
             self._mostrar_toast("Selecciona una alerta para marcarla como le\u00edda",
                                 ok=False)
             return
-        for alerta_id in a_marcar:
-            try:
-                Alerta.marcar_leida(self.db, alerta_id)
-            except Exception as e:
-                print(e)
         self._checkeos_reportes.clear()
-        self._generar_alertas(self.entry_desde.get().strip(),
-                              self.entry_hasta.get().strip())
-        self._poblar_alertas_pendientes()
-        self._actualizar_metricas()
-        self._actualizar_titulos_tabs()
-        self._mostrar_toast(f"{len(a_marcar)} alerta(s) marcada(s) como le\u00edda(s)")
+        threading.Thread(target=self._marcar_alertas_leidas,
+                         args=(a_marcar,), daemon=True).start()
 
-    def _exportar_csv(self):
-        tab_activa = self.notebook_reportes.index("current")
-        clave = ["atrasos", "salidas", "inasistencias", "alertas"][tab_activa]
-        filas = self._cache_reportes.get(clave, [])
-        if not filas:
-            self._mostrar_toast("No hay datos en esta pesta\u00f1a para exportar",
-                                ok=False)
+    def _exportar_excel(self):
+        """Exporta todos los reportes a un archivo .xlsx con formato."""
+        claves = ("atrasos", "salidas", "inasistencias", "alertas")
+        if not any(self._cache_reportes.get(k) for k in claves):
+            self._mostrar_toast(
+                "No hay datos para exportar. Genera los reportes primero.",
+                ok=False)
             return
-        encabezados = {
-            "atrasos": ["Trabajador", "Fecha", "Hora de entrada", "Minutos de atraso"],
-            "salidas": ["Trabajador", "Fecha", "Hora de salida", "Minutos anticipados"],
-            "inasistencias": ["Trabajador", "Fecha", "Entrada", "Salida", "Estado"],
-            "alertas": ["Trabajador", "Tipo", "Fecha", "Hora", "Estado"],
-        }
+
         nombre = filedialog.asksaveasfilename(
-            title="Exportar CSV",
-            defaultextension=".csv",
-            filetypes=[("CSV", "*.csv")],
-            initialfile=f"reporte_{clave}_{self._obtener_fecha_hoy()}.csv")
+            title="Exportar a Excel",
+            defaultextension=".xlsx",
+            filetypes=[("Excel", "*.xlsx")],
+            initialfile=f"reporte_asistencia_{self._obtener_fecha_hoy()}.xlsx")
         if not nombre:
             return
-        try:
-            with open(nombre, "w", newline="", encoding="utf-8-sig") as f:
-                escritor = csv.writer(f)
-                escritor.writerow(encabezados[clave])
-                for fila in filas:
-                    escritor.writerow(list(fila))
-            self._mostrar_toast("CSV exportado correctamente")
-        except Exception as e:
-            self._mostrar_toast(f"Error al exportar: {e}", ok=False)
+
+        def _construir_y_guardar():
+            """Construye el libro de Excel y lo guarda sin bloquear la interfaz."""
+            from openpyxl import Workbook
+
+            encabezados = {
+                "atrasos": ["Trabajador", "Fecha", "Hora de entrada",
+                            "Minutos de atraso"],
+                "salidas": ["Trabajador", "Fecha", "Hora de salida",
+                            "Minutos anticipados"],
+                "inasistencias": ["Trabajador", "Fecha", "Entrada", "Salida",
+                                  "Estado"],
+                "alertas": ["Trabajador", "Tipo", "Fecha", "Hora", "Estado"],
+            }
+            titulos = {
+                "atrasos": "Atrasos",
+                "salidas": "Salidas anticipadas",
+                "inasistencias": "Inasistencias",
+                "alertas": "Alertas",
+            }
+            estilos_estado = {
+                "Inasistencia": C["danger"].lstrip("#"),
+                "Atrasado": C["warning"].lstrip("#"),
+                "Salida anticipada": C["warning"].lstrip("#"),
+                "Pendiente": C["warning"].lstrip("#"),
+                "Le\u00edda": C["success"].lstrip("#"),
+                "Normal": C["success"].lstrip("#"),
+            }
+            try:
+                wb = Workbook()
+                wb.remove(wb.active)
+                self._hoja_resumen(wb, titulos)
+                for clave in claves:
+                    self._hoja_reporte(wb, clave, encabezados[clave],
+                                       titulos[clave], estilos_estado)
+                wb.save(nombre)
+                self.ventana.after(
+                    0, lambda: self._mostrar_toast("Excel exportado correctamente"))
+            except Exception as e:
+                self.ventana.after(0, lambda e=e: self._mostrar_toast(
+                    f"Error al exportar: {e}", ok=False))
+
+        threading.Thread(target=_construir_y_guardar, daemon=True).start()
+
+    def _hoja_resumen(self, wb, titulos):
+        """Agrega la hoja Resumen con los totales por tipo de reporte."""
+        from openpyxl.styles import Alignment, Font, PatternFill
+
+        hoja = wb.create_sheet("Resumen")
+        hoja.append(["Reporte", "Cantidad"])
+        filas = [
+            (titulos["atrasos"], len(self._cache_reportes["atrasos"])),
+            (titulos["salidas"], len(self._cache_reportes["salidas"])),
+            (titulos["inasistencias"], len(self._cache_reportes["inasistencias"])),
+            ("Alertas", len(self._cache_reportes["alertas"])),
+        ]
+        n_alertas = len(self._cache_reportes["alertas"])
+        pendientes = sum(1 for a in self._cache_reportes["alertas"]
+                         if "Pendiente" in a[4])
+        filas.append(("Alertas pendientes", pendientes))
+        filas.append(("Alertas resueltas", n_alertas - pendientes))
+        for fila in filas:
+            hoja.append(list(fila))
+
+        color = C["accent"].lstrip("#")
+        for celda in hoja[1]:
+            celda.font = Font(bold=True, color="FFFFFF")
+            celda.fill = PatternFill("solid", fgColor=color)
+            celda.alignment = Alignment(horizontal="center")
+        hoja.freeze_panes = "A2"
+        hoja.column_dimensions["A"].width = 24
+        hoja.column_dimensions["B"].width = 14
+
+    def _hoja_reporte(self, wb, clave, encabezado, titulo, estilos_estado):
+        """Agrega una hoja de reporte con encabezado, anchos, filtro y colores."""
+        from openpyxl.styles import Alignment, Font, PatternFill
+        from openpyxl.utils import get_column_letter
+
+        hoja = wb.create_sheet(titulo[:31])
+        hoja.append(encabezado)
+        for fila in self._cache_reportes.get(clave, []):
+            hoja.append(list(fila))
+
+        n_columnas = len(encabezado)
+        color = C["accent"].lstrip("#")
+        for i, celda in enumerate(hoja[1], 1):
+            celda.font = Font(bold=True, color="FFFFFF")
+            celda.fill = PatternFill("solid", fgColor=color)
+            celda.alignment = Alignment(horizontal="center")
+            letra = get_column_letter(i)
+            largos = [len(str(celda.value))]
+            for fila in hoja.iter_rows(min_col=i, max_col=i, min_row=2):
+                for celdilla in fila:
+                    if celdilla.value is not None:
+                        if isinstance(celdilla.value, int):
+                            celdilla.alignment = Alignment(horizontal="center")
+                        largos.append(len(str(celdilla.value)))
+            hoja.column_dimensions[letra].width = min(max(largos) + 2, 42)
+
+        estado_col = next((i for i, h in enumerate(encabezado)
+                           if h == "Estado"), None)
+        if estado_col is not None:
+            for fila in hoja.iter_rows(min_row=2, max_row=hoja.max_row):
+                celda = fila[estado_col]
+                texto = str(celda.value or "")
+                for palabra, hex_color in estilos_estado.items():
+                    if palabra in texto:
+                        celda.font = Font(bold=True, color=hex_color)
+                        break
+
+        if n_columnas:
+            hoja.freeze_panes = "A2"
+            hoja.auto_filter.ref = hoja.dimensions
 
     # ------------------------------------------------------------------
     # CONFIGURACI\u00d3N
     # ------------------------------------------------------------------
     def _crear_config(self):
+        """Construye la página Configuración: empresa, horarios y guardado."""
         frame = tk.Frame(self._scroll_frame, bg=C["bg_app"])
         self.paginas["config"] = frame
 
@@ -1845,6 +2328,7 @@ class DashboardAdminApp:
             command=lambda: threading.Thread(target=self._guardar_config, daemon=True).start())
 
     def _entry_hora(self, padre, valor):
+        """Crea un campo de entrada para horas con un valor inicial."""
         entry = tk.Entry(
             padre, bg=C["input_bg"], fg=C["text_primary"], relief="flat",
             insertbackground=C["text_primary"], font=F["body"], width=10,
@@ -1854,6 +2338,7 @@ class DashboardAdminApp:
         return entry
 
     def _poblar_config_ui(self):
+        """Vuelca los valores actuales de configuración en los campos del formulario."""
         if getattr(self, "_cerrando", False) or not hasattr(self, "entry_empresa"):
             return
         self.entry_empresa.delete(0, "end")
@@ -1865,6 +2350,7 @@ class DashboardAdminApp:
         self.var_notif.set(self.notificaciones)
 
     def _descartar_config(self):
+        """Restaura los campos de configuración a sus valores guardados."""
         self._poblar_config_ui()
         for lbl in (self.lbl_err_empresa, self.lbl_err_ent, self.lbl_err_sal):
             lbl.config(text="")
@@ -1874,11 +2360,13 @@ class DashboardAdminApp:
             text="A\u00fan no hay cambios guardados"))
 
     def _guardar_config(self):
+        """Valida y guarda la configuración de empresa y horarios en Firestore."""
         nombre = self.entry_empresa.get().strip()
         hora_ent = self.entry_hora_ent.get().strip()
         hora_sal = self.entry_hora_sal.get().strip()
 
         def _error(lbl, msg):
+            """Muestra un error en la etiqueta dada y quita el estado de carga."""
             self.ventana.after(0, lambda: (lbl.config(text=msg),
                                            self.btn_guardar_config.set_loading(False)))
 
@@ -1925,6 +2413,7 @@ class DashboardAdminApp:
     # USUARIOS
     # ------------------------------------------------------------------
     def _abrir_gestion_usuarios(self):
+        """Abre la ventana de gestión de usuarios."""
         import gestion_usuarios
         gestion_usuarios.GestionUsuariosApp(self.ventana, self.usuario)
 
@@ -1932,20 +2421,24 @@ class DashboardAdminApp:
     # CERRAR SESI\u00d3N / ANIMACIONES
     # ------------------------------------------------------------------
     def _cerrar_sesion(self):
+        """Cierra la ventana y vuelve a abrir la ventana de login."""
         self._cerrando = True
         self._detener_polling()
         self.volver_login = True
         self.ventana.destroy()
 
     def _mostrar_toast(self, texto, ok=True):
+        """Muestra una notificación breve de éxito o error."""
         toast = Toast(self.ventana, texto, tipo="exito" if ok else "error")
         toast.mostrar()
 
     def _iniciar_arrastre(self, e):
+        """Guarda el punto inicial para arrastrar la ventana sin bordes."""
         self._offset_x = e.x
         self._offset_y = e.y
 
     def _arrastrar(self, e):
+        """Mueve la ventana según el desplazamiento del puntero."""
         x = self.ventana.winfo_x() + e.x - self._offset_x
         y = self.ventana.winfo_y() + e.y - self._offset_y
         self.ventana.geometry(f"+{x}+{y}")

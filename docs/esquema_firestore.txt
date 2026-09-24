@@ -1,0 +1,95 @@
+ESQUEMA DE BASE DE DATOS - SISTEMA DE REGISTRO DE ASISTENCIA (MVP)
+Asignatura: Integración de Competencias II (IEI-094)
+Motor: Google Cloud Firestore (NoSQL, modo nativo)
+Criterios de normalización aplicados:
+  - 1FN: atributos atómicos, sin grupos repetidos.
+  - 2FN: cada atributo depende del identificador completo del documento (PK).
+  - 3FN: sin dependencias transitivas.
+
+NOTA SOBRE DESNORMALIZACIÓN:
+  El campo 'correo' se replica en 'marcaciones' y 'login_log' únicamente para que
+  los reportes no requieran una segunda consulta. Es un dato derivado de 'usuarios'
+  y siempre refiere al mismo valor.
+
+=====================================================================
+COLECCIÓN: usuarios
+Identificador (PK): usuario (string)
+Atributos:
+  - correo        (string)   Correo del trabajador (único).
+  - clave         (string)   Contraseña del usuario.
+  - rol           (string)   'administrador' | 'trabajador'.
+  - nombre        (string)   Nombre completo del trabajador.
+Referencias: (ninguna - tabla raíz)
+
+Ejemplo:
+  { 'usuario': 'admin', 'correo': 'admin@empresa.com',
+    'clave': 'admin123', 'rol': 'administrador', 'nombre': 'Juan Perez' }
+
+=====================================================================
+COLECCIÓN: marcaciones
+Identificador (PK): <usuario>_<fecha>_<tipo> (string)
+Atributos:
+  - usuario           (string)  Identificador del trabajador.
+  - correo            (string)  Correo del trabajador (desnormalizado de 'usuarios').
+  - tipo              (string)  'entrada' | 'salida'.
+  - fecha             (string)  Fecha de la marcación (YYYY-MM-DD).
+  - hora              (string)  Hora de la marcación (HH:MM:SS).
+  - atrasado          (bool)    true si la entrada fue después de las 09:30.
+  - salida_anticipada (bool)    true si la salida fue antes de las 17:30.
+  - timestamp         (datetime) Fecha y hora exacta del registro.
+Referencias: usuario -> usuarios.usuario
+
+Ejemplo:
+  { 'usuario': 'admin', 'correo': 'admin@empresa.com', 'tipo': 'entrada',
+    'fecha': '2026-09-07', 'hora': '08:10:22', 'atrasado': false,
+    'salida_anticipada': false, 'timestamp': ... }
+
+=====================================================================
+COLECCIÓN: alertas
+Identificador (PK): alerta_<tipo>_<usuario>_<fecha> (string)
+Atributos:
+  - tipo      (string)  'atraso' | 'salida_anticipada' | 'inasistencia'.
+  - usuario   (string)  Identificador del trabajador asociado.
+  - fecha     (string)  Fecha de la incidencia (YYYY-MM-DD).
+  - hora      (string)  Hora registrada (atraso/salida anticipada).
+  - estado    (string)  'pendiente' | 'leida'.
+  - timestamp (datetime) Fecha y hora de creación de la alerta.
+Referencias: usuario -> usuarios.usuario
+
+Ejemplo:
+  { 'tipo': 'atraso', 'usuario': 'jose', 'fecha': '2026-09-08',
+    'hora': '10:05:00', 'estado': 'pendiente', 'timestamp': ... }
+
+=====================================================================
+COLECCIÓN: login_log
+Identificador (PK): <usuario>_<fecha>_<n> (string)
+Atributos:
+  - usuario  (string)  Identificador que intentó acceder.
+  - correo   (string)  Correo usado (desnormalizado de 'usuarios').
+  - fecha    (string)  Fecha del intento (YYYY-MM-DD).
+  - hora     (string)  Hora del intento (HH:MM:SS).
+  - resultado (string) 'exitoso' | 'fallido'.
+Referencias: usuario -> usuarios.usuario
+
+Ejemplo:
+  { 'usuario': 'jose', 'correo': 'jose@empresa.com', 'fecha': '2026-09-07',
+    'hora': '10:05:00', 'resultado': 'fallido' }
+
+=====================================================================
+COLECCIÓN: config
+Identificador (PK): empresa (string, documento único)
+Atributos:
+  - nombre      (string)  Nombre de la empresa.
+  - hora_entrada (string) Límite de entrada (09:30).
+  - hora_salida  (string) Límite de salida (17:30).
+Referencias: (ninguna - parámetros del sistema)
+
+Ejemplo:
+  { 'nombre': 'Empresa de Productos Químicos',
+    'hora_entrada': '09:30:00', 'hora_salida': '17:30:00' }
+
+=====================================================================
+Feriados considerados (excluidos del cálculo de días hábiles):
+  2026-09-17, 2026-09-18
+
+Fin del esquema.

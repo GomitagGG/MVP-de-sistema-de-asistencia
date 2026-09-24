@@ -7,6 +7,8 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 from google.cloud.firestore_v1.base_query import FieldFilter
 
+from modelos import FERIADOS
+
 
 def ruta_relativa(ruta):
     """Resuelve la ruta absoluta de un recurso dentro del proyecto.
@@ -116,7 +118,7 @@ def dias_desde_inicio_mes():
     primero = hoy.replace(day=1)
     d = primero
     while d <= hoy:
-        if d.weekday() < 5:
+        if d.weekday() < 5 and d.strftime("%Y-%m-%d") not in FERIADOS:
             dias.append(d)
         d += timedelta(days=1)
     return dias

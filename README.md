@@ -117,7 +117,7 @@ Cada documento representa una marcación de entrada o salida (requerimiento CA-0
 | `atrasado` | `true` si la entrada fue después de las 09:30 |
 | `salida_anticipada` | `true` si la salida fue antes de las 17:30 |
 
-El login acepta **correo o usuario** como identificador. Ver `docs/` para el documento de requerimientos, el plan de pruebas y las preguntas de cierre.
+El login acepta **correo o usuario** como identificador. Ver `docs/informe-etapa1.docx` para el documento de requerimientos, el plan de pruebas y el informe colaborativo; el esquema de la base de datos está en `docs/esquema_firestore.txt`.
 
 ### Colecciones de Firestore
 

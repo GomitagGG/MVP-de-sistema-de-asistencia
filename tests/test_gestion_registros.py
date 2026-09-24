@@ -26,6 +26,15 @@ def test_dias_habiles_excluye_fin_de_semana():
     assert dias == ["2026-09-11", "2026-09-14"]
 
 
+def test_dias_habiles_excluye_feriados():
+    """Prueba que los feriados se excluyan del cálculo de días hábiles.
+
+    @return None: Verifica que 2026-09-17 y 2026-09-18 no se incluyan.
+    """
+    dias = _dias_habiles("2026-09-14", "2026-09-18")
+    assert dias == ["2026-09-14", "2026-09-15", "2026-09-16"]
+
+
 def test_dias_habiles_rango_vacio_o_inverso():
     """Prueba que un rango vacío o invertido devuelva una lista vacía.
 

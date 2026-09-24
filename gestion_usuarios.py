@@ -122,6 +122,12 @@ class GestionUsuariosApp:
         threading.Thread(target=self._inicializar_db, daemon=True).start()
 
     def _centrar_ventana(self, w, h):
+        """Centra la ventana de gestión de usuarios en la pantalla.
+
+        @param w: Ancho de la ventana.
+        @param h: Alto de la ventana.
+        @return None: Aplica la geometría centrada a la ventana.
+        """
         sw = self.ventana.winfo_screenwidth()
         sh = self.ventana.winfo_screenheight()
         x = (sw - w) // 2
@@ -428,6 +434,12 @@ class GestionUsuarioForm:
         self._construir_formulario()
 
     def _centrar_ventana(self, w, h):
+        """Centra la ventana del formulario de usuario en la pantalla.
+
+        @param w: Ancho de la ventana.
+        @param h: Alto de la ventana.
+        @return None: Aplica la geometría centrada a la ventana.
+        """
         sw = self.ventana.winfo_screenwidth()
         sh = self.ventana.winfo_screenheight()
         x = (sw - w) // 2

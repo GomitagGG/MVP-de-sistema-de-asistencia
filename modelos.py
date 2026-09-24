@@ -34,6 +34,9 @@ def get_db():
     return firestore.client()
 
 
+FERIADOS = frozenset(("2026-09-17", "2026-09-18"))
+
+
 class Usuario:
     """Representa un usuario del sistema de asistencia.
 
@@ -306,7 +309,14 @@ class Alerta:
         @return list: Lista de alertas ordenadas por fecha y hora.
         """
         col = db.collection("alertas")
-        docs = col.get()
+        consulta = col
+        if fecha_inicio:
+            consulta = consulta.where(
+                filter=FieldFilter("fecha", ">=", fecha_inicio))
+        if fecha_fin:
+            consulta = consulta.where(
+                filter=FieldFilter("fecha", "<=", fecha_fin))
+        docs = consulta.get()
         resultados = []
         for doc in docs:
             datos = doc.to_dict()

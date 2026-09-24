@@ -8,11 +8,24 @@ F = FONTS
 
 
 def _fuente(nombre):
+    """Obtiene la fuente registrada en el tema, con valor de respaldo.
+
+    @param nombre: Clave de la fuente en el diccionario FONTS.
+    @return tuple: Especificación de la fuente (familia, tamaño, grosor).
+    """
     return F.get(nombre, F["body"])
 
 
 class SurfaceCard(tk.Frame):
     def __init__(self, master, bg=None, radius=14, padding=20, **kwargs):
+        """Inicializa una tarjeta con fondo, borde y esquinas redondeadas.
+
+        @param master: Widget padre que contiene la tarjeta.
+        @param bg: Color de fondo (por defecto el color de superficie).
+        @param radius: Radio de las esquinas redondeadas.
+        @param padding: Espaciado interno de la tarjeta.
+        @param kwargs: Opciones adicionales de tkinter para el frame.
+        """
         bg = bg or C["surface"]
         super().__init__(master, bg=bg, highlightthickness=1,
                          highlightbackground=C["border"], **kwargs)
@@ -23,12 +36,27 @@ class SurfaceCard(tk.Frame):
 
 class PageHeader(tk.Frame):
     def __init__(self, master, titulo, subtitulo="", estado_conexion=None, **kwargs):
+        """Crea el encabezado de página con título, subtítulo y estado.
+
+        @param master: Widget padre que contiene el encabezado.
+        @param titulo: Texto principal del encabezado.
+        @param subtitulo: Texto secundario opcional.
+        @param estado_conexion: Estado de conexión a mostrar, si se entrega.
+        @param kwargs: Opciones adicionales de tkinter para el frame.
+        """
         super().__init__(master, bg=C["bg_app"], **kwargs)
         self.col_titulo(0, titulo, subtitulo)
         if estado_conexion:
             self.col_estado(1, estado_conexion)
 
     def col_titulo(self, col, titulo, subtitulo):
+        """Coloca el título y el subtítulo en una columna del encabezado.
+
+        @param col: Índice de la columna del grid donde se dibuja.
+        @param titulo: Texto del título.
+        @param subtitulo: Texto del subtítulo (omitido si es vacío).
+        @return None: Dibuja las etiquetas dentro del encabezado.
+        """
         tk.Label(self, text=titulo, bg=C["bg_app"], fg=C["text_primary"],
                  font=F["page_title"], anchor="w").grid(row=0, column=col, sticky="w")
         if subtitulo:
@@ -36,6 +64,12 @@ class PageHeader(tk.Frame):
                      font=F["page_subtitle"], anchor="w").grid(row=1, column=col, sticky="w")
 
     def col_estado(self, col, estado):
+        """Dibuja el indicador de estado con punto y texto en el encabezado.
+
+        @param col: Índice de la columna del grid donde se dibuja.
+        @param estado: Texto que describe el estado de conexión.
+        @return None: Agrega el indicador visual de estado.
+        """
         dot = tk.Label(self, text="●", bg=C["bg_app"], fg=C["success"],
                        font=("Segoe UI", 10))
         dot.grid(row=0, column=col, sticky="ne", padx=(0, 8), pady=(6, 0))
@@ -46,6 +80,17 @@ class PageHeader(tk.Frame):
 class MetricCard(SurfaceCard):
     def __init__(self, master, titulo, valor, subtitulo="", color=C["info"],
                  icono="reloj", tamano=(267, 120), **kwargs):
+        """Crea una tarjeta de métrica con título, valor e icono.
+
+        @param master: Widget padre que contiene la tarjeta.
+        @param titulo: Nombre de la métrica.
+        @param valor: Valor numérico o texto a destacar.
+        @param subtitulo: Detalle opcional bajo el valor.
+        @param color: Color de acento del anillo y del icono.
+        @param icono: Identificador del icono en la librería de iconos.
+        @param tamano: Tupla (ancho, alto) de la tarjeta.
+        @param kwargs: Opciones adicionales de tkinter.
+        """
         super().__init__(master, padding=18, **kwargs)
         self.titulo = titulo
         self.valor = valor
@@ -59,6 +104,10 @@ class MetricCard(SurfaceCard):
         self._dibujar()
 
     def _dibujar(self):
+        """Redibuja el contenido de la tarjeta: anillo, icono y etiquetas.
+
+        @return None: Limpia los widgets previos y pinta la métrica.
+        """
         for w in self.winfo_children():
             w.destroy()
         import icons
@@ -83,6 +132,13 @@ class MetricCard(SurfaceCard):
 
 class StatusBadge(tk.Label):
     def __init__(self, master, texto, tipo="info", **kwargs):
+        """Crea una etiqueta de estado con colores según el tipo.
+
+        @param master: Widget padre que contiene la etiqueta.
+        @param texto: Texto mostrado en la etiqueta.
+        @param tipo: Tipo de estado (exito, warning, danger, info, neutral).
+        @param kwargs: Opciones adicionales de tkinter para la etiqueta.
+        """
         colores = {
             "exito": (C["success"], C["success_bg"]),
             "warning": (C["warning"], C["warning_bg"]),
@@ -98,6 +154,16 @@ class StatusBadge(tk.Label):
 class PrimaryButton(tk.Button):
     def __init__(self, master, texto, command=None, icono=None, deshabilitado=False,
                  loading=False, **kwargs):
+        """Crea el botón principal con icono, hover y estados dinámicos.
+
+        @param master: Widget padre que contiene el botón.
+        @param texto: Texto mostrado en el botón.
+        @param command: Función a ejecutar al hacer clic.
+        @param icono: Identificador del icono opcional.
+        @param deshabilitado: True si arranca deshabilitado.
+        @param loading: True si arranca en modo de carga.
+        @param kwargs: Opciones adicionales de tkinter para el botón.
+        """
         super().__init__(
             master, text=texto, command=command,
             bg=C["accent"], fg=C["white"], activebackground=C["accent_hover"],
@@ -122,16 +188,32 @@ class PrimaryButton(tk.Button):
         self.bind("<Leave>", lambda e: self._hover(False))
 
     def _hover(self, entrar):
+        """Cambia el color de fondo del botón al entrar o salir el cursor.
+
+        @param entrar: True si el cursor entró, False si salió.
+        @return None: Actualiza el fondo del botón si está habilitado.
+        """
         if self["state"] == "disabled":
             return
         self.config(bg=C["accent_hover"] if entrar else C["accent"],
                     activebackground=C["accent_hover"])
 
     def set_deshabilitado(self, valor):
+        """Habilita o deshabilita el botón y ajusta su color de fondo.
+
+        @param valor: True para deshabilitar, False para habilitar.
+        @return None: Aplica el estado al widget.
+        """
         self.config(state="disabled" if valor else "normal",
                     bg=C["accent_dark"] if valor else C["accent"])
 
     def set_loading(self, valor, texto_loading="CARGANDO..."):
+        """Alterna el botón entre el modo carga y el estado normal.
+
+        @param valor: True para mostrar el modo de carga, False para restaurar.
+        @param texto_loading: Texto que se muestra mientras carga.
+        @return None: Actualiza el texto, el estado y el color del botón.
+        """
         if valor:
             self.config(text=texto_loading, state="disabled", bg=C["accent_dark"])
         else:
@@ -140,6 +222,13 @@ class PrimaryButton(tk.Button):
 
 class SecondaryButton(tk.Button):
     def __init__(self, master, texto, command=None, **kwargs):
+        """Crea el botón secundario con efecto de hover suave.
+
+        @param master: Widget padre que contiene el botón.
+        @param texto: Texto mostrado en el botón.
+        @param command: Función a ejecutar al hacer clic.
+        @param kwargs: Opciones adicionales de tkinter para el botón.
+        """
         super().__init__(
             master, text=texto, command=command,
             bg=C["surface_raised"], fg=C["text_primary"],
@@ -153,6 +242,15 @@ class SecondaryButton(tk.Button):
 class EmptyState(tk.Frame):
     def __init__(self, master, titulo="Sin datos", detalle="", icono="calendario",
                  color=C["text_muted"], **kwargs):
+        """Crea el estado vacío con icono, título y detalle opcional.
+
+        @param master: Widget padre que contiene el estado vacío.
+        @param titulo: Texto principal del estado vacío.
+        @param detalle: Texto secundario opcional.
+        @param icono: Identificador del icono a mostrar.
+        @param color: Color del icono.
+        @param kwargs: Opciones adicionales de tkinter.
+        """
         super().__init__(master, bg=C["surface"], **kwargs)
         import icons
         icono_canvas = icons.crear_icono(icono, size=32, color=color,
@@ -167,6 +265,13 @@ class EmptyState(tk.Frame):
 
 class Toast(tk.Toplevel):
     def __init__(self, master, mensaje, tipo="exito", duracion=3500):
+        """Crea una notificación flotante con auto-ocultación.
+
+        @param master: Ventana padre sobre la que se muestra.
+        @param mensaje: Texto de la notificación.
+        @param tipo: Tipo de notificación (exito, error, info).
+        @param duracion: Milisegundos antes de ocultarse.
+        """
         super().__init__(master)
         self.overrideredirect(True)
         self.attributes("-topmost", True)
@@ -203,6 +308,10 @@ class Toast(tk.Toplevel):
         self._timer = self.after(duracion, self.ocultar)
 
     def mostrar(self):
+        """Ubica la notificación junto a la esquina superior derecha del padre.
+
+        @return None: Posiciona y eleva la ventana de la notificación.
+        """
         self.update_idletasks()
         ancho = 380
         alto = 58
@@ -217,6 +326,10 @@ class Toast(tk.Toplevel):
         self.attributes("-topmost", True)
 
     def ocultar(self):
+        """Cancela el temporizador y cierra la notificación.
+
+        @return None: Destruye la ventana si aún existe.
+        """
         if self._timer:
             self.after_cancel(self._timer)
             self._timer = None
@@ -227,6 +340,12 @@ class Toast(tk.Toplevel):
 
 
 def grid_scrollable(master, bg):
+    """Crea un lienzo con scroll vertical para contenido dinámico.
+
+    @param master: Widget padre que contendrá el área desplazable.
+    @param bg: Color de fondo del lienzo y del contenido.
+    @return tuple: (lienzo, contenido) donde se agregan los widgets.
+    """
     lienzo = tk.Canvas(master, bg=bg, highlightthickness=0, bd=0)
     scroll = ttk.Scrollbar(master, orient="vertical", command=lienzo.yview,
                            style="Dark.Scrollbar")
