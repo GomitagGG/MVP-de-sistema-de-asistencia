@@ -100,6 +100,7 @@ class UsuarioApp:
 
         self._modo_marcacion = "entrada"
         self._jornada = {"entrada": None, "salida": None}
+        self.COMPLETADA = "completada"
 
         self._construir_ui()
         self._iniciar_animacion_entrada()
@@ -125,14 +126,17 @@ class UsuarioApp:
             print("Error Firebase:", e)
 
     def _cargar_jornada_desde_db(self):
-        """Carga la jornada del usuario desde la base de datos y refleja la entrada registrada.
+        """Carga la jornada del usuario desde la base de datos y refleja entrada y salida.
 
-        @return None: No devuelve valor; actualiza la interfaz si ya existe una marca de entrada.
+        @return None: No devuelve valor; actualiza la interfaz si ya existen marcas de hoy.
         """
         try:
             entrada = Marcacion.buscar(self.db, self.usuario, accion=Marcacion.ENTRADA)
             if entrada:
                 self._aplicar_entrada_bd(entrada)
+            salida = Marcacion.buscar(self.db, self.usuario, accion=Marcacion.SALIDA)
+            if salida:
+                self._aplicar_salida_bd(salida)
         except Exception:
             pass
 
@@ -421,7 +425,12 @@ class UsuarioApp:
         @return None: Actualiza el widget canvas con la apariencia visual del botón.
         """
         if color is None:
-            color = COLORES["accento_oscuro"] if self._modo_marcacion == "salida" else COLORES["accento"]
+            if self._modo_marcacion == "salida":
+                color = COLORES["accento_oscuro"]
+            elif self._modo_marcacion == self.COMPLETADA:
+                color = COLORES["entry_borde"]
+            else:
+                color = COLORES["accento"]
         c = self.canvas_boton
         c.delete("all")
         c.update_idletasks()
@@ -434,7 +443,12 @@ class UsuarioApp:
         c.create_arc(w - 2 * r, h - 2 * r, w, h, start=270, extent=90, fill=color, outline="")
         c.create_rectangle(r, 0, w - r, h, fill=color, outline="")
         c.create_rectangle(0, r, w, h - r, fill=color, outline="")
-        texto = "MARCAR SALIDA" if self._modo_marcacion == "salida" else "MARCAR ENTRADA"
+        if self._modo_marcacion == "salida":
+            texto = "MARCAR SALIDA"
+        elif self._modo_marcacion == self.COMPLETADA:
+            texto = "JORNADA COMPLETADA"
+        else:
+            texto = "MARCAR ENTRADA"
         c.create_text(w // 2, h // 2, text=texto,
                       fill=COLORES["texto_blanco"], font=("Helvetica", 11, "bold"))
 
@@ -443,6 +457,9 @@ class UsuarioApp:
 
         @return None: Ejecuta la operación de guardar la marca sin bloquear la interfaz.
         """
+        if self._modo_marcacion == self.COMPLETADA:
+            self._mostrar_estado("  \u2713  Jornada completada hoy", exito=True)
+            return
         if not self.db_ok or self.db is None:
             self._mostrar_estado("Conectando a la base de datos...", exito=False)
             return
@@ -466,6 +483,11 @@ class UsuarioApp:
                 ent = Marcacion.buscar(self.db, self.usuario, accion=Marcacion.ENTRADA)
                 if not ent:
                     self._mostrar_estado("  \u26a0  Primero registra tu entrada", exito=False)
+                    return
+                sal = Marcacion.buscar(self.db, self.usuario, accion=Marcacion.SALIDA)
+                if sal:
+                    self._aplicar_salida_bd(sal)
+                    self._mostrar_estado("  \u26a0  Ya registraste tu salida hoy", exito=False)
                     return
 
             marcacion = Marcacion.ahora(self.usuario, correo=self.correo, accion=tipo)
@@ -516,7 +538,7 @@ class UsuarioApp:
             else:
                 self.lbl_salida.config(fg=COLORES["titulo_panel"])
                 self._mostrar_estado(f"  \u2713  Salida guardada a las {marcacion.hora}", exito=True)
-            self._modo_marcacion = Marcacion.ENTRADA
+            self._modo_marcacion = self.COMPLETADA
         self._dibujar_boton()
 
     def _mostrar_estado(self, msg, exito=False):
@@ -571,6 +593,22 @@ class UsuarioApp:
         else:
             self.lbl_entrada.config(fg=COLORES["titulo_panel"])
         self._modo_marcacion = Marcacion.SALIDA
+        self._dibujar_boton()
+
+    def _aplicar_salida_bd(self, sal):
+        """Carga la hora de salida de la base de datos y muestra el estado asociado.
+
+        @param sal: Diccionario con los datos de la marcación de salida.
+        @return None: Actualiza la interfaz para reflejar la jornada completada.
+        """
+        hora = sal.get("hora") or ""
+        self._jornada["salida"] = hora
+        self.lbl_salida.config(text=hora)
+        if sal.get("salida_anticipada"):
+            self.lbl_salida.config(fg=COLORES["error"])
+        else:
+            self.lbl_salida.config(fg=COLORES["titulo_panel"])
+        self._modo_marcacion = self.COMPLETADA
         self._dibujar_boton()
 
     def _abrir_gestion_usuarios(self):

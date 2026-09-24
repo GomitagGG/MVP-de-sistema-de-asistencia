@@ -167,14 +167,18 @@ class Marcacion:
         return self.accion == self.SALIDA and self.hora[:5] < self.HORA_SALIDA_LIMITE
 
     def guardar(self, db, atrasado=False, salida_anticipada=False):
-        """Guarda la marcación en la colección de marcaciones de Firestore.
+        """Guarda la marcación del día en la colección de Firestore.
+
+        Usa un identificador determinista <usuario>_<fecha>_<tipo>, de modo que
+        cada trabajador tenga una sola entrada y una sola salida por día
+        (sobrescribe la marca previa del mismo día en lugar de duplicarla).
 
         @param db: Cliente de Firestore.
         @param atrasado: Indicador si la entrada está atrasada.
         @param salida_anticipada: Indicador si la salida fue anticipada.
-        @return str: Identificador del documento creado.
+        @return str: Identificador del documento guardado.
         """
-        _, ref = db.collection("marcaciones").add({
+        datos = {
             "usuario": self.usuario,
             "correo": self.correo,
             "tipo": self.accion,
@@ -183,8 +187,10 @@ class Marcacion:
             "timestamp": self.timestamp,
             "atrasado": atrasado,
             "salida_anticipada": salida_anticipada,
-        })
-        return ref.id
+        }
+        doc_id = f"{self.usuario}_{self.fecha}_{self.accion}"
+        db.collection("marcaciones").document(doc_id).set(datos)
+        return doc_id
 
     @staticmethod
     def buscar(db, identificador, fecha=None, accion=None):

@@ -114,6 +114,14 @@ class FakeRef:
         """
         return FakeDoc(self.id, self.parent.data.get(self.id, {}))
 
+    def set(self, datos):
+        """Escribe o sobrescribe un documento en la colección simulada.
+
+        @param datos: Diccionario con los datos del documento a guardar.
+        @return None: Actualiza el contenido del documento en memoria.
+        """
+        self.parent.data[self.id] = datos
+
     def update(self, cambios):
         """Actualiza los datos del documento referenciado si existe.
 

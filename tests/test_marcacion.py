@@ -111,6 +111,38 @@ def test_guardar_escribe_campos_correctos():
     assert datos["salida_anticipada"] is False
 
 
+def test_guardar_usa_id_determinista():
+    """Prueba que guardar use el identificador usuario_fecha_tipo para no duplicar.
+
+    @return None: Verifica el ID del documento guardado.
+    """
+    db = FakeDB()
+    m = Marcacion(usuario="juan", correo="juan@empresa.cl", accion="salida",
+                  fecha="2026-09-07", hora="18:00:00")
+    m.guardar(db)
+    docs = db.collection("marcaciones").get()
+    assert len(docs) == 1
+    assert docs[0].id == "juan_2026-09-07_salida"
+    assert Marcacion.buscar(db, "juan", fecha="2026-09-07", accion="salida")["hora"] == "18:00:00"
+
+
+def test_guardar_sobrescribe_sin_duplicar():
+    """Prueba que guardar dos veces el mismo día y tipo no cree documentos duplicados.
+
+    @return None: Verifica que la segunda marca sobrescribe la primera.
+    """
+    db = FakeDB()
+    m1 = Marcacion(usuario="juan", correo="juan@empresa.cl", accion="salida",
+                   fecha="2026-09-07", hora="18:00:00")
+    m1.guardar(db)
+    m2 = Marcacion(usuario="juan", correo="juan@empresa.cl", accion="salida",
+                   fecha="2026-09-07", hora="18:30:00")
+    m2.guardar(db)
+    docs = db.collection("marcaciones").get()
+    assert len(docs) == 1
+    assert Marcacion.buscar(db, "juan", fecha="2026-09-07", accion="salida")["hora"] == "18:30:00"
+
+
 def test_buscar_por_usuario_y_accion():
     """Prueba que la búsqueda filtre por usuario y acción en la fecha indicada.
 
