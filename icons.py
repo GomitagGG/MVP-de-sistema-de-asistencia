@@ -1,6 +1,28 @@
 import math
 
 
+def forzar_taskbar(ventana):
+    """Fuerza que una ventana borderless aparezca en la barra de tareas de Windows.
+
+    @param ventana: Ventana de Tkinter (root) a mostrar en la barra de tareas.
+    @return None: Aplica el estilo extendido WS_EX_APPWINDOW sin fallar.
+    """
+    try:
+        import ctypes
+        import sys
+        if sys.platform != "win32":
+            return
+        ventana.update_idletasks()
+        gw = ctypes.windll.user32
+        hwnd = gw.GetParent(ventana.winfo_id())
+        GWL_EXSTYLE = -20
+        WS_EX_APPWINDOW = 0x00040000
+        estilo = gw.GetWindowLongW(hwnd, GWL_EXSTYLE)
+        gw.SetWindowLongW(hwnd, GWL_EXSTYLE, estilo | WS_EX_APPWINDOW)
+    except Exception:
+        pass
+
+
 def _canvas(width, height, color="#FFFFFF"):
     """Crea un canvas de Tkinter con tamaño y fondo determinados.
 

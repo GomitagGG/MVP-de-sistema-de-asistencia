@@ -10,6 +10,7 @@ import time
 import ctypes
 
 from modelos import Usuario
+import icons
 
 
 def ruta_relativa(ruta):
@@ -232,6 +233,7 @@ class LoginApp:
         self.barra_titulo.bind("<B1-Motion>", self._arrastrar)
 
         self.ventana.deiconify()
+        icons.forzar_taskbar(self.ventana)
         self._iniciar_animacion_entrada()
 
     def _init_firebase(self):

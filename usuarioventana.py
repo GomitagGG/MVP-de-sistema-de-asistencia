@@ -4,6 +4,7 @@ import os
 import threading
 
 from modelos import get_db, Marcacion, Alerta
+import icons
 
 
 def ruta_relativa(ruta):
@@ -104,6 +105,7 @@ class UsuarioApp:
 
         self._construir_ui()
         self._iniciar_animacion_entrada()
+        icons.forzar_taskbar(self.ventana)
 
         self._offset_x = 0
         self._offset_y = 0

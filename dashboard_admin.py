@@ -407,6 +407,7 @@ class DashboardAdminApp:
         threading.Thread(target=self._inicializar_db, daemon=True).start()
         self._iniciar_polling()
 
+        icons.forzar_taskbar(self.ventana)
         self.ventana.mainloop()
 
     def _centrar_ventana(self, w, h):
@@ -675,7 +676,8 @@ class DashboardAdminApp:
         """Minimiza la ventana desactivando temporalmente overrideredirect."""
         self.ventana.overrideredirect(False)
         self.ventana.iconify()
-        self.ventana.after(600, lambda: self.ventana.overrideredirect(True))
+        self.ventana.after(600, lambda: (self.ventana.overrideredirect(True),
+                                         icons.forzar_taskbar(self.ventana)))
 
     def _crear_cuerpo(self):
         """Crea el contenedor principal con la sidebar y el área de contenido."""
