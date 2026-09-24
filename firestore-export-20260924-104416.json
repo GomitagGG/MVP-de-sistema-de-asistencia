@@ -1,0 +1,7554 @@
+{
+  "alertas": [
+    {
+      "id": "0YjTAo4HVhVYzFgRwtDH",
+      "tipo": "inasistencia",
+      "usuario": "victor",
+      "timestamp": {
+        "_datetime": "2026-09-23T21:55:23+00:00"
+      },
+      "fecha": "2026-09-23",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "0iT5cKo3Z7fqgddmKEG0",
+      "tipo": "inasistencia",
+      "usuario": "carlos",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:17+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "2ikgDFAYQKaVzU0oP4Xt",
+      "tipo": "inasistencia",
+      "usuario": "sofia",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:35+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "2qkVpSZJjkiX0EJd0PZd",
+      "tipo": "inasistencia",
+      "usuario": "leonardo",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:21+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "4JvkfGb7pwTOU4kW6c9f",
+      "tipo": "inasistencia",
+      "usuario": "rosa",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:33+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "5d6ogauIlGcPXjm7BbAE",
+      "tipo": "inasistencia",
+      "usuario": "andres",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:31+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "5vlbOuUbHlMkiGUKpYRz",
+      "tipo": "inasistencia",
+      "usuario": "fernando",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:38+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "9I1d5VU2Ypjs2fQ4FVsD",
+      "tipo": "inasistencia",
+      "usuario": "isabel",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:42+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "9elbbJgOzZ6h13yS27Sh",
+      "tipo": "inasistencia",
+      "usuario": "karen",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:36+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "9puV8IEK1HSE9t4Y9DpR",
+      "tipo": "atraso",
+      "usuario": "ana",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:56:36+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "21:56:00",
+      "estado": "pendiente"
+    },
+    {
+      "id": "ADd1qCaeK8iCf8g7xBCQ",
+      "tipo": "inasistencia",
+      "usuario": "tatiana",
+      "timestamp": {
+        "_datetime": "2026-09-23T21:55:31+00:00"
+      },
+      "fecha": "2026-09-23",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "DxgZaINx2wZB91UVMFz0",
+      "tipo": "inasistencia",
+      "usuario": "victor",
+      "timestamp": {
+        "_datetime": "2026-09-24T00:04:49+00:00"
+      },
+      "fecha": "2026-09-24",
+      "hora": "",
+      "estado": "leida"
+    },
+    {
+      "id": "E9H6Vjom0lR3FUIt8NAq",
+      "tipo": "atraso",
+      "usuario": "wiwi",
+      "timestamp": {
+        "_datetime": "2026-09-24T10:38:23+00:00"
+      },
+      "fecha": "2026-09-24",
+      "hora": "09:38:00",
+      "estado": "pendiente"
+    },
+    {
+      "id": "IPuwxJ3ULMuZMkKXPz5H",
+      "tipo": "inasistencia",
+      "usuario": "jorge",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:39+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "JLqO9maweXYJDK9Q40T8",
+      "tipo": "inasistencia",
+      "usuario": "juan",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:23+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "Njl2eVMznKg5m97hxux4",
+      "tipo": "inasistencia",
+      "usuario": "fernando",
+      "timestamp": {
+        "_datetime": "2026-09-23T21:55:19+00:00"
+      },
+      "fecha": "2026-09-23",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "OEWf7Mc0VglTBNExyG7W",
+      "tipo": "inasistencia",
+      "usuario": "pablo",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:24+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "Rb9PQSe7BnxDMOQFDcLs",
+      "tipo": "inasistencia",
+      "usuario": "andres",
+      "timestamp": {
+        "_datetime": "2026-09-23T21:55:34+00:00"
+      },
+      "fecha": "2026-09-23",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "S6x2upLot0DMXUQQNDGW",
+      "tipo": "inasistencia",
+      "usuario": "victor",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:34+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "UxNTxF5kHg6gf6bsYDEO",
+      "tipo": "inasistencia",
+      "usuario": "valentina",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:32+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "ZJ1PPuxZJ75ToOW4Okxh",
+      "tipo": "inasistencia",
+      "usuario": "diego",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:40+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "alerta_atraso_camila_2026-09-23",
+      "tipo": "atraso",
+      "usuario": "camila",
+      "timestamp": {
+        "_datetime": "2026-09-23T22:06:45+00:00"
+      },
+      "fecha": "2026-09-23",
+      "hora": "09:52",
+      "estado": "pendiente"
+    },
+    {
+      "id": "alerta_atraso_camila_2026-09-24",
+      "tipo": "atraso",
+      "usuario": "camila",
+      "timestamp": {
+        "_datetime": "2026-09-24T09:35:27+00:00"
+      },
+      "fecha": "2026-09-24",
+      "hora": "09:52",
+      "estado": "leida"
+    },
+    {
+      "id": "alerta_atraso_carlos_2026-09-23",
+      "tipo": "atraso",
+      "usuario": "carlos",
+      "timestamp": {
+        "_datetime": "2026-09-23T22:06:45+00:00"
+      },
+      "fecha": "2026-09-23",
+      "hora": "09:41",
+      "estado": "pendiente"
+    },
+    {
+      "id": "alerta_atraso_carlos_2026-09-24",
+      "tipo": "atraso",
+      "usuario": "carlos",
+      "timestamp": {
+        "_datetime": "2026-09-24T09:35:27+00:00"
+      },
+      "fecha": "2026-09-24",
+      "hora": "09:41",
+      "estado": "leida"
+    },
+    {
+      "id": "alerta_atraso_hector_2026-09-23",
+      "tipo": "atraso",
+      "usuario": "hector",
+      "timestamp": {
+        "_datetime": "2026-09-23T22:06:45+00:00"
+      },
+      "fecha": "2026-09-23",
+      "hora": "10:05",
+      "estado": "pendiente"
+    },
+    {
+      "id": "alerta_atraso_hector_2026-09-24",
+      "tipo": "atraso",
+      "usuario": "hector",
+      "timestamp": {
+        "_datetime": "2026-09-24T09:35:27+00:00"
+      },
+      "fecha": "2026-09-24",
+      "hora": "10:05",
+      "estado": "leida"
+    },
+    {
+      "id": "alerta_atraso_isabel_2026-09-23",
+      "tipo": "atraso",
+      "usuario": "isabel",
+      "timestamp": {
+        "_datetime": "2026-09-23T22:06:45+00:00"
+      },
+      "fecha": "2026-09-23",
+      "hora": "09:58",
+      "estado": "pendiente"
+    },
+    {
+      "id": "alerta_atraso_isabel_2026-09-24",
+      "tipo": "atraso",
+      "usuario": "isabel",
+      "timestamp": {
+        "_datetime": "2026-09-24T09:35:27+00:00"
+      },
+      "fecha": "2026-09-24",
+      "hora": "09:58",
+      "estado": "leida"
+    },
+    {
+      "id": "alerta_atraso_jorge_2026-09-23",
+      "tipo": "atraso",
+      "usuario": "jorge",
+      "timestamp": {
+        "_datetime": "2026-09-23T22:06:45+00:00"
+      },
+      "fecha": "2026-09-23",
+      "hora": "09:44",
+      "estado": "pendiente"
+    },
+    {
+      "id": "alerta_atraso_jorge_2026-09-24",
+      "tipo": "atraso",
+      "usuario": "jorge",
+      "timestamp": {
+        "_datetime": "2026-09-24T09:35:27+00:00"
+      },
+      "fecha": "2026-09-24",
+      "hora": "09:44",
+      "estado": "leida"
+    },
+    {
+      "id": "alerta_atraso_karen_2026-09-23",
+      "tipo": "atraso",
+      "usuario": "karen",
+      "timestamp": {
+        "_datetime": "2026-09-23T22:06:45+00:00"
+      },
+      "fecha": "2026-09-23",
+      "hora": "10:12",
+      "estado": "pendiente"
+    },
+    {
+      "id": "alerta_atraso_karen_2026-09-24",
+      "tipo": "atraso",
+      "usuario": "karen",
+      "timestamp": {
+        "_datetime": "2026-09-24T09:35:27+00:00"
+      },
+      "fecha": "2026-09-24",
+      "hora": "10:12",
+      "estado": "leida"
+    },
+    {
+      "id": "alerta_atraso_nicolas_2026-09-23",
+      "tipo": "atraso",
+      "usuario": "nicolas",
+      "timestamp": {
+        "_datetime": "2026-09-23T22:06:45+00:00"
+      },
+      "fecha": "2026-09-23",
+      "hora": "09:31",
+      "estado": "pendiente"
+    },
+    {
+      "id": "alerta_atraso_nicolas_2026-09-24",
+      "tipo": "atraso",
+      "usuario": "nicolas",
+      "timestamp": {
+        "_datetime": "2026-09-24T09:35:27+00:00"
+      },
+      "fecha": "2026-09-24",
+      "hora": "09:31",
+      "estado": "leida"
+    },
+    {
+      "id": "alerta_atraso_pedro_2026-09-23",
+      "tipo": "atraso",
+      "usuario": "pedro",
+      "timestamp": {
+        "_datetime": "2026-09-23T22:06:45+00:00"
+      },
+      "fecha": "2026-09-23",
+      "hora": "09:47",
+      "estado": "pendiente"
+    },
+    {
+      "id": "alerta_atraso_pedro_2026-09-24",
+      "tipo": "atraso",
+      "usuario": "pedro",
+      "timestamp": {
+        "_datetime": "2026-09-24T09:35:27+00:00"
+      },
+      "fecha": "2026-09-24",
+      "hora": "09:47",
+      "estado": "leida"
+    },
+    {
+      "id": "alerta_atraso_valentina_2026-09-23",
+      "tipo": "atraso",
+      "usuario": "valentina",
+      "timestamp": {
+        "_datetime": "2026-09-23T22:06:45+00:00"
+      },
+      "fecha": "2026-09-23",
+      "hora": "09:36",
+      "estado": "pendiente"
+    },
+    {
+      "id": "alerta_atraso_valentina_2026-09-24",
+      "tipo": "atraso",
+      "usuario": "valentina",
+      "timestamp": {
+        "_datetime": "2026-09-24T09:35:27+00:00"
+      },
+      "fecha": "2026-09-24",
+      "hora": "09:36",
+      "estado": "leida"
+    },
+    {
+      "id": "alerta_salida_anticipada_carlos_2026-09-23",
+      "tipo": "salida_anticipada",
+      "usuario": "carlos",
+      "timestamp": {
+        "_datetime": "2026-09-23T22:06:45+00:00"
+      },
+      "fecha": "2026-09-23",
+      "hora": "16:50",
+      "estado": "pendiente"
+    },
+    {
+      "id": "alerta_salida_anticipada_carlos_2026-09-24",
+      "tipo": "salida_anticipada",
+      "usuario": "carlos",
+      "timestamp": {
+        "_datetime": "2026-09-24T09:35:27+00:00"
+      },
+      "fecha": "2026-09-24",
+      "hora": "16:50",
+      "estado": "leida"
+    },
+    {
+      "id": "alerta_salida_anticipada_jorge_2026-09-23",
+      "tipo": "salida_anticipada",
+      "usuario": "jorge",
+      "timestamp": {
+        "_datetime": "2026-09-23T22:06:45+00:00"
+      },
+      "fecha": "2026-09-23",
+      "hora": "16:20",
+      "estado": "pendiente"
+    },
+    {
+      "id": "alerta_salida_anticipada_jorge_2026-09-24",
+      "tipo": "salida_anticipada",
+      "usuario": "jorge",
+      "timestamp": {
+        "_datetime": "2026-09-24T09:35:27+00:00"
+      },
+      "fecha": "2026-09-24",
+      "hora": "16:20",
+      "estado": "leida"
+    },
+    {
+      "id": "alerta_salida_anticipada_lucia_2026-09-23",
+      "tipo": "salida_anticipada",
+      "usuario": "lucia",
+      "timestamp": {
+        "_datetime": "2026-09-23T22:06:45+00:00"
+      },
+      "fecha": "2026-09-23",
+      "hora": "16:15",
+      "estado": "pendiente"
+    },
+    {
+      "id": "alerta_salida_anticipada_lucia_2026-09-24",
+      "tipo": "salida_anticipada",
+      "usuario": "lucia",
+      "timestamp": {
+        "_datetime": "2026-09-24T09:35:27+00:00"
+      },
+      "fecha": "2026-09-24",
+      "hora": "16:15",
+      "estado": "leida"
+    },
+    {
+      "id": "alerta_salida_anticipada_nicolas_2026-09-23",
+      "tipo": "salida_anticipada",
+      "usuario": "nicolas",
+      "timestamp": {
+        "_datetime": "2026-09-23T22:06:45+00:00"
+      },
+      "fecha": "2026-09-23",
+      "hora": "17:12",
+      "estado": "pendiente"
+    },
+    {
+      "id": "alerta_salida_anticipada_nicolas_2026-09-24",
+      "tipo": "salida_anticipada",
+      "usuario": "nicolas",
+      "timestamp": {
+        "_datetime": "2026-09-24T09:35:27+00:00"
+      },
+      "fecha": "2026-09-24",
+      "hora": "17:12",
+      "estado": "leida"
+    },
+    {
+      "id": "bCvieGg1gDlab9KCSFh4",
+      "tipo": "inasistencia",
+      "usuario": "tatiana",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:28+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "bIvRFUjlne8SblWGKj1n",
+      "tipo": "inasistencia",
+      "usuario": "maria",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:22+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "dwL9ZShhdxKcMCdVR4jc",
+      "tipo": "inasistencia",
+      "usuario": "nicolas",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:20+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "jqNsjHYi9yAfWjDnufgc",
+      "tipo": "inasistencia",
+      "usuario": "hector",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:18+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "ki0lbyKp9SioyIVe31mQ",
+      "tipo": "inasistencia",
+      "usuario": "samuel",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:41+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "rsYt8VbBWaDsDkwucJmV",
+      "tipo": "inasistencia",
+      "usuario": "olivia",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:44+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "sSruaANFk4Pz4DWrwO1s",
+      "tipo": "inasistencia",
+      "usuario": "camila",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:19+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "szjeBXzWpg3suUWeVtqj",
+      "tipo": "inasistencia",
+      "usuario": "marta",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:30+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "vlhuuZyvBT4DBk6DsH6o",
+      "tipo": "salida_anticipada",
+      "usuario": "ana",
+      "timestamp": {
+        "_datetime": "2026-09-24T10:17:11+00:00"
+      },
+      "fecha": "2026-09-24",
+      "hora": "10:17:00",
+      "estado": "leida"
+    },
+    {
+      "id": "y1VRx53X6nNnsVnltweJ",
+      "tipo": "inasistencia",
+      "usuario": "pedro",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:29+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    },
+    {
+      "id": "zmiNntTx5TMlk0iF86kj",
+      "tipo": "inasistencia",
+      "usuario": "lucia",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:54:26+00:00"
+      },
+      "fecha": "2026-09-22",
+      "hora": "",
+      "estado": "pendiente"
+    }
+  ],
+  "config": [
+    {
+      "id": "empresa",
+      "notificaciones": true,
+      "nombre": "Empresa Química",
+      "hora_salida": "17:30",
+      "hora_entrada": "09:30"
+    }
+  ],
+  "login_log": [
+    {
+      "id": "0fuc5IPww2ZykqMQYgGH",
+      "fecha": "2026-09-23",
+      "usuario": "admin",
+      "correo": "",
+      "hora": "22:38:19",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "1OlJJNalBdF9r4wYQ22I",
+      "fecha": "2026-09-22",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "hora": "21:56:26",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "48VvRDfw9BZ7LNA4tz2D",
+      "fecha": "2026-09-24",
+      "usuario": "wiwi",
+      "correo": "wiwiw@ñam.com",
+      "hora": "10:38:12",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "4tyBpgtK56g6mHvdMsER",
+      "fecha": "2026-09-24",
+      "usuario": "admin",
+      "correo": "",
+      "hora": "10:36:34",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "9ZdNoPULjvdq1yb03f3F",
+      "fecha": "2026-09-24",
+      "usuario": "admin",
+      "correo": "",
+      "hora": "10:38:51",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "DUnBBTe7UWysA6hKXeAv",
+      "fecha": "2026-09-23",
+      "usuario": "admin",
+      "correo": "",
+      "hora": "21:55:16",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "HcgxHkc8ZMmxUNDiAgSw",
+      "fecha": "2026-09-24",
+      "usuario": "admin",
+      "correo": "",
+      "hora": "10:33:41",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "MiT3dkui5xwDOr0NeYWi",
+      "fecha": "2026-09-24",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "hora": "10:17:01",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "PlolpXCvd20PYXQMpBqW",
+      "fecha": "2026-09-22",
+      "usuario": "admin",
+      "correo": "admin@fixmol.com",
+      "hora": "21:57:05",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "RnAbG7MT7YbXIbLiNvN4",
+      "fecha": "2026-09-24",
+      "usuario": "admin",
+      "correo": "",
+      "hora": "09:37:25",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "SefU6TuQywPcJIKfrd57",
+      "fecha": "2026-09-24",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "hora": "10:17:26",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "Ukt0VhHlYdGrzO497dzA",
+      "fecha": "2026-09-23",
+      "usuario": "admin",
+      "correo": "",
+      "hora": "22:16:06",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "UucRMcjtiR50A2sxHPI5",
+      "fecha": "2026-09-23",
+      "usuario": "admin",
+      "correo": "",
+      "hora": "22:07:15",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "XXYAAjD74K0RfYgD5waw",
+      "fecha": "2026-09-24",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "hora": "10:33:20",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "admin_2026-09-02_5",
+      "fecha": "2026-09-02",
+      "usuario": "admin",
+      "correo": "admin@empresa.com",
+      "hora": "09:58:16",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "admin_2026-09-04_0",
+      "fecha": "2026-09-04",
+      "usuario": "admin",
+      "correo": "admin@empresa.com",
+      "hora": "09:09:47",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "admin_2026-09-04_1",
+      "fecha": "2026-09-04",
+      "usuario": "admin",
+      "correo": "admin@empresa.com",
+      "hora": "07:20:43",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "admin_2026-09-15_1",
+      "fecha": "2026-09-15",
+      "usuario": "admin",
+      "correo": "admin@empresa.com",
+      "hora": "09:12:00",
+      "resultado": "fallido"
+    },
+    {
+      "id": "ana_2026-09-08_3",
+      "fecha": "2026-09-08",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "hora": "07:42:13",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "ana_2026-09-14_0",
+      "fecha": "2026-09-14",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "hora": "09:00:46",
+      "resultado": "fallido"
+    },
+    {
+      "id": "ana_2026-09-16_3",
+      "fecha": "2026-09-16",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "hora": "09:35:40",
+      "resultado": "fallido"
+    },
+    {
+      "id": "ana_2026-09-16_4",
+      "fecha": "2026-09-16",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "hora": "09:28:04",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "andres_2026-09-09_0",
+      "fecha": "2026-09-09",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "hora": "09:09:24",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "andres_2026-09-16_2",
+      "fecha": "2026-09-16",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "hora": "08:27:24",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "camila_2026-09-02_3",
+      "fecha": "2026-09-02",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "hora": "08:11:43",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "camila_2026-09-17_0",
+      "fecha": "2026-09-17",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "hora": "08:43:18",
+      "resultado": "fallido"
+    },
+    {
+      "id": "ceyh3vm7XWeu6CDn4HMe",
+      "fecha": "2026-09-22",
+      "usuario": "admin",
+      "correo": "admin@fixmol.com",
+      "hora": "21:59:16",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "diego_2026-09-01_0",
+      "fecha": "2026-09-01",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "hora": "07:13:52",
+      "resultado": "fallido"
+    },
+    {
+      "id": "diego_2026-09-09_4",
+      "fecha": "2026-09-09",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "hora": "08:19:01",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "diego_2026-09-17_2",
+      "fecha": "2026-09-17",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "hora": "07:29:10",
+      "resultado": "fallido"
+    },
+    {
+      "id": "eJ8pJ3DeRs3wAWQ12ICg",
+      "fecha": "2026-09-23",
+      "usuario": "admin",
+      "correo": "",
+      "hora": "22:16:00",
+      "resultado": "fallido"
+    },
+    {
+      "id": "ehlVAkDY07f8fuTPeXE6",
+      "fecha": "2026-09-22",
+      "usuario": "admin",
+      "correo": "admin@fixmol.com",
+      "hora": "21:54:13",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "fBzs9lQLAoxODPUgvPor",
+      "fecha": "2026-09-24",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "hora": "10:14:30",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "fernando_2026-09-11_1",
+      "fecha": "2026-09-11",
+      "usuario": "fernando",
+      "correo": "fernando@empresa.com",
+      "hora": "09:41:50",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "hector_2026-09-02_1",
+      "fecha": "2026-09-02",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "hora": "07:20:27",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "hector_2026-09-09_3",
+      "fecha": "2026-09-09",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "hora": "08:18:50",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "isabel_2026-09-09_1",
+      "fecha": "2026-09-09",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "hora": "07:17:23",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "isabel_2026-09-10_1",
+      "fecha": "2026-09-10",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "hora": "07:48:09",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "juan_2026-09-01_2",
+      "fecha": "2026-09-01",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "hora": "09:22:08",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "juan_2026-09-02_0",
+      "fecha": "2026-09-02",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "hora": "09:05:10",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "juan_2026-09-15_2",
+      "fecha": "2026-09-15",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "hora": "09:13:59",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "jwgiU8e14nKMn8RLPn7U",
+      "fecha": "2026-09-23",
+      "usuario": "admin",
+      "correo": "",
+      "hora": "21:59:06",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "karen_2026-09-02_2",
+      "fecha": "2026-09-02",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "hora": "08:02:48",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "karen_2026-09-11_0",
+      "fecha": "2026-09-11",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "hora": "09:53:03",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "karen_2026-09-17_3",
+      "fecha": "2026-09-17",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "hora": "08:52:36",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "kuusBxwzQpjYDkW4bvF5",
+      "fecha": "2026-09-23",
+      "usuario": "admin",
+      "correo": "",
+      "hora": "22:28:36",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "lucia_2026-09-07_1",
+      "fecha": "2026-09-07",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "hora": "09:56:27",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "lucia_2026-09-08_2",
+      "fecha": "2026-09-08",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "hora": "09:16:18",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "lucia_2026-09-16_0",
+      "fecha": "2026-09-16",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "hora": "09:24:48",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "maria_2026-09-08_1",
+      "fecha": "2026-09-08",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "hora": "07:42:36",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "maria_2026-09-09_2",
+      "fecha": "2026-09-09",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "hora": "08:17:38",
+      "resultado": "fallido"
+    },
+    {
+      "id": "nicolas_2026-09-01_1",
+      "fecha": "2026-09-01",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "hora": "09:12:59",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "nicolas_2026-09-08_0",
+      "fecha": "2026-09-08",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "hora": "08:29:56",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "olivia_2026-09-09_5",
+      "fecha": "2026-09-09",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "hora": "09:21:35",
+      "resultado": "fallido"
+    },
+    {
+      "id": "olivia_2026-09-17_1",
+      "fecha": "2026-09-17",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "hora": "09:50:17",
+      "resultado": "fallido"
+    },
+    {
+      "id": "pedro_2026-09-03_2",
+      "fecha": "2026-09-03",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "hora": "08:57:18",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "pedro_2026-09-07_0",
+      "fecha": "2026-09-07",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "hora": "08:57:55",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "pedro_2026-09-16_1",
+      "fecha": "2026-09-16",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "hora": "08:58:44",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "qTTeDbO0hdRM6bWkC4wF",
+      "fecha": "2026-09-23",
+      "usuario": "admin",
+      "correo": "",
+      "hora": "22:48:07",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "rosa_2026-09-14_2",
+      "fecha": "2026-09-14",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "hora": "08:21:51",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "s3bE88FMqeM2kg51DyNg",
+      "fecha": "2026-09-24",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "hora": "10:34:29",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "sRLPPH7qQ3xet9dZnXy0",
+      "fecha": "2026-09-24",
+      "usuario": "admin",
+      "correo": "",
+      "hora": "09:48:08",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "saGTRI4iondlNhZjMnh6",
+      "fecha": "2026-09-24",
+      "usuario": "ana",
+      "correo": "",
+      "hora": "10:36:24",
+      "resultado": "fallido"
+    },
+    {
+      "id": "samuel_2026-09-15_0",
+      "fecha": "2026-09-15",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "hora": "09:14:15",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "sofia_2026-09-03_1",
+      "fecha": "2026-09-03",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "hora": "08:46:08",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "tatiana_2026-09-02_4",
+      "fecha": "2026-09-02",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "hora": "07:20:32",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "tatiana_2026-09-10_0",
+      "fecha": "2026-09-10",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "hora": "08:02:44",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "tatiana_2026-09-14_1",
+      "fecha": "2026-09-14",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "hora": "09:56:33",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "tatiana_2026-09-15_3",
+      "fecha": "2026-09-15",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "hora": "09:26:23",
+      "resultado": "fallido"
+    },
+    {
+      "id": "v1zOARlEuVZuYirrNJKq",
+      "fecha": "2026-09-24",
+      "usuario": "admin",
+      "correo": "",
+      "hora": "10:35:57",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "vIefTiUu8ef4tAgJIhrp",
+      "fecha": "2026-09-24",
+      "usuario": "admin",
+      "correo": "",
+      "hora": "10:04:48",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "valentina_2026-09-03_0",
+      "fecha": "2026-09-03",
+      "usuario": "valentina",
+      "correo": "valentina@empresa.com",
+      "hora": "09:46:59",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "xdfLQX8082TGBQ5QO1E4",
+      "fecha": "2026-09-17",
+      "usuario": "admin",
+      "correo": "admin@fixmol.com",
+      "hora": "22:31:32",
+      "resultado": "exitoso"
+    },
+    {
+      "id": "yKjN1Q7fipFYkKkQwxty",
+      "fecha": "2026-09-24",
+      "usuario": "admin",
+      "correo": "admin@fixmol.com",
+      "hora": "00:04:39",
+      "resultado": "exitoso"
+    }
+  ],
+  "marcaciones": [
+    {
+      "id": "ana_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:23:00",
+      "atrasado": false
+    },
+    {
+      "id": "ana_2026-09-01_salida",
+      "fecha": "2026-09-01",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:15:00",
+      "atrasado": false
+    },
+    {
+      "id": "ana_2026-09-02_entrada",
+      "fecha": "2026-09-02",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:01:00",
+      "atrasado": true
+    },
+    {
+      "id": "ana_2026-09-02_salida",
+      "fecha": "2026-09-02",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:55:00",
+      "atrasado": false
+    },
+    {
+      "id": "ana_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:13:00",
+      "atrasado": false
+    },
+    {
+      "id": "ana_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:05:00",
+      "atrasado": false
+    },
+    {
+      "id": "ana_2026-09-04_entrada",
+      "fecha": "2026-09-04",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:44:00",
+      "atrasado": true
+    },
+    {
+      "id": "ana_2026-09-04_salida",
+      "fecha": "2026-09-04",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:16:00",
+      "atrasado": false
+    },
+    {
+      "id": "ana_2026-09-07_entrada",
+      "fecha": "2026-09-07",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:29:00",
+      "atrasado": false
+    },
+    {
+      "id": "ana_2026-09-07_salida",
+      "fecha": "2026-09-07",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:10:00",
+      "atrasado": false
+    },
+    {
+      "id": "ana_2026-09-08_entrada",
+      "fecha": "2026-09-08",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:26:00",
+      "atrasado": false
+    },
+    {
+      "id": "ana_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:02:00",
+      "atrasado": false
+    },
+    {
+      "id": "ana_2026-09-09_salida",
+      "fecha": "2026-09-09",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:07:00",
+      "atrasado": false
+    },
+    {
+      "id": "ana_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:27:00",
+      "atrasado": false
+    },
+    {
+      "id": "ana_2026-09-10_salida",
+      "fecha": "2026-09-10",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:22:00",
+      "atrasado": false
+    },
+    {
+      "id": "ana_2026-09-11_entrada",
+      "fecha": "2026-09-11",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:16:00",
+      "atrasado": false
+    },
+    {
+      "id": "ana_2026-09-11_salida",
+      "fecha": "2026-09-11",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:38:00",
+      "atrasado": false
+    },
+    {
+      "id": "ana_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:57:00",
+      "atrasado": true
+    },
+    {
+      "id": "ana_2026-09-14_salida",
+      "fecha": "2026-09-14",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:41:00",
+      "atrasado": false
+    },
+    {
+      "id": "ana_2026-09-15_entrada",
+      "fecha": "2026-09-15",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:00:00",
+      "atrasado": false
+    },
+    {
+      "id": "ana_2026-09-15_salida",
+      "fecha": "2026-09-15",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:08:00",
+      "atrasado": false
+    },
+    {
+      "id": "ana_2026-09-23_entrada",
+      "fecha": "2026-09-23",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:24:00",
+      "atrasado": false
+    },
+    {
+      "id": "ana_2026-09-23_salida",
+      "fecha": "2026-09-23",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:32:00",
+      "atrasado": false
+    },
+    {
+      "id": "ana_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:24:00",
+      "atrasado": false
+    },
+    {
+      "id": "ana_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "ana",
+      "correo": "ana@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:32:00",
+      "atrasado": false
+    },
+    {
+      "id": "andres_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:17:00",
+      "atrasado": false
+    },
+    {
+      "id": "andres_2026-09-02_entrada",
+      "fecha": "2026-09-02",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:18:00",
+      "atrasado": false
+    },
+    {
+      "id": "andres_2026-09-02_salida",
+      "fecha": "2026-09-02",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:15:00",
+      "atrasado": false
+    },
+    {
+      "id": "andres_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:05:00",
+      "atrasado": false
+    },
+    {
+      "id": "andres_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:16:00",
+      "atrasado": false
+    },
+    {
+      "id": "andres_2026-09-04_entrada",
+      "fecha": "2026-09-04",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:11:00",
+      "atrasado": true
+    },
+    {
+      "id": "andres_2026-09-04_salida",
+      "fecha": "2026-09-04",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:37:00",
+      "atrasado": false
+    },
+    {
+      "id": "andres_2026-09-07_entrada",
+      "fecha": "2026-09-07",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:08:00",
+      "atrasado": true
+    },
+    {
+      "id": "andres_2026-09-07_salida",
+      "fecha": "2026-09-07",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:49:00",
+      "atrasado": false
+    },
+    {
+      "id": "andres_2026-09-08_entrada",
+      "fecha": "2026-09-08",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:47:00",
+      "atrasado": true
+    },
+    {
+      "id": "andres_2026-09-08_salida",
+      "fecha": "2026-09-08",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:12:00",
+      "atrasado": false
+    },
+    {
+      "id": "andres_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:23:00",
+      "atrasado": false
+    },
+    {
+      "id": "andres_2026-09-09_salida",
+      "fecha": "2026-09-09",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:03:00",
+      "atrasado": false
+    },
+    {
+      "id": "andres_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:33:00",
+      "atrasado": true
+    },
+    {
+      "id": "andres_2026-09-10_salida",
+      "fecha": "2026-09-10",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:49:00",
+      "atrasado": false
+    },
+    {
+      "id": "andres_2026-09-11_entrada",
+      "fecha": "2026-09-11",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:23:00",
+      "atrasado": false
+    },
+    {
+      "id": "andres_2026-09-11_salida",
+      "fecha": "2026-09-11",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:02:00",
+      "atrasado": false
+    },
+    {
+      "id": "andres_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:18:00",
+      "atrasado": false
+    },
+    {
+      "id": "andres_2026-09-14_salida",
+      "fecha": "2026-09-14",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:44:00",
+      "atrasado": false
+    },
+    {
+      "id": "andres_2026-09-15_entrada",
+      "fecha": "2026-09-15",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:05:00",
+      "atrasado": false
+    },
+    {
+      "id": "andres_2026-09-15_salida",
+      "fecha": "2026-09-15",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:04:00",
+      "atrasado": false
+    },
+    {
+      "id": "andres_2026-09-16_entrada",
+      "fecha": "2026-09-16",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:35:00",
+      "atrasado": true
+    },
+    {
+      "id": "andres_2026-09-16_salida",
+      "fecha": "2026-09-16",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:37:00",
+      "atrasado": false
+    },
+    {
+      "id": "andres_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:08:00",
+      "atrasado": false
+    },
+    {
+      "id": "andres_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:58:00",
+      "atrasado": false
+    },
+    {
+      "id": "camila_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:03:00",
+      "atrasado": false
+    },
+    {
+      "id": "camila_2026-09-01_salida",
+      "fecha": "2026-09-01",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:42:00",
+      "atrasado": false
+    },
+    {
+      "id": "camila_2026-09-02_entrada",
+      "fecha": "2026-09-02",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:16:00",
+      "atrasado": false
+    },
+    {
+      "id": "camila_2026-09-02_salida",
+      "fecha": "2026-09-02",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:03:00",
+      "atrasado": false
+    },
+    {
+      "id": "camila_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:04:00",
+      "atrasado": false
+    },
+    {
+      "id": "camila_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:09:00",
+      "atrasado": false
+    },
+    {
+      "id": "camila_2026-09-04_entrada",
+      "fecha": "2026-09-04",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:03:00",
+      "atrasado": false
+    },
+    {
+      "id": "camila_2026-09-07_entrada",
+      "fecha": "2026-09-07",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:59:00",
+      "atrasado": true
+    },
+    {
+      "id": "camila_2026-09-07_salida",
+      "fecha": "2026-09-07",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:50:00",
+      "atrasado": false
+    },
+    {
+      "id": "camila_2026-09-08_entrada",
+      "fecha": "2026-09-08",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:05:00",
+      "atrasado": true
+    },
+    {
+      "id": "camila_2026-09-08_salida",
+      "fecha": "2026-09-08",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:57:00",
+      "atrasado": false
+    },
+    {
+      "id": "camila_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:18:00",
+      "atrasado": false
+    },
+    {
+      "id": "camila_2026-09-09_salida",
+      "fecha": "2026-09-09",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:13:00",
+      "atrasado": false
+    },
+    {
+      "id": "camila_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:06:00",
+      "atrasado": true
+    },
+    {
+      "id": "camila_2026-09-10_salida",
+      "fecha": "2026-09-10",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:30:00",
+      "atrasado": false
+    },
+    {
+      "id": "camila_2026-09-11_entrada",
+      "fecha": "2026-09-11",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:13:00",
+      "atrasado": false
+    },
+    {
+      "id": "camila_2026-09-11_salida",
+      "fecha": "2026-09-11",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:15:00",
+      "atrasado": false
+    },
+    {
+      "id": "camila_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:51:00",
+      "atrasado": true
+    },
+    {
+      "id": "camila_2026-09-14_salida",
+      "fecha": "2026-09-14",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:16:00",
+      "atrasado": false
+    },
+    {
+      "id": "camila_2026-09-15_entrada",
+      "fecha": "2026-09-15",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:13:00",
+      "atrasado": false
+    },
+    {
+      "id": "camila_2026-09-15_salida",
+      "fecha": "2026-09-15",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:47:00",
+      "atrasado": false
+    },
+    {
+      "id": "camila_2026-09-16_entrada",
+      "fecha": "2026-09-16",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:16:00",
+      "atrasado": false
+    },
+    {
+      "id": "camila_2026-09-23_entrada",
+      "fecha": "2026-09-23",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:52:00",
+      "atrasado": true
+    },
+    {
+      "id": "camila_2026-09-23_salida",
+      "fecha": "2026-09-23",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:38:00",
+      "atrasado": false
+    },
+    {
+      "id": "camila_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:52:00",
+      "atrasado": true
+    },
+    {
+      "id": "camila_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:38:00",
+      "atrasado": false
+    },
+    {
+      "id": "carlos_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:16:00",
+      "atrasado": false
+    },
+    {
+      "id": "carlos_2026-09-01_salida",
+      "fecha": "2026-09-01",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:10:00",
+      "atrasado": false
+    },
+    {
+      "id": "carlos_2026-09-02_entrada",
+      "fecha": "2026-09-02",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:12:00",
+      "atrasado": false
+    },
+    {
+      "id": "carlos_2026-09-02_salida",
+      "fecha": "2026-09-02",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:00:00",
+      "atrasado": false
+    },
+    {
+      "id": "carlos_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:00:00",
+      "atrasado": false
+    },
+    {
+      "id": "carlos_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:19:00",
+      "atrasado": false
+    },
+    {
+      "id": "carlos_2026-09-04_entrada",
+      "fecha": "2026-09-04",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:22:00",
+      "atrasado": false
+    },
+    {
+      "id": "carlos_2026-09-04_salida",
+      "fecha": "2026-09-04",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:16:00",
+      "atrasado": false
+    },
+    {
+      "id": "carlos_2026-09-07_entrada",
+      "fecha": "2026-09-07",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:39:00",
+      "atrasado": true
+    },
+    {
+      "id": "carlos_2026-09-07_salida",
+      "fecha": "2026-09-07",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:05:00",
+      "atrasado": false
+    },
+    {
+      "id": "carlos_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:41:00",
+      "atrasado": true
+    },
+    {
+      "id": "carlos_2026-09-09_salida",
+      "fecha": "2026-09-09",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:12:00",
+      "atrasado": false
+    },
+    {
+      "id": "carlos_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:23:00",
+      "atrasado": false
+    },
+    {
+      "id": "carlos_2026-09-10_salida",
+      "fecha": "2026-09-10",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:55:00",
+      "atrasado": false
+    },
+    {
+      "id": "carlos_2026-09-11_entrada",
+      "fecha": "2026-09-11",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:24:00",
+      "atrasado": false
+    },
+    {
+      "id": "carlos_2026-09-11_salida",
+      "fecha": "2026-09-11",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:19:00",
+      "atrasado": false
+    },
+    {
+      "id": "carlos_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:11:00",
+      "atrasado": false
+    },
+    {
+      "id": "carlos_2026-09-14_salida",
+      "fecha": "2026-09-14",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:18:00",
+      "atrasado": false
+    },
+    {
+      "id": "carlos_2026-09-15_entrada",
+      "fecha": "2026-09-15",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:02:00",
+      "atrasado": false
+    },
+    {
+      "id": "carlos_2026-09-15_salida",
+      "fecha": "2026-09-15",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:00:00",
+      "atrasado": false
+    },
+    {
+      "id": "carlos_2026-09-16_entrada",
+      "fecha": "2026-09-16",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:19:00",
+      "atrasado": false
+    },
+    {
+      "id": "carlos_2026-09-16_salida",
+      "fecha": "2026-09-16",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:31:00",
+      "atrasado": false
+    },
+    {
+      "id": "carlos_2026-09-23_entrada",
+      "fecha": "2026-09-23",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:41:00",
+      "atrasado": true
+    },
+    {
+      "id": "carlos_2026-09-23_salida",
+      "fecha": "2026-09-23",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:50:00",
+      "atrasado": false
+    },
+    {
+      "id": "carlos_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:41:00",
+      "atrasado": true
+    },
+    {
+      "id": "carlos_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:50:00",
+      "atrasado": false
+    },
+    {
+      "id": "dDHMAb7xRwU7jsggIWDb",
+      "fecha": "2026-09-22",
+      "usuario": "ana",
+      "tipo": "salida",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:56:37+00:00"
+      },
+      "correo": "ana@empresa.com",
+      "atrasado": false,
+      "salida_anticipada": false,
+      "hora": "21:56:00"
+    },
+    {
+      "id": "diego_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:06:00",
+      "atrasado": true
+    },
+    {
+      "id": "diego_2026-09-01_salida",
+      "fecha": "2026-09-01",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:43:00",
+      "atrasado": false
+    },
+    {
+      "id": "diego_2026-09-02_entrada",
+      "fecha": "2026-09-02",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:42:00",
+      "atrasado": true
+    },
+    {
+      "id": "diego_2026-09-02_salida",
+      "fecha": "2026-09-02",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:22:00",
+      "atrasado": false
+    },
+    {
+      "id": "diego_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:23:00",
+      "atrasado": false
+    },
+    {
+      "id": "diego_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:16:00",
+      "atrasado": false
+    },
+    {
+      "id": "diego_2026-09-04_entrada",
+      "fecha": "2026-09-04",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:08:00",
+      "atrasado": true
+    },
+    {
+      "id": "diego_2026-09-04_salida",
+      "fecha": "2026-09-04",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:30:00",
+      "atrasado": false
+    },
+    {
+      "id": "diego_2026-09-07_entrada",
+      "fecha": "2026-09-07",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:12:00",
+      "atrasado": false
+    },
+    {
+      "id": "diego_2026-09-07_salida",
+      "fecha": "2026-09-07",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:01:00",
+      "atrasado": false
+    },
+    {
+      "id": "diego_2026-09-08_entrada",
+      "fecha": "2026-09-08",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:58:00",
+      "atrasado": true
+    },
+    {
+      "id": "diego_2026-09-08_salida",
+      "fecha": "2026-09-08",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:50:00",
+      "atrasado": false
+    },
+    {
+      "id": "diego_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:11:00",
+      "atrasado": false
+    },
+    {
+      "id": "diego_2026-09-09_salida",
+      "fecha": "2026-09-09",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:45:00",
+      "atrasado": false
+    },
+    {
+      "id": "diego_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:47:00",
+      "atrasado": true
+    },
+    {
+      "id": "diego_2026-09-10_salida",
+      "fecha": "2026-09-10",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:43:00",
+      "atrasado": false
+    },
+    {
+      "id": "diego_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:12:00",
+      "atrasado": false
+    },
+    {
+      "id": "diego_2026-09-14_salida",
+      "fecha": "2026-09-14",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:11:00",
+      "atrasado": false
+    },
+    {
+      "id": "diego_2026-09-15_entrada",
+      "fecha": "2026-09-15",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:14:00",
+      "atrasado": false
+    },
+    {
+      "id": "diego_2026-09-15_salida",
+      "fecha": "2026-09-15",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:41:00",
+      "atrasado": false
+    },
+    {
+      "id": "diego_2026-09-16_entrada",
+      "fecha": "2026-09-16",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:21:00",
+      "atrasado": false
+    },
+    {
+      "id": "diego_2026-09-23_entrada",
+      "fecha": "2026-09-23",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:01:00",
+      "atrasado": false
+    },
+    {
+      "id": "diego_2026-09-23_salida",
+      "fecha": "2026-09-23",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:50:00",
+      "atrasado": false
+    },
+    {
+      "id": "diego_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:01:00",
+      "atrasado": false
+    },
+    {
+      "id": "diego_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:50:00",
+      "atrasado": false
+    },
+    {
+      "id": "fernando_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "fernando",
+      "correo": "fernando@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:10:00",
+      "atrasado": false
+    },
+    {
+      "id": "fernando_2026-09-01_salida",
+      "fecha": "2026-09-01",
+      "usuario": "fernando",
+      "correo": "fernando@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:50:00",
+      "atrasado": false
+    },
+    {
+      "id": "fernando_2026-09-02_entrada",
+      "fecha": "2026-09-02",
+      "usuario": "fernando",
+      "correo": "fernando@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:07:00",
+      "atrasado": true
+    },
+    {
+      "id": "fernando_2026-09-02_salida",
+      "fecha": "2026-09-02",
+      "usuario": "fernando",
+      "correo": "fernando@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:05:00",
+      "atrasado": false
+    },
+    {
+      "id": "fernando_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "fernando",
+      "correo": "fernando@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:20:00",
+      "atrasado": false
+    },
+    {
+      "id": "fernando_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "fernando",
+      "correo": "fernando@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:13:00",
+      "atrasado": false
+    },
+    {
+      "id": "fernando_2026-09-08_entrada",
+      "fecha": "2026-09-08",
+      "usuario": "fernando",
+      "correo": "fernando@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:04:00",
+      "atrasado": false
+    },
+    {
+      "id": "fernando_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "fernando",
+      "correo": "fernando@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:20:00",
+      "atrasado": false
+    },
+    {
+      "id": "fernando_2026-09-09_salida",
+      "fecha": "2026-09-09",
+      "usuario": "fernando",
+      "correo": "fernando@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:33:00",
+      "atrasado": false
+    },
+    {
+      "id": "fernando_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "fernando",
+      "correo": "fernando@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:12:00",
+      "atrasado": false
+    },
+    {
+      "id": "fernando_2026-09-11_entrada",
+      "fecha": "2026-09-11",
+      "usuario": "fernando",
+      "correo": "fernando@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:42:00",
+      "atrasado": true
+    },
+    {
+      "id": "fernando_2026-09-11_salida",
+      "fecha": "2026-09-11",
+      "usuario": "fernando",
+      "correo": "fernando@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:17:00",
+      "atrasado": false
+    },
+    {
+      "id": "fernando_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "fernando",
+      "correo": "fernando@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:36:00",
+      "atrasado": true
+    },
+    {
+      "id": "fernando_2026-09-14_salida",
+      "fecha": "2026-09-14",
+      "usuario": "fernando",
+      "correo": "fernando@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:49:00",
+      "atrasado": false
+    },
+    {
+      "id": "fernando_2026-09-15_entrada",
+      "fecha": "2026-09-15",
+      "usuario": "fernando",
+      "correo": "fernando@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:23:00",
+      "atrasado": false
+    },
+    {
+      "id": "fernando_2026-09-15_salida",
+      "fecha": "2026-09-15",
+      "usuario": "fernando",
+      "correo": "fernando@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:32:00",
+      "atrasado": false
+    },
+    {
+      "id": "fernando_2026-09-16_entrada",
+      "fecha": "2026-09-16",
+      "usuario": "fernando",
+      "correo": "fernando@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:11:00",
+      "atrasado": false
+    },
+    {
+      "id": "fernando_2026-09-16_salida",
+      "fecha": "2026-09-16",
+      "usuario": "fernando",
+      "correo": "fernando@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:00:00",
+      "atrasado": false
+    },
+    {
+      "id": "fernando_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "fernando",
+      "correo": "fernando@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:11:00",
+      "atrasado": false
+    },
+    {
+      "id": "fernando_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "fernando",
+      "correo": "fernando@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:08:00",
+      "atrasado": false
+    },
+    {
+      "id": "hector_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:21:00",
+      "atrasado": false
+    },
+    {
+      "id": "hector_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:27:00",
+      "atrasado": false
+    },
+    {
+      "id": "hector_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:20:00",
+      "atrasado": false
+    },
+    {
+      "id": "hector_2026-09-04_entrada",
+      "fecha": "2026-09-04",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:01:00",
+      "atrasado": false
+    },
+    {
+      "id": "hector_2026-09-04_salida",
+      "fecha": "2026-09-04",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:16:00",
+      "atrasado": false
+    },
+    {
+      "id": "hector_2026-09-07_entrada",
+      "fecha": "2026-09-07",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:14:00",
+      "atrasado": false
+    },
+    {
+      "id": "hector_2026-09-07_salida",
+      "fecha": "2026-09-07",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:56:00",
+      "atrasado": false
+    },
+    {
+      "id": "hector_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:53:00",
+      "atrasado": true
+    },
+    {
+      "id": "hector_2026-09-09_salida",
+      "fecha": "2026-09-09",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:18:00",
+      "atrasado": false
+    },
+    {
+      "id": "hector_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:13:00",
+      "atrasado": false
+    },
+    {
+      "id": "hector_2026-09-10_salida",
+      "fecha": "2026-09-10",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:49:00",
+      "atrasado": false
+    },
+    {
+      "id": "hector_2026-09-11_entrada",
+      "fecha": "2026-09-11",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:07:00",
+      "atrasado": false
+    },
+    {
+      "id": "hector_2026-09-11_salida",
+      "fecha": "2026-09-11",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:01:00",
+      "atrasado": false
+    },
+    {
+      "id": "hector_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:17:00",
+      "atrasado": false
+    },
+    {
+      "id": "hector_2026-09-14_salida",
+      "fecha": "2026-09-14",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:17:00",
+      "atrasado": false
+    },
+    {
+      "id": "hector_2026-09-15_entrada",
+      "fecha": "2026-09-15",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:27:00",
+      "atrasado": false
+    },
+    {
+      "id": "hector_2026-09-15_salida",
+      "fecha": "2026-09-15",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:02:00",
+      "atrasado": false
+    },
+    {
+      "id": "hector_2026-09-23_entrada",
+      "fecha": "2026-09-23",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:05:00",
+      "atrasado": true
+    },
+    {
+      "id": "hector_2026-09-23_salida",
+      "fecha": "2026-09-23",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:15:00",
+      "atrasado": false
+    },
+    {
+      "id": "hector_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:05:00",
+      "atrasado": true
+    },
+    {
+      "id": "hector_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:15:00",
+      "atrasado": false
+    },
+    {
+      "id": "isabel_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:22:00",
+      "atrasado": false
+    },
+    {
+      "id": "isabel_2026-09-01_salida",
+      "fecha": "2026-09-01",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:57:00",
+      "atrasado": false
+    },
+    {
+      "id": "isabel_2026-09-02_entrada",
+      "fecha": "2026-09-02",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:40:00",
+      "atrasado": true
+    },
+    {
+      "id": "isabel_2026-09-02_salida",
+      "fecha": "2026-09-02",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:22:00",
+      "atrasado": false
+    },
+    {
+      "id": "isabel_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:39:00",
+      "atrasado": true
+    },
+    {
+      "id": "isabel_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:31:00",
+      "atrasado": false
+    },
+    {
+      "id": "isabel_2026-09-07_entrada",
+      "fecha": "2026-09-07",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:18:00",
+      "atrasado": false
+    },
+    {
+      "id": "isabel_2026-09-07_salida",
+      "fecha": "2026-09-07",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:08:00",
+      "atrasado": false
+    },
+    {
+      "id": "isabel_2026-09-08_entrada",
+      "fecha": "2026-09-08",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:13:00",
+      "atrasado": false
+    },
+    {
+      "id": "isabel_2026-09-08_salida",
+      "fecha": "2026-09-08",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:53:00",
+      "atrasado": false
+    },
+    {
+      "id": "isabel_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:07:00",
+      "atrasado": true
+    },
+    {
+      "id": "isabel_2026-09-09_salida",
+      "fecha": "2026-09-09",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:06:00",
+      "atrasado": false
+    },
+    {
+      "id": "isabel_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:05:00",
+      "atrasado": false
+    },
+    {
+      "id": "isabel_2026-09-10_salida",
+      "fecha": "2026-09-10",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:13:00",
+      "atrasado": false
+    },
+    {
+      "id": "isabel_2026-09-11_entrada",
+      "fecha": "2026-09-11",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:28:00",
+      "atrasado": false
+    },
+    {
+      "id": "isabel_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:20:00",
+      "atrasado": false
+    },
+    {
+      "id": "isabel_2026-09-14_salida",
+      "fecha": "2026-09-14",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:03:00",
+      "atrasado": false
+    },
+    {
+      "id": "isabel_2026-09-16_entrada",
+      "fecha": "2026-09-16",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:33:00",
+      "atrasado": true
+    },
+    {
+      "id": "isabel_2026-09-16_salida",
+      "fecha": "2026-09-16",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:05:00",
+      "atrasado": false
+    },
+    {
+      "id": "isabel_2026-09-23_entrada",
+      "fecha": "2026-09-23",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:58:00",
+      "atrasado": true
+    },
+    {
+      "id": "isabel_2026-09-23_salida",
+      "fecha": "2026-09-23",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:42:00",
+      "atrasado": false
+    },
+    {
+      "id": "isabel_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:58:00",
+      "atrasado": true
+    },
+    {
+      "id": "isabel_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:42:00",
+      "atrasado": false
+    },
+    {
+      "id": "jorge_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:19:00",
+      "atrasado": false
+    },
+    {
+      "id": "jorge_2026-09-01_salida",
+      "fecha": "2026-09-01",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:18:00",
+      "atrasado": false
+    },
+    {
+      "id": "jorge_2026-09-02_entrada",
+      "fecha": "2026-09-02",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:12:00",
+      "atrasado": false
+    },
+    {
+      "id": "jorge_2026-09-02_salida",
+      "fecha": "2026-09-02",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:54:00",
+      "atrasado": false
+    },
+    {
+      "id": "jorge_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:02:00",
+      "atrasado": false
+    },
+    {
+      "id": "jorge_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:07:00",
+      "atrasado": false
+    },
+    {
+      "id": "jorge_2026-09-04_entrada",
+      "fecha": "2026-09-04",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:05:00",
+      "atrasado": false
+    },
+    {
+      "id": "jorge_2026-09-04_salida",
+      "fecha": "2026-09-04",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:37:00",
+      "atrasado": false
+    },
+    {
+      "id": "jorge_2026-09-07_entrada",
+      "fecha": "2026-09-07",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:26:00",
+      "atrasado": false
+    },
+    {
+      "id": "jorge_2026-09-07_salida",
+      "fecha": "2026-09-07",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:37:00",
+      "atrasado": false
+    },
+    {
+      "id": "jorge_2026-09-08_entrada",
+      "fecha": "2026-09-08",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:44:00",
+      "atrasado": true
+    },
+    {
+      "id": "jorge_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:35:00",
+      "atrasado": true
+    },
+    {
+      "id": "jorge_2026-09-09_salida",
+      "fecha": "2026-09-09",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:20:00",
+      "atrasado": false
+    },
+    {
+      "id": "jorge_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:15:00",
+      "atrasado": true
+    },
+    {
+      "id": "jorge_2026-09-10_salida",
+      "fecha": "2026-09-10",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:12:00",
+      "atrasado": false
+    },
+    {
+      "id": "jorge_2026-09-11_entrada",
+      "fecha": "2026-09-11",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:07:00",
+      "atrasado": false
+    },
+    {
+      "id": "jorge_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:02:00",
+      "atrasado": false
+    },
+    {
+      "id": "jorge_2026-09-15_entrada",
+      "fecha": "2026-09-15",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:19:00",
+      "atrasado": false
+    },
+    {
+      "id": "jorge_2026-09-15_salida",
+      "fecha": "2026-09-15",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:55:00",
+      "atrasado": false
+    },
+    {
+      "id": "jorge_2026-09-16_entrada",
+      "fecha": "2026-09-16",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:14:00",
+      "atrasado": false
+    },
+    {
+      "id": "jorge_2026-09-16_salida",
+      "fecha": "2026-09-16",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:42:00",
+      "atrasado": false
+    },
+    {
+      "id": "jorge_2026-09-23_entrada",
+      "fecha": "2026-09-23",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:44:00",
+      "atrasado": true
+    },
+    {
+      "id": "jorge_2026-09-23_salida",
+      "fecha": "2026-09-23",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:20:00",
+      "atrasado": false
+    },
+    {
+      "id": "jorge_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:44:00",
+      "atrasado": true
+    },
+    {
+      "id": "jorge_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:20:00",
+      "atrasado": false
+    },
+    {
+      "id": "juan_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:23:00",
+      "atrasado": false
+    },
+    {
+      "id": "juan_2026-09-01_salida",
+      "fecha": "2026-09-01",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:59:00",
+      "atrasado": false
+    },
+    {
+      "id": "juan_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:06:00",
+      "atrasado": false
+    },
+    {
+      "id": "juan_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:10:00",
+      "atrasado": false
+    },
+    {
+      "id": "juan_2026-09-04_entrada",
+      "fecha": "2026-09-04",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:44:00",
+      "atrasado": true
+    },
+    {
+      "id": "juan_2026-09-04_salida",
+      "fecha": "2026-09-04",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:43:00",
+      "atrasado": false
+    },
+    {
+      "id": "juan_2026-09-07_entrada",
+      "fecha": "2026-09-07",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:34:00",
+      "atrasado": true
+    },
+    {
+      "id": "juan_2026-09-07_salida",
+      "fecha": "2026-09-07",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:17:00",
+      "atrasado": false
+    },
+    {
+      "id": "juan_2026-09-08_entrada",
+      "fecha": "2026-09-08",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:25:00",
+      "atrasado": false
+    },
+    {
+      "id": "juan_2026-09-08_salida",
+      "fecha": "2026-09-08",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:17:00",
+      "atrasado": false
+    },
+    {
+      "id": "juan_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:55:00",
+      "atrasado": true
+    },
+    {
+      "id": "juan_2026-09-09_salida",
+      "fecha": "2026-09-09",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:46:00",
+      "atrasado": false
+    },
+    {
+      "id": "juan_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:42:00",
+      "atrasado": true
+    },
+    {
+      "id": "juan_2026-09-10_salida",
+      "fecha": "2026-09-10",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:30:00",
+      "atrasado": false
+    },
+    {
+      "id": "juan_2026-09-11_entrada",
+      "fecha": "2026-09-11",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:17:00",
+      "atrasado": false
+    },
+    {
+      "id": "juan_2026-09-11_salida",
+      "fecha": "2026-09-11",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:43:00",
+      "atrasado": false
+    },
+    {
+      "id": "juan_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:08:00",
+      "atrasado": false
+    },
+    {
+      "id": "juan_2026-09-14_salida",
+      "fecha": "2026-09-14",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:09:00",
+      "atrasado": false
+    },
+    {
+      "id": "juan_2026-09-15_entrada",
+      "fecha": "2026-09-15",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:02:00",
+      "atrasado": false
+    },
+    {
+      "id": "juan_2026-09-15_salida",
+      "fecha": "2026-09-15",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:39:00",
+      "atrasado": false
+    },
+    {
+      "id": "juan_2026-09-16_entrada",
+      "fecha": "2026-09-16",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:29:00",
+      "atrasado": false
+    },
+    {
+      "id": "juan_2026-09-16_salida",
+      "fecha": "2026-09-16",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:43:00",
+      "atrasado": false
+    },
+    {
+      "id": "juan_2026-09-23_entrada",
+      "fecha": "2026-09-23",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:03:00",
+      "atrasado": false
+    },
+    {
+      "id": "juan_2026-09-23_salida",
+      "fecha": "2026-09-23",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:45:00",
+      "atrasado": false
+    },
+    {
+      "id": "juan_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:03:00",
+      "atrasado": false
+    },
+    {
+      "id": "juan_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:45:00",
+      "atrasado": false
+    },
+    {
+      "id": "karen_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:23:00",
+      "atrasado": false
+    },
+    {
+      "id": "karen_2026-09-01_salida",
+      "fecha": "2026-09-01",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:47:00",
+      "atrasado": false
+    },
+    {
+      "id": "karen_2026-09-02_entrada",
+      "fecha": "2026-09-02",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:24:00",
+      "atrasado": false
+    },
+    {
+      "id": "karen_2026-09-02_salida",
+      "fecha": "2026-09-02",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:37:00",
+      "atrasado": false
+    },
+    {
+      "id": "karen_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:18:00",
+      "atrasado": false
+    },
+    {
+      "id": "karen_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:47:00",
+      "atrasado": false
+    },
+    {
+      "id": "karen_2026-09-04_entrada",
+      "fecha": "2026-09-04",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:58:00",
+      "atrasado": true
+    },
+    {
+      "id": "karen_2026-09-07_entrada",
+      "fecha": "2026-09-07",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:00:00",
+      "atrasado": false
+    },
+    {
+      "id": "karen_2026-09-07_salida",
+      "fecha": "2026-09-07",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:27:00",
+      "atrasado": false
+    },
+    {
+      "id": "karen_2026-09-08_entrada",
+      "fecha": "2026-09-08",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:12:00",
+      "atrasado": false
+    },
+    {
+      "id": "karen_2026-09-08_salida",
+      "fecha": "2026-09-08",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:55:00",
+      "atrasado": false
+    },
+    {
+      "id": "karen_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:00:00",
+      "atrasado": false
+    },
+    {
+      "id": "karen_2026-09-09_salida",
+      "fecha": "2026-09-09",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:14:00",
+      "atrasado": false
+    },
+    {
+      "id": "karen_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:20:00",
+      "atrasado": false
+    },
+    {
+      "id": "karen_2026-09-10_salida",
+      "fecha": "2026-09-10",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:34:00",
+      "atrasado": false
+    },
+    {
+      "id": "karen_2026-09-11_entrada",
+      "fecha": "2026-09-11",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:13:00",
+      "atrasado": false
+    },
+    {
+      "id": "karen_2026-09-11_salida",
+      "fecha": "2026-09-11",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:02:00",
+      "atrasado": false
+    },
+    {
+      "id": "karen_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:02:00",
+      "atrasado": true
+    },
+    {
+      "id": "karen_2026-09-14_salida",
+      "fecha": "2026-09-14",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:19:00",
+      "atrasado": false
+    },
+    {
+      "id": "karen_2026-09-15_entrada",
+      "fecha": "2026-09-15",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:19:00",
+      "atrasado": false
+    },
+    {
+      "id": "karen_2026-09-15_salida",
+      "fecha": "2026-09-15",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:01:00",
+      "atrasado": false
+    },
+    {
+      "id": "karen_2026-09-16_entrada",
+      "fecha": "2026-09-16",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:21:00",
+      "atrasado": false
+    },
+    {
+      "id": "karen_2026-09-16_salida",
+      "fecha": "2026-09-16",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:06:00",
+      "atrasado": false
+    },
+    {
+      "id": "karen_2026-09-23_entrada",
+      "fecha": "2026-09-23",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:12:00",
+      "atrasado": true
+    },
+    {
+      "id": "karen_2026-09-23_salida",
+      "fecha": "2026-09-23",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:31:00",
+      "atrasado": false
+    },
+    {
+      "id": "karen_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:12:00",
+      "atrasado": true
+    },
+    {
+      "id": "karen_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:31:00",
+      "atrasado": false
+    },
+    {
+      "id": "leonardo_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:39:00",
+      "atrasado": true
+    },
+    {
+      "id": "leonardo_2026-09-01_salida",
+      "fecha": "2026-09-01",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:40:00",
+      "atrasado": false
+    },
+    {
+      "id": "leonardo_2026-09-02_entrada",
+      "fecha": "2026-09-02",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:14:00",
+      "atrasado": false
+    },
+    {
+      "id": "leonardo_2026-09-02_salida",
+      "fecha": "2026-09-02",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:44:00",
+      "atrasado": false
+    },
+    {
+      "id": "leonardo_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:13:00",
+      "atrasado": true
+    },
+    {
+      "id": "leonardo_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:40:00",
+      "atrasado": false
+    },
+    {
+      "id": "leonardo_2026-09-04_entrada",
+      "fecha": "2026-09-04",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:18:00",
+      "atrasado": false
+    },
+    {
+      "id": "leonardo_2026-09-04_salida",
+      "fecha": "2026-09-04",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:35:00",
+      "atrasado": false
+    },
+    {
+      "id": "leonardo_2026-09-07_entrada",
+      "fecha": "2026-09-07",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:37:00",
+      "atrasado": true
+    },
+    {
+      "id": "leonardo_2026-09-07_salida",
+      "fecha": "2026-09-07",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:11:00",
+      "atrasado": false
+    },
+    {
+      "id": "leonardo_2026-09-08_entrada",
+      "fecha": "2026-09-08",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:02:00",
+      "atrasado": false
+    },
+    {
+      "id": "leonardo_2026-09-08_salida",
+      "fecha": "2026-09-08",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:40:00",
+      "atrasado": false
+    },
+    {
+      "id": "leonardo_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:07:00",
+      "atrasado": false
+    },
+    {
+      "id": "leonardo_2026-09-09_salida",
+      "fecha": "2026-09-09",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:54:00",
+      "atrasado": false
+    },
+    {
+      "id": "leonardo_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:50:00",
+      "atrasado": true
+    },
+    {
+      "id": "leonardo_2026-09-10_salida",
+      "fecha": "2026-09-10",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:08:00",
+      "atrasado": false
+    },
+    {
+      "id": "leonardo_2026-09-11_entrada",
+      "fecha": "2026-09-11",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:20:00",
+      "atrasado": false
+    },
+    {
+      "id": "leonardo_2026-09-11_salida",
+      "fecha": "2026-09-11",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:31:00",
+      "atrasado": false
+    },
+    {
+      "id": "leonardo_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:50:00",
+      "atrasado": true
+    },
+    {
+      "id": "leonardo_2026-09-14_salida",
+      "fecha": "2026-09-14",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:47:00",
+      "atrasado": false
+    },
+    {
+      "id": "leonardo_2026-09-15_entrada",
+      "fecha": "2026-09-15",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:06:00",
+      "atrasado": true
+    },
+    {
+      "id": "leonardo_2026-09-15_salida",
+      "fecha": "2026-09-15",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:58:00",
+      "atrasado": false
+    },
+    {
+      "id": "leonardo_2026-09-23_entrada",
+      "fecha": "2026-09-23",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:12:00",
+      "atrasado": false
+    },
+    {
+      "id": "leonardo_2026-09-23_salida",
+      "fecha": "2026-09-23",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:35:00",
+      "atrasado": false
+    },
+    {
+      "id": "leonardo_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:12:00",
+      "atrasado": false
+    },
+    {
+      "id": "leonardo_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:35:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:19:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-01_salida",
+      "fecha": "2026-09-01",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:43:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-02_entrada",
+      "fecha": "2026-09-02",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:14:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-02_salida",
+      "fecha": "2026-09-02",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:16:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:23:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:57:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-04_entrada",
+      "fecha": "2026-09-04",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:09:00",
+      "atrasado": true
+    },
+    {
+      "id": "lucia_2026-09-04_salida",
+      "fecha": "2026-09-04",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:32:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-07_entrada",
+      "fecha": "2026-09-07",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:10:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-08_entrada",
+      "fecha": "2026-09-08",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:21:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-08_salida",
+      "fecha": "2026-09-08",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:13:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:55:00",
+      "atrasado": true
+    },
+    {
+      "id": "lucia_2026-09-09_salida",
+      "fecha": "2026-09-09",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:57:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:23:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-10_salida",
+      "fecha": "2026-09-10",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:08:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-11_entrada",
+      "fecha": "2026-09-11",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:01:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-11_salida",
+      "fecha": "2026-09-11",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:50:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:16:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-14_salida",
+      "fecha": "2026-09-14",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:17:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-15_entrada",
+      "fecha": "2026-09-15",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:18:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-15_salida",
+      "fecha": "2026-09-15",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:09:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-16_entrada",
+      "fecha": "2026-09-16",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:21:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-23_entrada",
+      "fecha": "2026-09-23",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:07:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-23_salida",
+      "fecha": "2026-09-23",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:15:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:07:00",
+      "atrasado": false
+    },
+    {
+      "id": "lucia_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:15:00",
+      "atrasado": false
+    },
+    {
+      "id": "maria_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:06:00",
+      "atrasado": false
+    },
+    {
+      "id": "maria_2026-09-01_salida",
+      "fecha": "2026-09-01",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:08:00",
+      "atrasado": false
+    },
+    {
+      "id": "maria_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:29:00",
+      "atrasado": false
+    },
+    {
+      "id": "maria_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:00:00",
+      "atrasado": false
+    },
+    {
+      "id": "maria_2026-09-04_entrada",
+      "fecha": "2026-09-04",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:12:00",
+      "atrasado": false
+    },
+    {
+      "id": "maria_2026-09-04_salida",
+      "fecha": "2026-09-04",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:16:00",
+      "atrasado": false
+    },
+    {
+      "id": "maria_2026-09-07_entrada",
+      "fecha": "2026-09-07",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:40:00",
+      "atrasado": true
+    },
+    {
+      "id": "maria_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:11:00",
+      "atrasado": true
+    },
+    {
+      "id": "maria_2026-09-09_salida",
+      "fecha": "2026-09-09",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:35:00",
+      "atrasado": false
+    },
+    {
+      "id": "maria_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:42:00",
+      "atrasado": true
+    },
+    {
+      "id": "maria_2026-09-10_salida",
+      "fecha": "2026-09-10",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:30:00",
+      "atrasado": false
+    },
+    {
+      "id": "maria_2026-09-11_entrada",
+      "fecha": "2026-09-11",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:22:00",
+      "atrasado": false
+    },
+    {
+      "id": "maria_2026-09-11_salida",
+      "fecha": "2026-09-11",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:58:00",
+      "atrasado": false
+    },
+    {
+      "id": "maria_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:01:00",
+      "atrasado": false
+    },
+    {
+      "id": "maria_2026-09-14_salida",
+      "fecha": "2026-09-14",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:09:00",
+      "atrasado": false
+    },
+    {
+      "id": "maria_2026-09-16_entrada",
+      "fecha": "2026-09-16",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:26:00",
+      "atrasado": false
+    },
+    {
+      "id": "maria_2026-09-16_salida",
+      "fecha": "2026-09-16",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:51:00",
+      "atrasado": false
+    },
+    {
+      "id": "maria_2026-09-23_entrada",
+      "fecha": "2026-09-23",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:15:00",
+      "atrasado": false
+    },
+    {
+      "id": "maria_2026-09-23_salida",
+      "fecha": "2026-09-23",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:10:00",
+      "atrasado": false
+    },
+    {
+      "id": "maria_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:15:00",
+      "atrasado": false
+    },
+    {
+      "id": "maria_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:10:00",
+      "atrasado": false
+    },
+    {
+      "id": "marta_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:17:00",
+      "atrasado": false
+    },
+    {
+      "id": "marta_2026-09-01_salida",
+      "fecha": "2026-09-01",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:40:00",
+      "atrasado": false
+    },
+    {
+      "id": "marta_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:13:00",
+      "atrasado": false
+    },
+    {
+      "id": "marta_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:16:00",
+      "atrasado": false
+    },
+    {
+      "id": "marta_2026-09-04_entrada",
+      "fecha": "2026-09-04",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:07:00",
+      "atrasado": false
+    },
+    {
+      "id": "marta_2026-09-04_salida",
+      "fecha": "2026-09-04",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:02:00",
+      "atrasado": false
+    },
+    {
+      "id": "marta_2026-09-07_entrada",
+      "fecha": "2026-09-07",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:32:00",
+      "atrasado": true
+    },
+    {
+      "id": "marta_2026-09-07_salida",
+      "fecha": "2026-09-07",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:34:00",
+      "atrasado": false
+    },
+    {
+      "id": "marta_2026-09-08_entrada",
+      "fecha": "2026-09-08",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:55:00",
+      "atrasado": true
+    },
+    {
+      "id": "marta_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:10:00",
+      "atrasado": false
+    },
+    {
+      "id": "marta_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:35:00",
+      "atrasado": true
+    },
+    {
+      "id": "marta_2026-09-10_salida",
+      "fecha": "2026-09-10",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:19:00",
+      "atrasado": false
+    },
+    {
+      "id": "marta_2026-09-11_entrada",
+      "fecha": "2026-09-11",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:29:00",
+      "atrasado": false
+    },
+    {
+      "id": "marta_2026-09-11_salida",
+      "fecha": "2026-09-11",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:45:00",
+      "atrasado": false
+    },
+    {
+      "id": "marta_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:11:00",
+      "atrasado": false
+    },
+    {
+      "id": "marta_2026-09-14_salida",
+      "fecha": "2026-09-14",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:25:00",
+      "atrasado": false
+    },
+    {
+      "id": "marta_2026-09-15_entrada",
+      "fecha": "2026-09-15",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:21:00",
+      "atrasado": false
+    },
+    {
+      "id": "marta_2026-09-15_salida",
+      "fecha": "2026-09-15",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:06:00",
+      "atrasado": false
+    },
+    {
+      "id": "marta_2026-09-16_entrada",
+      "fecha": "2026-09-16",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:04:00",
+      "atrasado": true
+    },
+    {
+      "id": "marta_2026-09-16_salida",
+      "fecha": "2026-09-16",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:09:00",
+      "atrasado": false
+    },
+    {
+      "id": "marta_2026-09-23_entrada",
+      "fecha": "2026-09-23",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:28:00",
+      "atrasado": false
+    },
+    {
+      "id": "marta_2026-09-23_salida",
+      "fecha": "2026-09-23",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:40:00",
+      "atrasado": false
+    },
+    {
+      "id": "marta_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:28:00",
+      "atrasado": false
+    },
+    {
+      "id": "marta_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:40:00",
+      "atrasado": false
+    },
+    {
+      "id": "nicolas_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:09:00",
+      "atrasado": true
+    },
+    {
+      "id": "nicolas_2026-09-02_entrada",
+      "fecha": "2026-09-02",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:55:00",
+      "atrasado": true
+    },
+    {
+      "id": "nicolas_2026-09-02_salida",
+      "fecha": "2026-09-02",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:06:00",
+      "atrasado": false
+    },
+    {
+      "id": "nicolas_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:09:00",
+      "atrasado": false
+    },
+    {
+      "id": "nicolas_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:01:00",
+      "atrasado": false
+    },
+    {
+      "id": "nicolas_2026-09-04_entrada",
+      "fecha": "2026-09-04",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:58:00",
+      "atrasado": true
+    },
+    {
+      "id": "nicolas_2026-09-04_salida",
+      "fecha": "2026-09-04",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:45:00",
+      "atrasado": false
+    },
+    {
+      "id": "nicolas_2026-09-07_entrada",
+      "fecha": "2026-09-07",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:36:00",
+      "atrasado": true
+    },
+    {
+      "id": "nicolas_2026-09-07_salida",
+      "fecha": "2026-09-07",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:58:00",
+      "atrasado": false
+    },
+    {
+      "id": "nicolas_2026-09-08_entrada",
+      "fecha": "2026-09-08",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:29:00",
+      "atrasado": false
+    },
+    {
+      "id": "nicolas_2026-09-08_salida",
+      "fecha": "2026-09-08",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:09:00",
+      "atrasado": false
+    },
+    {
+      "id": "nicolas_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:48:00",
+      "atrasado": true
+    },
+    {
+      "id": "nicolas_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:00:00",
+      "atrasado": false
+    },
+    {
+      "id": "nicolas_2026-09-10_salida",
+      "fecha": "2026-09-10",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:16:00",
+      "atrasado": false
+    },
+    {
+      "id": "nicolas_2026-09-11_entrada",
+      "fecha": "2026-09-11",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:26:00",
+      "atrasado": false
+    },
+    {
+      "id": "nicolas_2026-09-11_salida",
+      "fecha": "2026-09-11",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:21:00",
+      "atrasado": false
+    },
+    {
+      "id": "nicolas_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:04:00",
+      "atrasado": false
+    },
+    {
+      "id": "nicolas_2026-09-14_salida",
+      "fecha": "2026-09-14",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:47:00",
+      "atrasado": false
+    },
+    {
+      "id": "nicolas_2026-09-23_entrada",
+      "fecha": "2026-09-23",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:31:00",
+      "atrasado": true
+    },
+    {
+      "id": "nicolas_2026-09-23_salida",
+      "fecha": "2026-09-23",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "17:12:00",
+      "atrasado": false
+    },
+    {
+      "id": "nicolas_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:31:00",
+      "atrasado": true
+    },
+    {
+      "id": "nicolas_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "17:12:00",
+      "atrasado": false
+    },
+    {
+      "id": "olivia_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:44:00",
+      "atrasado": true
+    },
+    {
+      "id": "olivia_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:14:00",
+      "atrasado": false
+    },
+    {
+      "id": "olivia_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:04:00",
+      "atrasado": false
+    },
+    {
+      "id": "olivia_2026-09-04_entrada",
+      "fecha": "2026-09-04",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:18:00",
+      "atrasado": false
+    },
+    {
+      "id": "olivia_2026-09-04_salida",
+      "fecha": "2026-09-04",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:19:00",
+      "atrasado": false
+    },
+    {
+      "id": "olivia_2026-09-07_entrada",
+      "fecha": "2026-09-07",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:01:00",
+      "atrasado": false
+    },
+    {
+      "id": "olivia_2026-09-07_salida",
+      "fecha": "2026-09-07",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:37:00",
+      "atrasado": false
+    },
+    {
+      "id": "olivia_2026-09-08_entrada",
+      "fecha": "2026-09-08",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:49:00",
+      "atrasado": true
+    },
+    {
+      "id": "olivia_2026-09-08_salida",
+      "fecha": "2026-09-08",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:04:00",
+      "atrasado": false
+    },
+    {
+      "id": "olivia_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:09:00",
+      "atrasado": false
+    },
+    {
+      "id": "olivia_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:05:00",
+      "atrasado": true
+    },
+    {
+      "id": "olivia_2026-09-10_salida",
+      "fecha": "2026-09-10",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:53:00",
+      "atrasado": false
+    },
+    {
+      "id": "olivia_2026-09-11_entrada",
+      "fecha": "2026-09-11",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:24:00",
+      "atrasado": false
+    },
+    {
+      "id": "olivia_2026-09-11_salida",
+      "fecha": "2026-09-11",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:37:00",
+      "atrasado": false
+    },
+    {
+      "id": "olivia_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:16:00",
+      "atrasado": false
+    },
+    {
+      "id": "olivia_2026-09-14_salida",
+      "fecha": "2026-09-14",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:42:00",
+      "atrasado": false
+    },
+    {
+      "id": "olivia_2026-09-15_entrada",
+      "fecha": "2026-09-15",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:48:00",
+      "atrasado": true
+    },
+    {
+      "id": "olivia_2026-09-15_salida",
+      "fecha": "2026-09-15",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:18:00",
+      "atrasado": false
+    },
+    {
+      "id": "olivia_2026-09-16_entrada",
+      "fecha": "2026-09-16",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:00:00",
+      "atrasado": false
+    },
+    {
+      "id": "olivia_2026-09-16_salida",
+      "fecha": "2026-09-16",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:54:00",
+      "atrasado": false
+    },
+    {
+      "id": "olivia_2026-09-23_entrada",
+      "fecha": "2026-09-23",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:05:00",
+      "atrasado": false
+    },
+    {
+      "id": "olivia_2026-09-23_salida",
+      "fecha": "2026-09-23",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:02:00",
+      "atrasado": false
+    },
+    {
+      "id": "olivia_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:05:00",
+      "atrasado": false
+    },
+    {
+      "id": "olivia_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:02:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:25:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-01_salida",
+      "fecha": "2026-09-01",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:40:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-02_entrada",
+      "fecha": "2026-09-02",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:17:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-02_salida",
+      "fecha": "2026-09-02",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:03:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:07:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:17:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-04_entrada",
+      "fecha": "2026-09-04",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:53:00",
+      "atrasado": true
+    },
+    {
+      "id": "pablo_2026-09-04_salida",
+      "fecha": "2026-09-04",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:58:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-07_entrada",
+      "fecha": "2026-09-07",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:07:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-07_salida",
+      "fecha": "2026-09-07",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:44:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-08_entrada",
+      "fecha": "2026-09-08",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:09:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-08_salida",
+      "fecha": "2026-09-08",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:27:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:06:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-09_salida",
+      "fecha": "2026-09-09",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:55:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:29:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-10_salida",
+      "fecha": "2026-09-10",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:03:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-11_entrada",
+      "fecha": "2026-09-11",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:15:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-11_salida",
+      "fecha": "2026-09-11",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:14:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:11:00",
+      "atrasado": true
+    },
+    {
+      "id": "pablo_2026-09-14_salida",
+      "fecha": "2026-09-14",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:06:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-15_entrada",
+      "fecha": "2026-09-15",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:31:00",
+      "atrasado": true
+    },
+    {
+      "id": "pablo_2026-09-15_salida",
+      "fecha": "2026-09-15",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:07:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-16_entrada",
+      "fecha": "2026-09-16",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:34:00",
+      "atrasado": true
+    },
+    {
+      "id": "pablo_2026-09-16_salida",
+      "fecha": "2026-09-16",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:31:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-23_entrada",
+      "fecha": "2026-09-23",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:22:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-23_salida",
+      "fecha": "2026-09-23",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:55:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:22:00",
+      "atrasado": false
+    },
+    {
+      "id": "pablo_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:55:00",
+      "atrasado": false
+    },
+    {
+      "id": "pedro_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:08:00",
+      "atrasado": false
+    },
+    {
+      "id": "pedro_2026-09-01_salida",
+      "fecha": "2026-09-01",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:45:00",
+      "atrasado": false
+    },
+    {
+      "id": "pedro_2026-09-02_entrada",
+      "fecha": "2026-09-02",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:10:00",
+      "atrasado": false
+    },
+    {
+      "id": "pedro_2026-09-02_salida",
+      "fecha": "2026-09-02",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:36:00",
+      "atrasado": false
+    },
+    {
+      "id": "pedro_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:01:00",
+      "atrasado": false
+    },
+    {
+      "id": "pedro_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:14:00",
+      "atrasado": false
+    },
+    {
+      "id": "pedro_2026-09-04_entrada",
+      "fecha": "2026-09-04",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:06:00",
+      "atrasado": true
+    },
+    {
+      "id": "pedro_2026-09-04_salida",
+      "fecha": "2026-09-04",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:10:00",
+      "atrasado": false
+    },
+    {
+      "id": "pedro_2026-09-07_entrada",
+      "fecha": "2026-09-07",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:56:00",
+      "atrasado": true
+    },
+    {
+      "id": "pedro_2026-09-07_salida",
+      "fecha": "2026-09-07",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:19:00",
+      "atrasado": false
+    },
+    {
+      "id": "pedro_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:22:00",
+      "atrasado": false
+    },
+    {
+      "id": "pedro_2026-09-09_salida",
+      "fecha": "2026-09-09",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:17:00",
+      "atrasado": false
+    },
+    {
+      "id": "pedro_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:51:00",
+      "atrasado": true
+    },
+    {
+      "id": "pedro_2026-09-10_salida",
+      "fecha": "2026-09-10",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:24:00",
+      "atrasado": false
+    },
+    {
+      "id": "pedro_2026-09-11_entrada",
+      "fecha": "2026-09-11",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:53:00",
+      "atrasado": true
+    },
+    {
+      "id": "pedro_2026-09-11_salida",
+      "fecha": "2026-09-11",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:48:00",
+      "atrasado": false
+    },
+    {
+      "id": "pedro_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:24:00",
+      "atrasado": false
+    },
+    {
+      "id": "pedro_2026-09-14_salida",
+      "fecha": "2026-09-14",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:07:00",
+      "atrasado": false
+    },
+    {
+      "id": "pedro_2026-09-15_entrada",
+      "fecha": "2026-09-15",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:55:00",
+      "atrasado": true
+    },
+    {
+      "id": "pedro_2026-09-15_salida",
+      "fecha": "2026-09-15",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:34:00",
+      "atrasado": false
+    },
+    {
+      "id": "pedro_2026-09-23_entrada",
+      "fecha": "2026-09-23",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:47:00",
+      "atrasado": true
+    },
+    {
+      "id": "pedro_2026-09-23_salida",
+      "fecha": "2026-09-23",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:33:00",
+      "atrasado": false
+    },
+    {
+      "id": "pedro_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:47:00",
+      "atrasado": true
+    },
+    {
+      "id": "pedro_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:33:00",
+      "atrasado": false
+    },
+    {
+      "id": "rosa_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:14:00",
+      "atrasado": true
+    },
+    {
+      "id": "rosa_2026-09-01_salida",
+      "fecha": "2026-09-01",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:19:00",
+      "atrasado": false
+    },
+    {
+      "id": "rosa_2026-09-02_entrada",
+      "fecha": "2026-09-02",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:11:00",
+      "atrasado": false
+    },
+    {
+      "id": "rosa_2026-09-02_salida",
+      "fecha": "2026-09-02",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:58:00",
+      "atrasado": false
+    },
+    {
+      "id": "rosa_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:29:00",
+      "atrasado": false
+    },
+    {
+      "id": "rosa_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:47:00",
+      "atrasado": false
+    },
+    {
+      "id": "rosa_2026-09-04_entrada",
+      "fecha": "2026-09-04",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:12:00",
+      "atrasado": false
+    },
+    {
+      "id": "rosa_2026-09-04_salida",
+      "fecha": "2026-09-04",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:42:00",
+      "atrasado": false
+    },
+    {
+      "id": "rosa_2026-09-07_entrada",
+      "fecha": "2026-09-07",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:03:00",
+      "atrasado": false
+    },
+    {
+      "id": "rosa_2026-09-07_salida",
+      "fecha": "2026-09-07",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:38:00",
+      "atrasado": false
+    },
+    {
+      "id": "rosa_2026-09-08_entrada",
+      "fecha": "2026-09-08",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:23:00",
+      "atrasado": false
+    },
+    {
+      "id": "rosa_2026-09-08_salida",
+      "fecha": "2026-09-08",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:19:00",
+      "atrasado": false
+    },
+    {
+      "id": "rosa_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:55:00",
+      "atrasado": true
+    },
+    {
+      "id": "rosa_2026-09-09_salida",
+      "fecha": "2026-09-09",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:10:00",
+      "atrasado": false
+    },
+    {
+      "id": "rosa_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:21:00",
+      "atrasado": false
+    },
+    {
+      "id": "rosa_2026-09-10_salida",
+      "fecha": "2026-09-10",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:55:00",
+      "atrasado": false
+    },
+    {
+      "id": "rosa_2026-09-11_entrada",
+      "fecha": "2026-09-11",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:51:00",
+      "atrasado": true
+    },
+    {
+      "id": "rosa_2026-09-11_salida",
+      "fecha": "2026-09-11",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:41:00",
+      "atrasado": false
+    },
+    {
+      "id": "rosa_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:05:00",
+      "atrasado": false
+    },
+    {
+      "id": "rosa_2026-09-15_entrada",
+      "fecha": "2026-09-15",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:15:00",
+      "atrasado": false
+    },
+    {
+      "id": "rosa_2026-09-16_entrada",
+      "fecha": "2026-09-16",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:22:00",
+      "atrasado": false
+    },
+    {
+      "id": "rosa_2026-09-16_salida",
+      "fecha": "2026-09-16",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:46:00",
+      "atrasado": false
+    },
+    {
+      "id": "rosa_2026-09-23_entrada",
+      "fecha": "2026-09-23",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:17:00",
+      "atrasado": false
+    },
+    {
+      "id": "rosa_2026-09-23_salida",
+      "fecha": "2026-09-23",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:37:00",
+      "atrasado": false
+    },
+    {
+      "id": "rosa_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:17:00",
+      "atrasado": false
+    },
+    {
+      "id": "rosa_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:37:00",
+      "atrasado": false
+    },
+    {
+      "id": "samuel_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:28:00",
+      "atrasado": false
+    },
+    {
+      "id": "samuel_2026-09-01_salida",
+      "fecha": "2026-09-01",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:13:00",
+      "atrasado": false
+    },
+    {
+      "id": "samuel_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:43:00",
+      "atrasado": true
+    },
+    {
+      "id": "samuel_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:52:00",
+      "atrasado": false
+    },
+    {
+      "id": "samuel_2026-09-04_entrada",
+      "fecha": "2026-09-04",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:27:00",
+      "atrasado": false
+    },
+    {
+      "id": "samuel_2026-09-04_salida",
+      "fecha": "2026-09-04",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:43:00",
+      "atrasado": false
+    },
+    {
+      "id": "samuel_2026-09-07_entrada",
+      "fecha": "2026-09-07",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:59:00",
+      "atrasado": true
+    },
+    {
+      "id": "samuel_2026-09-07_salida",
+      "fecha": "2026-09-07",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:14:00",
+      "atrasado": false
+    },
+    {
+      "id": "samuel_2026-09-08_entrada",
+      "fecha": "2026-09-08",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:13:00",
+      "atrasado": false
+    },
+    {
+      "id": "samuel_2026-09-08_salida",
+      "fecha": "2026-09-08",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:48:00",
+      "atrasado": false
+    },
+    {
+      "id": "samuel_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:02:00",
+      "atrasado": false
+    },
+    {
+      "id": "samuel_2026-09-09_salida",
+      "fecha": "2026-09-09",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:10:00",
+      "atrasado": false
+    },
+    {
+      "id": "samuel_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:52:00",
+      "atrasado": true
+    },
+    {
+      "id": "samuel_2026-09-10_salida",
+      "fecha": "2026-09-10",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:53:00",
+      "atrasado": false
+    },
+    {
+      "id": "samuel_2026-09-11_entrada",
+      "fecha": "2026-09-11",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:40:00",
+      "atrasado": true
+    },
+    {
+      "id": "samuel_2026-09-11_salida",
+      "fecha": "2026-09-11",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:09:00",
+      "atrasado": false
+    },
+    {
+      "id": "samuel_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:19:00",
+      "atrasado": false
+    },
+    {
+      "id": "samuel_2026-09-16_entrada",
+      "fecha": "2026-09-16",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:09:00",
+      "atrasado": true
+    },
+    {
+      "id": "samuel_2026-09-16_salida",
+      "fecha": "2026-09-16",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:03:00",
+      "atrasado": false
+    },
+    {
+      "id": "samuel_2026-09-23_entrada",
+      "fecha": "2026-09-23",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:09:00",
+      "atrasado": false
+    },
+    {
+      "id": "samuel_2026-09-23_salida",
+      "fecha": "2026-09-23",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:00:00",
+      "atrasado": false
+    },
+    {
+      "id": "samuel_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:09:00",
+      "atrasado": false
+    },
+    {
+      "id": "samuel_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:00:00",
+      "atrasado": false
+    },
+    {
+      "id": "sofia_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:45:00",
+      "atrasado": true
+    },
+    {
+      "id": "sofia_2026-09-01_salida",
+      "fecha": "2026-09-01",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:04:00",
+      "atrasado": false
+    },
+    {
+      "id": "sofia_2026-09-02_entrada",
+      "fecha": "2026-09-02",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:39:00",
+      "atrasado": true
+    },
+    {
+      "id": "sofia_2026-09-02_salida",
+      "fecha": "2026-09-02",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:30:00",
+      "atrasado": false
+    },
+    {
+      "id": "sofia_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:32:00",
+      "atrasado": true
+    },
+    {
+      "id": "sofia_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:05:00",
+      "atrasado": false
+    },
+    {
+      "id": "sofia_2026-09-04_entrada",
+      "fecha": "2026-09-04",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:17:00",
+      "atrasado": false
+    },
+    {
+      "id": "sofia_2026-09-04_salida",
+      "fecha": "2026-09-04",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:14:00",
+      "atrasado": false
+    },
+    {
+      "id": "sofia_2026-09-08_entrada",
+      "fecha": "2026-09-08",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:05:00",
+      "atrasado": true
+    },
+    {
+      "id": "sofia_2026-09-08_salida",
+      "fecha": "2026-09-08",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:54:00",
+      "atrasado": false
+    },
+    {
+      "id": "sofia_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:11:00",
+      "atrasado": false
+    },
+    {
+      "id": "sofia_2026-09-09_salida",
+      "fecha": "2026-09-09",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:39:00",
+      "atrasado": false
+    },
+    {
+      "id": "sofia_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:25:00",
+      "atrasado": false
+    },
+    {
+      "id": "sofia_2026-09-10_salida",
+      "fecha": "2026-09-10",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:06:00",
+      "atrasado": false
+    },
+    {
+      "id": "sofia_2026-09-11_entrada",
+      "fecha": "2026-09-11",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:17:00",
+      "atrasado": false
+    },
+    {
+      "id": "sofia_2026-09-11_salida",
+      "fecha": "2026-09-11",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:39:00",
+      "atrasado": false
+    },
+    {
+      "id": "sofia_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:02:00",
+      "atrasado": false
+    },
+    {
+      "id": "sofia_2026-09-14_salida",
+      "fecha": "2026-09-14",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:56:00",
+      "atrasado": false
+    },
+    {
+      "id": "sofia_2026-09-15_entrada",
+      "fecha": "2026-09-15",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:16:00",
+      "atrasado": false
+    },
+    {
+      "id": "sofia_2026-09-15_salida",
+      "fecha": "2026-09-15",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:53:00",
+      "atrasado": false
+    },
+    {
+      "id": "sofia_2026-09-16_entrada",
+      "fecha": "2026-09-16",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:43:00",
+      "atrasado": true
+    },
+    {
+      "id": "sofia_2026-09-16_salida",
+      "fecha": "2026-09-16",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:03:00",
+      "atrasado": false
+    },
+    {
+      "id": "sofia_2026-09-23_entrada",
+      "fecha": "2026-09-23",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:20:00",
+      "atrasado": false
+    },
+    {
+      "id": "sofia_2026-09-23_salida",
+      "fecha": "2026-09-23",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:20:00",
+      "atrasado": false
+    },
+    {
+      "id": "sofia_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:20:00",
+      "atrasado": false
+    },
+    {
+      "id": "sofia_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:20:00",
+      "atrasado": false
+    },
+    {
+      "id": "tCsQbP34TLmGdcmLxGoW",
+      "fecha": "2026-09-24",
+      "usuario": "ana",
+      "tipo": "salida",
+      "timestamp": {
+        "_datetime": "2026-09-24T10:17:10+00:00"
+      },
+      "correo": "ana@empresa.com",
+      "atrasado": false,
+      "salida_anticipada": true,
+      "hora": "10:17:00"
+    },
+    {
+      "id": "tatiana_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:25:00",
+      "atrasado": false
+    },
+    {
+      "id": "tatiana_2026-09-02_entrada",
+      "fecha": "2026-09-02",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:15:00",
+      "atrasado": false
+    },
+    {
+      "id": "tatiana_2026-09-02_salida",
+      "fecha": "2026-09-02",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:15:00",
+      "atrasado": false
+    },
+    {
+      "id": "tatiana_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:27:00",
+      "atrasado": false
+    },
+    {
+      "id": "tatiana_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:06:00",
+      "atrasado": false
+    },
+    {
+      "id": "tatiana_2026-09-04_entrada",
+      "fecha": "2026-09-04",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:43:00",
+      "atrasado": true
+    },
+    {
+      "id": "tatiana_2026-09-04_salida",
+      "fecha": "2026-09-04",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:33:00",
+      "atrasado": false
+    },
+    {
+      "id": "tatiana_2026-09-07_entrada",
+      "fecha": "2026-09-07",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:06:00",
+      "atrasado": false
+    },
+    {
+      "id": "tatiana_2026-09-07_salida",
+      "fecha": "2026-09-07",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:19:00",
+      "atrasado": false
+    },
+    {
+      "id": "tatiana_2026-09-08_entrada",
+      "fecha": "2026-09-08",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:12:00",
+      "atrasado": true
+    },
+    {
+      "id": "tatiana_2026-09-08_salida",
+      "fecha": "2026-09-08",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:08:00",
+      "atrasado": false
+    },
+    {
+      "id": "tatiana_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:40:00",
+      "atrasado": true
+    },
+    {
+      "id": "tatiana_2026-09-09_salida",
+      "fecha": "2026-09-09",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:55:00",
+      "atrasado": false
+    },
+    {
+      "id": "tatiana_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:03:00",
+      "atrasado": false
+    },
+    {
+      "id": "tatiana_2026-09-10_salida",
+      "fecha": "2026-09-10",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:52:00",
+      "atrasado": false
+    },
+    {
+      "id": "tatiana_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:12:00",
+      "atrasado": true
+    },
+    {
+      "id": "tatiana_2026-09-14_salida",
+      "fecha": "2026-09-14",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": true,
+      "hora": "16:24:00",
+      "atrasado": false
+    },
+    {
+      "id": "tatiana_2026-09-15_entrada",
+      "fecha": "2026-09-15",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:12:00",
+      "atrasado": false
+    },
+    {
+      "id": "tatiana_2026-09-15_salida",
+      "fecha": "2026-09-15",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:19:00",
+      "atrasado": false
+    },
+    {
+      "id": "tatiana_2026-09-16_entrada",
+      "fecha": "2026-09-16",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:42:00",
+      "atrasado": true
+    },
+    {
+      "id": "tatiana_2026-09-16_salida",
+      "fecha": "2026-09-16",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:06:00",
+      "atrasado": false
+    },
+    {
+      "id": "tatiana_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:26:00",
+      "atrasado": false
+    },
+    {
+      "id": "tatiana_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:41:00",
+      "atrasado": false
+    },
+    {
+      "id": "valentina_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "valentina",
+      "correo": "valentina@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:58:00",
+      "atrasado": true
+    },
+    {
+      "id": "valentina_2026-09-01_salida",
+      "fecha": "2026-09-01",
+      "usuario": "valentina",
+      "correo": "valentina@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:08:00",
+      "atrasado": false
+    },
+    {
+      "id": "valentina_2026-09-02_entrada",
+      "fecha": "2026-09-02",
+      "usuario": "valentina",
+      "correo": "valentina@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:35:00",
+      "atrasado": true
+    },
+    {
+      "id": "valentina_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "valentina",
+      "correo": "valentina@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:10:00",
+      "atrasado": false
+    },
+    {
+      "id": "valentina_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "valentina",
+      "correo": "valentina@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:03:00",
+      "atrasado": false
+    },
+    {
+      "id": "valentina_2026-09-04_entrada",
+      "fecha": "2026-09-04",
+      "usuario": "valentina",
+      "correo": "valentina@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:27:00",
+      "atrasado": false
+    },
+    {
+      "id": "valentina_2026-09-04_salida",
+      "fecha": "2026-09-04",
+      "usuario": "valentina",
+      "correo": "valentina@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:11:00",
+      "atrasado": false
+    },
+    {
+      "id": "valentina_2026-09-07_entrada",
+      "fecha": "2026-09-07",
+      "usuario": "valentina",
+      "correo": "valentina@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:36:00",
+      "atrasado": true
+    },
+    {
+      "id": "valentina_2026-09-07_salida",
+      "fecha": "2026-09-07",
+      "usuario": "valentina",
+      "correo": "valentina@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:11:00",
+      "atrasado": false
+    },
+    {
+      "id": "valentina_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "valentina",
+      "correo": "valentina@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:35:00",
+      "atrasado": true
+    },
+    {
+      "id": "valentina_2026-09-09_salida",
+      "fecha": "2026-09-09",
+      "usuario": "valentina",
+      "correo": "valentina@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:59:00",
+      "atrasado": false
+    },
+    {
+      "id": "valentina_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "valentina",
+      "correo": "valentina@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:01:00",
+      "atrasado": true
+    },
+    {
+      "id": "valentina_2026-09-10_salida",
+      "fecha": "2026-09-10",
+      "usuario": "valentina",
+      "correo": "valentina@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:05:00",
+      "atrasado": false
+    },
+    {
+      "id": "valentina_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "valentina",
+      "correo": "valentina@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "10:00:00",
+      "atrasado": true
+    },
+    {
+      "id": "valentina_2026-09-14_salida",
+      "fecha": "2026-09-14",
+      "usuario": "valentina",
+      "correo": "valentina@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:30:00",
+      "atrasado": false
+    },
+    {
+      "id": "valentina_2026-09-15_entrada",
+      "fecha": "2026-09-15",
+      "usuario": "valentina",
+      "correo": "valentina@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:08:00",
+      "atrasado": false
+    },
+    {
+      "id": "valentina_2026-09-15_salida",
+      "fecha": "2026-09-15",
+      "usuario": "valentina",
+      "correo": "valentina@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:37:00",
+      "atrasado": false
+    },
+    {
+      "id": "valentina_2026-09-23_entrada",
+      "fecha": "2026-09-23",
+      "usuario": "valentina",
+      "correo": "valentina@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:36:00",
+      "atrasado": true
+    },
+    {
+      "id": "valentina_2026-09-23_salida",
+      "fecha": "2026-09-23",
+      "usuario": "valentina",
+      "correo": "valentina@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:05:00",
+      "atrasado": false
+    },
+    {
+      "id": "valentina_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "valentina",
+      "correo": "valentina@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:36:00",
+      "atrasado": true
+    },
+    {
+      "id": "valentina_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "valentina",
+      "correo": "valentina@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:05:00",
+      "atrasado": false
+    },
+    {
+      "id": "victor_2026-09-01_entrada",
+      "fecha": "2026-09-01",
+      "usuario": "victor",
+      "correo": "victor@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:19:00",
+      "atrasado": false
+    },
+    {
+      "id": "victor_2026-09-01_salida",
+      "fecha": "2026-09-01",
+      "usuario": "victor",
+      "correo": "victor@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:32:00",
+      "atrasado": false
+    },
+    {
+      "id": "victor_2026-09-02_entrada",
+      "fecha": "2026-09-02",
+      "usuario": "victor",
+      "correo": "victor@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:10:00",
+      "atrasado": false
+    },
+    {
+      "id": "victor_2026-09-02_salida",
+      "fecha": "2026-09-02",
+      "usuario": "victor",
+      "correo": "victor@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:30:00",
+      "atrasado": false
+    },
+    {
+      "id": "victor_2026-09-03_entrada",
+      "fecha": "2026-09-03",
+      "usuario": "victor",
+      "correo": "victor@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:31:00",
+      "atrasado": true
+    },
+    {
+      "id": "victor_2026-09-03_salida",
+      "fecha": "2026-09-03",
+      "usuario": "victor",
+      "correo": "victor@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:57:00",
+      "atrasado": false
+    },
+    {
+      "id": "victor_2026-09-04_entrada",
+      "fecha": "2026-09-04",
+      "usuario": "victor",
+      "correo": "victor@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:16:00",
+      "atrasado": false
+    },
+    {
+      "id": "victor_2026-09-04_salida",
+      "fecha": "2026-09-04",
+      "usuario": "victor",
+      "correo": "victor@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:37:00",
+      "atrasado": false
+    },
+    {
+      "id": "victor_2026-09-07_entrada",
+      "fecha": "2026-09-07",
+      "usuario": "victor",
+      "correo": "victor@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:32:00",
+      "atrasado": true
+    },
+    {
+      "id": "victor_2026-09-07_salida",
+      "fecha": "2026-09-07",
+      "usuario": "victor",
+      "correo": "victor@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:05:00",
+      "atrasado": false
+    },
+    {
+      "id": "victor_2026-09-08_entrada",
+      "fecha": "2026-09-08",
+      "usuario": "victor",
+      "correo": "victor@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:54:00",
+      "atrasado": true
+    },
+    {
+      "id": "victor_2026-09-08_salida",
+      "fecha": "2026-09-08",
+      "usuario": "victor",
+      "correo": "victor@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:00:00",
+      "atrasado": false
+    },
+    {
+      "id": "victor_2026-09-09_entrada",
+      "fecha": "2026-09-09",
+      "usuario": "victor",
+      "correo": "victor@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:11:00",
+      "atrasado": false
+    },
+    {
+      "id": "victor_2026-09-09_salida",
+      "fecha": "2026-09-09",
+      "usuario": "victor",
+      "correo": "victor@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "18:03:00",
+      "atrasado": false
+    },
+    {
+      "id": "victor_2026-09-10_entrada",
+      "fecha": "2026-09-10",
+      "usuario": "victor",
+      "correo": "victor@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:35:00",
+      "atrasado": true
+    },
+    {
+      "id": "victor_2026-09-14_entrada",
+      "fecha": "2026-09-14",
+      "usuario": "victor",
+      "correo": "victor@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:00:00",
+      "atrasado": false
+    },
+    {
+      "id": "victor_2026-09-14_salida",
+      "fecha": "2026-09-14",
+      "usuario": "victor",
+      "correo": "victor@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:38:00",
+      "atrasado": false
+    },
+    {
+      "id": "victor_2026-09-15_entrada",
+      "fecha": "2026-09-15",
+      "usuario": "victor",
+      "correo": "victor@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:01:00",
+      "atrasado": false
+    },
+    {
+      "id": "victor_2026-09-15_salida",
+      "fecha": "2026-09-15",
+      "usuario": "victor",
+      "correo": "victor@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:47:00",
+      "atrasado": false
+    },
+    {
+      "id": "victor_2026-09-16_entrada",
+      "fecha": "2026-09-16",
+      "usuario": "victor",
+      "correo": "victor@empresa.com",
+      "tipo": "entrada",
+      "salida_anticipada": false,
+      "hora": "09:20:00",
+      "atrasado": false
+    },
+    {
+      "id": "victor_2026-09-16_salida",
+      "fecha": "2026-09-16",
+      "usuario": "victor",
+      "correo": "victor@empresa.com",
+      "tipo": "salida",
+      "salida_anticipada": false,
+      "hora": "17:59:00",
+      "atrasado": false
+    },
+    {
+      "id": "wiwi_2026-09-24_entrada",
+      "fecha": "2026-09-24",
+      "usuario": "wiwi",
+      "tipo": "entrada",
+      "timestamp": {
+        "_datetime": "2026-09-24T10:38:21+00:00"
+      },
+      "correo": "wiwiw@ñam.com",
+      "atrasado": true,
+      "salida_anticipada": false,
+      "hora": "09:38:00"
+    },
+    {
+      "id": "wiwi_2026-09-24_salida",
+      "fecha": "2026-09-24",
+      "usuario": "wiwi",
+      "tipo": "salida",
+      "timestamp": {
+        "_datetime": "2026-09-24T10:38:39+00:00"
+      },
+      "correo": "wiwiw@ñam.com",
+      "atrasado": false,
+      "salida_anticipada": false,
+      "hora": "17:30:00"
+    },
+    {
+      "id": "yazQ6UQis3FLwWVKsXSj",
+      "fecha": "2026-09-22",
+      "usuario": "ana",
+      "tipo": "entrada",
+      "timestamp": {
+        "_datetime": "2026-09-22T21:56:35+00:00"
+      },
+      "correo": "ana@empresa.com",
+      "atrasado": true,
+      "salida_anticipada": false,
+      "hora": "21:56:00"
+    }
+  ],
+  "usuarios": [
+    {
+      "id": "admin",
+      "rol": "administrador",
+      "clave": "admin123",
+      "usuario": "admin",
+      "correo": "admin@empresa.com",
+      "nombre": "Administrador"
+    },
+    {
+      "id": "andres",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "andres",
+      "correo": "andres@empresa.com",
+      "nombre": "Andres Vega"
+    },
+    {
+      "id": "camila",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "camila",
+      "correo": "camila@empresa.com",
+      "nombre": "Camila Reyes"
+    },
+    {
+      "id": "carlos",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "carlos",
+      "correo": "carlos@empresa.com",
+      "nombre": "Carlos Lopez"
+    },
+    {
+      "id": "diego",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "diego",
+      "correo": "diego@empresa.com",
+      "nombre": "Diego Morales"
+    },
+    {
+      "id": "fernando",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "fernando",
+      "correo": "fernando@empresa.com",
+      "nombre": "Fernando Castillo"
+    },
+    {
+      "id": "hector",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "hector",
+      "correo": "hector@empresa.com",
+      "nombre": "Hector Torres"
+    },
+    {
+      "id": "isabel",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "isabel",
+      "correo": "isabel@empresa.com",
+      "nombre": "Isabel Rojas"
+    },
+    {
+      "id": "jorge",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "jorge",
+      "correo": "jorge@empresa.com",
+      "nombre": "Jorge Medina"
+    },
+    {
+      "id": "juan",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "juan",
+      "correo": "juan@empresa.com",
+      "nombre": "Juan Perez"
+    },
+    {
+      "id": "karen",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "karen",
+      "correo": "karen@empresa.com",
+      "nombre": "Karen Aguilar"
+    },
+    {
+      "id": "leonardo",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "leonardo",
+      "correo": "leonardo@empresa.com",
+      "nombre": "Leonardo Gutierrez"
+    },
+    {
+      "id": "lucia",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "lucia",
+      "correo": "lucia@empresa.com",
+      "nombre": "Lucia Ramirez"
+    },
+    {
+      "id": "maria",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "maria",
+      "correo": "maria@empresa.com",
+      "nombre": "Maria Garcia"
+    },
+    {
+      "id": "marta",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "marta",
+      "correo": "marta@empresa.com",
+      "nombre": "Marta Ruiz"
+    },
+    {
+      "id": "nicolas",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "nicolas",
+      "correo": "nicolas@empresa.com",
+      "nombre": "Nicolas Salazar"
+    },
+    {
+      "id": "olivia",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "olivia",
+      "correo": "olivia@empresa.com",
+      "nombre": "Olivia Castro"
+    },
+    {
+      "id": "pablo",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "pablo",
+      "correo": "pablo@empresa.com",
+      "nombre": "Pablo Ortiz"
+    },
+    {
+      "id": "pedro",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "pedro",
+      "correo": "pedro@empresa.com",
+      "nombre": "Pedro Sanchez"
+    },
+    {
+      "id": "rosa",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "rosa",
+      "correo": "rosa@empresa.com",
+      "nombre": "Rosa Nunez"
+    },
+    {
+      "id": "samuel",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "samuel",
+      "correo": "samuel@empresa.com",
+      "nombre": "Samuel Jimenez"
+    },
+    {
+      "id": "sofia",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "sofia",
+      "correo": "sofia@empresa.com",
+      "nombre": "Sofia Flores"
+    },
+    {
+      "id": "tatiana",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "tatiana",
+      "correo": "tatiana@empresa.com",
+      "nombre": "Tatiana Blanco"
+    },
+    {
+      "id": "valentina",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "valentina",
+      "correo": "valentina@empresa.com",
+      "nombre": "Valentina Herrera"
+    },
+    {
+      "id": "victor",
+      "rol": "trabajador",
+      "clave": "123456",
+      "usuario": "victor",
+      "correo": "victor@empresa.com",
+      "nombre": "Victor Campos"
+    }
+  ]
+}
