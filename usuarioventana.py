@@ -85,6 +85,8 @@ class UsuarioApp:
         self.correo = datos.get("correo", "")
         self.db = None
         self.db_ok = False
+        self.volver_login = False
+        self._reloj_after_id = None
 
         self.ventana = tk.Tk()
         self.ventana.title("Sistema de Asistencia")
@@ -179,7 +181,7 @@ class UsuarioApp:
         btn_cerrar.pack(side="right", padx=(0, 4))
         btn_cerrar.bind("<Enter>", lambda e: btn_cerrar.config(fg=COLORES["error"]))
         btn_cerrar.bind("<Leave>", lambda e: btn_cerrar.config(fg=COLORES["texto_gris"]))
-        btn_cerrar.bind("<Button-1>", lambda e: self.ventana.destroy())
+        btn_cerrar.bind("<Button-1>", lambda e: self._cerrar_ventana_pura())
 
         btn_minimizar = tk.Label(
             self.barra_titulo, text=" \u2013 ", bg=COLORES["panel_izq"],
@@ -401,7 +403,16 @@ class UsuarioApp:
         """
         from datetime import datetime
         self.lbl_reloj.config(text=datetime.now().strftime("%H:%M:%S"))
-        self.ventana.after(1000, self._actualizar_reloj)
+        self._reloj_after_id = self.ventana.after(1000, self._actualizar_reloj)
+
+    def _detener_reloj(self):
+        pid = getattr(self, "_reloj_after_id", None)
+        if pid is not None:
+            try:
+                self.ventana.after_cancel(pid)
+            except Exception:
+                pass
+            self._reloj_after_id = None
 
     def _dibujar_boton(self, color=None):
         """Dibuja el botón principal de marcación con el color según el tipo de acción.
@@ -589,10 +600,15 @@ class UsuarioApp:
     def _cerrar_sesion(self):
         """Cierra la sesión actual y vuelve a la pantalla de login.
 
-        @return None: Cierra la ventana principal y reinicia la autenticación.
+        @return None: Cierra la ventana principal; el controlador reabre el login.
         """
+        self._detener_reloj()
+        self.volver_login = True
         self.ventana.destroy()
-        subprocess_login()
+
+    def _cerrar_ventana_pura(self):
+        self._detener_reloj()
+        self.ventana.destroy()
 
     def _iniciar_animacion_entrada(self):
         """Inicia la animación de aparición de la ventana principal.
@@ -630,22 +646,6 @@ class UsuarioApp:
         x = self.ventana.winfo_x() + e.x - self._offset_x
         y = self.ventana.winfo_y() + e.y - self._offset_y
         self.ventana.geometry(f"+{x}+{y}")
-
-
-def subprocess_login():
-    """Reabre la pantalla de inicio de sesión en un proceso hijo.
-
-    @return None: Ejecuta la aplicación de login con una variable de entorno que indica el retorno.
-    """
-    import subprocess
-    env = dict(os.environ)
-    env["SA_VOLVER_LOGIN"] = "1"
-    if getattr(sys, "frozen", False):
-        subprocess.Popen([sys.executable], env=env)
-    else:
-        base = os.path.dirname(os.path.abspath(__file__))
-        subprocess.Popen([sys.executable, os.path.join(base, "primeraventana.py")],
-                         env=env)
 
 
 if __name__ == "__main__":

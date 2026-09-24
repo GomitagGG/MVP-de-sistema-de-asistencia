@@ -167,9 +167,11 @@ class LoginApp:
     @return None: Inicializa la interfaz principal y la lógica de acceso.
     """
 
-    def __init__(self):
+    def __init__(self, volver_de_sesion=False):
         """Inicializa la aplicación de login y la carga de la base de datos.
 
+        @param volver_de_sesion: Si es True, se reabre el login tras cerrar sesión
+            saltando la pantalla de carga. Si es False, se muestra el flujo normal.
         @return None: Crea la ventana principal y prepara la UI.
         """
         try:
@@ -190,7 +192,9 @@ class LoginApp:
         self.ventana.title("Sistema de Asistencia")
         self.ventana.config(bg=COLORES["bg_oscuro"])
 
-        self._volver_de_sesion = os.environ.pop("SA_VOLVER_LOGIN", "") == "1"
+        self._volver_de_sesion = volver_de_sesion or os.environ.pop("SA_VOLVER_LOGIN", "") == "1"
+
+        self.destino = None
 
         self._usuario_visible = False
         self._animacion_idx = 0
@@ -228,6 +232,7 @@ class LoginApp:
         self.barra_titulo.bind("<B1-Motion>", self._arrastrar)
 
         self.ventana.deiconify()
+        self._iniciar_animacion_entrada()
 
     def _init_firebase(self):
         """Inicializa la conexión con Firebase y valida la disponibilidad de Firestore.
@@ -634,25 +639,18 @@ class LoginApp:
             self.ventana.after(0, self._error_login, f"Error de conexion: {e}")
 
     def _login_exitoso(self, usuario, doc=None):
-        """Procesa un inicio de sesión correcto y redirige según el rol.
+        """Procesa un inicio de sesión correcto y prepara la redirección según el rol.
 
         @param usuario: Usuario que inició sesión.
         @param doc: Documento del usuario con datos adicionales.
-        @return None: Abre la pantalla correspondiente según el rol.
+        @return None: Guarda el destino y cierra la ventana para que el controlador
+            abra la pantalla correspondiente según el rol.
         """
         doc = doc or {}
         self._registrar_log(usuario, doc.get("correo", ""), "exitoso")
         rol = str(doc.get("rol", "")).lower()
+        self.destino = (rol, usuario, doc)
         self.ventana.destroy()
-        if rol in ("admin", "administrador", "dueño", "dueno"):
-            import dashboard_admin
-            dashboard_admin.DashboardAdminApp()
-        else:
-            import usuarioventana
-            usuarioventana.UsuarioApp(
-                usuario=doc.get("usuario") or usuario,
-                datos=doc,
-            )
 
     def _error_login(self, msg):
         """Muestra un error de autenticación y activa la animación de alerta.
@@ -764,7 +762,6 @@ class LoginApp:
             pass
         self._splash = None
         self._preparar_y_mostrar_login()
-        self._iniciar_animacion_entrada()
 
     def _iniciar_animacion_entrada(self):
         """Inicia la animación de fundido de entrada del login.
@@ -805,4 +802,25 @@ class LoginApp:
 
 
 if __name__ == "__main__":
-    LoginApp()
+    primera_vez = True
+    while True:
+        login = LoginApp(volver_de_sesion=not primera_vez)
+        primera_vez = False
+
+        destino = getattr(login, "destino", None)
+        if not destino:
+            break
+
+        rol, usuario, doc = destino
+        if rol in ("admin", "administrador", "due\u00f1o", "dueno"):
+            import dashboard_admin
+            app = dashboard_admin.DashboardAdminApp(usuario=usuario, datos=doc)
+        else:
+            import usuarioventana
+            app = usuarioventana.UsuarioApp(
+                usuario=doc.get("usuario") or usuario,
+                datos=doc,
+            )
+
+        if not getattr(app, "volver_login", False):
+            break

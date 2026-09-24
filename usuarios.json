@@ -1,0 +1,210 @@
+[
+  {
+    "rol": "administrador",
+    "clave": "admin123",
+    "usuario": "admin",
+    "correo": "admin@empresa.com",
+    "nombre": "Administrador",
+    "_id": "admin"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "ana",
+    "correo": "ana@empresa.com",
+    "nombre": "Ana Martinez",
+    "_id": "ana"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "andres",
+    "correo": "andres@empresa.com",
+    "nombre": "Andres Vega",
+    "_id": "andres"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "camila",
+    "correo": "camila@empresa.com",
+    "nombre": "Camila Reyes",
+    "_id": "camila"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "carlos",
+    "correo": "carlos@empresa.com",
+    "nombre": "Carlos Lopez",
+    "_id": "carlos"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "diego",
+    "correo": "diego@empresa.com",
+    "nombre": "Diego Morales",
+    "_id": "diego"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "fernando",
+    "correo": "fernando@empresa.com",
+    "nombre": "Fernando Castillo",
+    "_id": "fernando"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "hector",
+    "correo": "hector@empresa.com",
+    "nombre": "Hector Torres",
+    "_id": "hector"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "isabel",
+    "correo": "isabel@empresa.com",
+    "nombre": "Isabel Rojas",
+    "_id": "isabel"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "jorge",
+    "correo": "jorge@empresa.com",
+    "nombre": "Jorge Medina",
+    "_id": "jorge"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "juan",
+    "correo": "juan@empresa.com",
+    "nombre": "Juan Perez",
+    "_id": "juan"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "karen",
+    "correo": "karen@empresa.com",
+    "nombre": "Karen Aguilar",
+    "_id": "karen"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "leonardo",
+    "correo": "leonardo@empresa.com",
+    "nombre": "Leonardo Gutierrez",
+    "_id": "leonardo"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "lucia",
+    "correo": "lucia@empresa.com",
+    "nombre": "Lucia Ramirez",
+    "_id": "lucia"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "maria",
+    "correo": "maria@empresa.com",
+    "nombre": "Maria Garcia",
+    "_id": "maria"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "marta",
+    "correo": "marta@empresa.com",
+    "nombre": "Marta Ruiz",
+    "_id": "marta"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "nicolas",
+    "correo": "nicolas@empresa.com",
+    "nombre": "Nicolas Salazar",
+    "_id": "nicolas"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "olivia",
+    "correo": "olivia@empresa.com",
+    "nombre": "Olivia Castro",
+    "_id": "olivia"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "pablo",
+    "correo": "pablo@empresa.com",
+    "nombre": "Pablo Ortiz",
+    "_id": "pablo"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "pedro",
+    "correo": "pedro@empresa.com",
+    "nombre": "Pedro Sanchez",
+    "_id": "pedro"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "rosa",
+    "correo": "rosa@empresa.com",
+    "nombre": "Rosa Nunez",
+    "_id": "rosa"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "samuel",
+    "correo": "samuel@empresa.com",
+    "nombre": "Samuel Jimenez",
+    "_id": "samuel"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "sofia",
+    "correo": "sofia@empresa.com",
+    "nombre": "Sofia Flores",
+    "_id": "sofia"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "tatiana",
+    "correo": "tatiana@empresa.com",
+    "nombre": "Tatiana Blanco",
+    "_id": "tatiana"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "valentina",
+    "correo": "valentina@empresa.com",
+    "nombre": "Valentina Herrera",
+    "_id": "valentina"
+  },
+  {
+    "rol": "trabajador",
+    "clave": "123456",
+    "usuario": "victor",
+    "correo": "victor@empresa.com",
+    "nombre": "Victor Campos",
+    "_id": "victor"
+  }
+]

@@ -316,6 +316,7 @@ class DashboardAdminApp:
 
         self.usuarios = []
         self.marcaciones_hoy = []
+        self.volver_login = False
 
         self.ventana = tk.Tk()
         self.ventana.title("Sistema de Asistencia - Administrador")
@@ -364,6 +365,8 @@ class DashboardAdminApp:
             self.ventana.after(0, self._mostrar_aviso_sin_db)
 
     def _mostrar_aviso_sin_db(self):
+        if getattr(self, "_cerrando", False):
+            return
         self.lbl_estado_inicio.config(
             text="No se pudo conectar a Firebase. Verifica config/firebase-key.json",
             fg=C["danger"])
@@ -421,7 +424,16 @@ class DashboardAdminApp:
     def _iniciar_polling(self):
         if self._cerrando:
             return
-        self.ventana.after(POLL_INTERVALO, self._poll)
+        self._poll_after_id = self.ventana.after(POLL_INTERVALO, self._poll)
+
+    def _detener_polling(self):
+        pid = getattr(self, "_poll_after_id", None)
+        if pid is not None:
+            try:
+                self.ventana.after_cancel(pid)
+            except Exception:
+                pass
+            self._poll_after_id = None
 
     def _poll(self):
         if self._cerrando:
@@ -442,6 +454,8 @@ class DashboardAdminApp:
             print(e)
 
     def _aplicar_refresco(self, marc):
+        if getattr(self, "_cerrando", False):
+            return
         self.marcaciones_hoy = marc
         self._refrescar_inicio()
         self._refrescar_calendario()
@@ -541,6 +555,7 @@ class DashboardAdminApp:
 
     def _cerrar_ventana_pura(self):
         self._cerrando = True
+        self._detener_polling()
         self.ventana.destroy()
 
     def _minimizar(self):
@@ -649,8 +664,17 @@ class DashboardAdminApp:
             btn.set_activo(nombre == clave)
 
     def _aplicar_responsividad(self):
+        if getattr(self, "_cerrando", False):
+            return
         try:
+            if not self.ventana.winfo_exists():
+                return
             ancho = self.ventana.winfo_width()
+        except Exception:
+            return
+        try:
+            if not self.sidebar.winfo_exists() or not self.cuerpo.winfo_exists():
+                return
         except Exception:
             return
         contenido_inner = (ancho or ANCHO)
@@ -1830,7 +1854,7 @@ class DashboardAdminApp:
         return entry
 
     def _poblar_config_ui(self):
-        if not hasattr(self, "entry_empresa"):
+        if getattr(self, "_cerrando", False) or not hasattr(self, "entry_empresa"):
             return
         self.entry_empresa.delete(0, "end")
         self.entry_empresa.insert(0, self.nombre_empresa)
@@ -1908,8 +1932,10 @@ class DashboardAdminApp:
     # CERRAR SESI\u00d3N / ANIMACIONES
     # ------------------------------------------------------------------
     def _cerrar_sesion(self):
+        self._cerrando = True
+        self._detener_polling()
+        self.volver_login = True
         self.ventana.destroy()
-        subprocess_login()
 
     def _mostrar_toast(self, texto, ok=True):
         toast = Toast(self.ventana, texto, tipo="exito" if ok else "error")
@@ -1923,18 +1949,6 @@ class DashboardAdminApp:
         x = self.ventana.winfo_x() + e.x - self._offset_x
         y = self.ventana.winfo_y() + e.y - self._offset_y
         self.ventana.geometry(f"+{x}+{y}")
-
-
-def subprocess_login():
-    import subprocess
-    env = dict(os.environ)
-    env["SA_VOLVER_LOGIN"] = "1"
-    if getattr(sys, "frozen", False):
-        subprocess.Popen([sys.executable], env=env)
-    else:
-        base = os.path.dirname(os.path.abspath(__file__))
-        subprocess.Popen([sys.executable, os.path.join(base, "primeraventana.py")],
-                         env=env)
 
 
 if __name__ == "__main__":
