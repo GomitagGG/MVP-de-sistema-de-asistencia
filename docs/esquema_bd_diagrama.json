@@ -1,103 +1,18 @@
 {
-  "motor": "Google Cloud Firestore (NoSQL, modo nativo)",
-  "asignatura": "Integraci\u00f3n de Competencias II (IEI-094)",
+  "motor": "Firestore (NoSQL)",
+  "asignatura": "IEI-094",
   "normalizacion": ["1FN", "2FN", "3FN"],
-  "desnormalizacion_nota": "El campo 'correo' se replica en marcaciones y login_log solo para evitar segundas consultas en reportes; siempre refiere al mismo valor de 'usuarios'.",
-  "colecciones": [
-    {
-      "nombre": "usuarios",
-      "pk": "usuario",
-      "registros": 25,
-      "atributos": [
-        {"campo": "usuario", "tipo": "string", "pk": true},
-        {"campo": "correo", "tipo": "string", "unico": true},
-        {"campo": "clave", "tipo": "string"},
-        {"campo": "rol", "tipo": "string", "valores": ["administrador", "trabajador"]},
-        {"campo": "nombre", "tipo": "string"}
-      ]
-    },
-    {
-      "nombre": "marcaciones",
-      "pk": "<usuario>_<fecha>_<tipo>",
-      "registros": 609,
-      "atributos": [
-        {"campo": "usuario", "tipo": "string", "fk": "usuarios.usuario"},
-        {"campo": "correo", "tipo": "string", "desnormalizado_de": "usuarios.correo"},
-        {"campo": "tipo", "tipo": "string", "valores": ["entrada", "salida"]},
-        {"campo": "fecha", "tipo": "string", "formato": "YYYY-MM-DD"},
-        {"campo": "hora", "tipo": "string", "formato": "HH:MM:SS"},
-        {"campo": "atrasado", "tipo": "bool"},
-        {"campo": "salida_anticipada", "tipo": "bool"},
-        {"campo": "timestamp", "tipo": "datetime"}
-      ]
-    },
-    {
-      "nombre": "alertas",
-      "pk": "alerta_<tipo>_<usuario>_<fecha>",
-      "registros": 58,
-      "atributos": [
-        {"campo": "tipo", "tipo": "string", "valores": ["atraso", "salida_anticipada", "inasistencia"]},
-        {"campo": "usuario", "tipo": "string", "fk": "usuarios.usuario"},
-        {"campo": "fecha", "tipo": "string", "formato": "YYYY-MM-DD"},
-        {"campo": "hora", "tipo": "string", "formato": "HH:MM:SS"},
-        {"campo": "estado", "tipo": "string", "valores": ["pendiente", "leida"]},
-        {"campo": "timestamp", "tipo": "datetime"}
-      ]
-    },
-    {
-      "nombre": "login_log",
-      "pk": "<usuario>_<fecha>_<n>",
-      "registros": 74,
-      "atributos": [
-        {"campo": "usuario", "tipo": "string", "fk": "usuarios.usuario"},
-        {"campo": "correo", "tipo": "string", "desnormalizado_de": "usuarios.correo"},
-        {"campo": "fecha", "tipo": "string", "formato": "YYYY-MM-DD"},
-        {"campo": "hora", "tipo": "string", "formato": "HH:MM:SS"},
-        {"campo": "resultado", "tipo": "string", "valores": ["exitoso", "fallido"]}
-      ]
-    },
-    {
-      "nombre": "config",
-      "pk": "empresa",
-      "registros": 1,
-      "atributos": [
-        {"campo": "nombre", "tipo": "string"},
-        {"campo": "hora_entrada", "tipo": "string", "formato": "09:30:00"},
-        {"campo": "hora_salida", "tipo": "string", "formato": "17:30:00"}
-      ]
-    }
-  ],
-  "relaciones": [
-    "marcaciones.usuario -> usuarios.usuario",
-    "alertas.usuario -> usuarios.usuario",
-    "login_log.usuario -> usuarios.usuario"
-  ],
-  "feriados_excluidos": ["2026-09-17", "2026-09-18"],
-  "usuarios": [
-    {"usuario": "admin", "nombre": "Administrador", "correo": "admin@empresa.com", "rol": "administrador"},
-    {"usuario": "andres", "nombre": "Andres Vega", "correo": "andres@empresa.com", "rol": "trabajador"},
-    {"usuario": "camila", "nombre": "Camila Reyes", "correo": "camila@empresa.com", "rol": "trabajador"},
-    {"usuario": "carlos", "nombre": "Carlos Lopez", "correo": "carlos@empresa.com", "rol": "trabajador"},
-    {"usuario": "diego", "nombre": "Diego Morales", "correo": "diego@empresa.com", "rol": "trabajador"},
-    {"usuario": "fernando", "nombre": "Fernando Castillo", "correo": "fernando@empresa.com", "rol": "trabajador"},
-    {"usuario": "hector", "nombre": "Hector Torres", "correo": "hector@empresa.com", "rol": "trabajador"},
-    {"usuario": "isabel", "nombre": "Isabel Rojas", "correo": "isabel@empresa.com", "rol": "trabajador"},
-    {"usuario": "jorge", "nombre": "Jorge Medina", "correo": "jorge@empresa.com", "rol": "trabajador"},
-    {"usuario": "juan", "nombre": "Juan Perez", "correo": "juan@empresa.com", "rol": "trabajador"},
-    {"usuario": "karen", "nombre": "Karen Aguilar", "correo": "karen@empresa.com", "rol": "trabajador"},
-    {"usuario": "leonardo", "nombre": "Leonardo Gutierrez", "correo": "leonardo@empresa.com", "rol": "trabajador"},
-    {"usuario": "lucia", "nombre": "Lucia Ramirez", "correo": "lucia@empresa.com", "rol": "trabajador"},
-    {"usuario": "maria", "nombre": "Maria Garcia", "correo": "maria@empresa.com", "rol": "trabajador"},
-    {"usuario": "marta", "nombre": "Marta Ruiz", "correo": "marta@empresa.com", "rol": "trabajador"},
-    {"usuario": "nicolas", "nombre": "Nicolas Salazar", "correo": "nicolas@empresa.com", "rol": "trabajador"},
-    {"usuario": "olivia", "nombre": "Olivia Castro", "correo": "olivia@empresa.com", "rol": "trabajador"},
-    {"usuario": "pablo", "nombre": "Pablo Ortiz", "correo": "pablo@empresa.com", "rol": "trabajador"},
-    {"usuario": "pedro", "nombre": "Pedro Sanchez", "correo": "pedro@empresa.com", "rol": "trabajador"},
-    {"usuario": "rosa", "nombre": "Rosa Nunez", "correo": "rosa@empresa.com", "rol": "trabajador"},
-    {"usuario": "samuel", "nombre": "Samuel Jimenez", "correo": "samuel@empresa.com", "rol": "trabajador"},
-    {"usuario": "sofia", "nombre": "Sofia Flores", "correo": "sofia@empresa.com", "rol": "trabajador"},
-    {"usuario": "tatiana", "nombre": "Tatiana Blanco", "correo": "tatiana@empresa.com", "rol": "trabajador"},
-    {"usuario": "valentina", "nombre": "Valentina Herrera", "correo": "valentina@empresa.com", "rol": "trabajador"},
-    {"usuario": "victor", "nombre": "Victor Campos", "correo": "victor@empresa.com", "rol": "trabajador"}
-  ]
+  "colecciones": {
+    "usuarios": {"pk": "usuario", "n": 25, "composicion": "1 admin + 24 trabajadores", "campos": ["usuario PK", "correo UNICO", "clave", "rol", "nombre"]},
+    "marcaciones": {"pk": "usuario_fecha_tipo", "n": 609, "campos": ["usuario FK", "correo", "tipo", "fecha", "hora", "atrasado", "salida_anticipada", "timestamp"]},
+    "alertas": {"pk": "alerta_tipo_usuario_fecha", "n": 58, "campos": ["tipo", "usuario FK", "fecha", "hora", "estado", "timestamp"]},
+    "login_log": {"pk": "usuario_fecha_n", "n": 74, "campos": ["usuario FK", "correo", "fecha", "hora", "resultado"]},
+    "config": {"pk": "empresa", "n": 1, "campos": ["nombre", "hora_entrada", "hora_salida"]}
+  },
+  "relaciones": {
+    "marcaciones.usuario": "usuarios.usuario",
+    "alertas.usuario": "usuarios.usuario",
+    "login_log.usuario": "usuarios.usuario"
+  },
+  "feriados_excluidos": ["2026-09-17", "2026-09-18"]
 }
