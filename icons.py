@@ -2,6 +2,13 @@ import math
 
 
 def _canvas(width, height, color="#FFFFFF"):
+    """Crea un canvas de Tkinter con tamaño y fondo determinados.
+
+    @param width: Ancho del canvas en píxeles.
+    @param height: Alto del canvas en píxeles.
+    @param color: Color de fondo del canvas.
+    @return tk.Canvas: Objeto canvas configurado con el color recibido.
+    """
     import tkinter as tk
     c = tk.Canvas(
         width=width,
@@ -15,11 +22,24 @@ def _canvas(width, height, color="#FFFFFF"):
 
 
 def _figura(c, color):
+    """Normaliza el color que se utilizará en un icono.
+
+    @param c: Contexto del canvas sobre el que se dibuja.
+    @param color: Color original o None para aplicar el valor por defecto.
+    @return str: Código hexadecimal del color final.
+    """
     color = "#94A3B8" if color is None else color
     return color
 
 
 def _casa(c, s, color):
+    """Dibuja un icono de casa con líneas y un rectángulo base.
+
+    @param c: Canvas donde se dibuja el icono.
+    @param s: Tamaño del icono.
+    @param color: Color del contorno del icono.
+    @return None: Agrega las formas geométricas al canvas.
+    """
     color = _figura(c, color)
     pad = s * 0.2
     w = s - 2 * pad
@@ -34,6 +54,13 @@ def _casa(c, s, color):
 
 
 def _reloj(c, s, color):
+    """Dibuja un icono de reloj con cara y manecillas.
+
+    @param c: Canvas donde se dibuja el icono.
+    @param s: Tamaño del icono.
+    @param color: Color del contorno del icono.
+    @return None: Agrega las líneas y el círculo del reloj.
+    """
     color = _figura(c, color)
     pad = s * 0.18
     r = (s - 2 * pad) / 2
@@ -45,6 +72,13 @@ def _reloj(c, s, color):
 
 
 def _grafica(c, s, color):
+    """Dibuja un icono de gráfica con barras y una línea base.
+
+    @param c: Canvas donde se dibuja el icono.
+    @param s: Tamaño del icono.
+    @param color: Color del contorno y las líneas.
+    @return None: Agrega la visualización del gráfico.
+    """
     color = _figura(c, color)
     pad = s * 0.2
     x = [s * 0.22, s * 0.42, s * 0.62, s * 0.8]
@@ -59,6 +93,13 @@ def _grafica(c, s, color):
 
 
 def _usuarios(c, s, color):
+    """Dibuja un icono de usuarios con dos figuras humanas.
+
+    @param c: Canvas donde se dibuja el icono.
+    @param s: Tamaño del icono.
+    @param color: Color del contorno del icono.
+    @return None: Agrega las siluetas de usuario al canvas.
+    """
     color = _figura(c, color)
     cx = s * 0.36
     cy = s * 0.4
@@ -77,6 +118,13 @@ def _usuarios(c, s, color):
 
 
 def _engranaje(c, s, color):
+    """Dibuja un icono de engranaje con radios y un aro central.
+
+    @param c: Canvas donde se dibuja el icono.
+    @param s: Tamaño del icono.
+    @param color: Color del contorno del engranaje.
+    @return None: Agrega las líneas y óvalos del engranaje.
+    """
     color = _figura(c, color)
     cx = s / 2
     cy = s / 2
@@ -95,6 +143,13 @@ def _engranaje(c, s, color):
 
 
 def _cerrar(c, s, color):
+    """Dibuja un icono de cierre con dos líneas diagonales.
+
+    @param c: Canvas donde se dibuja el icono.
+    @param s: Tamaño del icono.
+    @param color: Color de la cruz de cierre.
+    @return None: Agrega las líneas diagonales al canvas.
+    """
     color = _figura(c, color)
     pad = s * 0.28
     c.create_line(pad, pad, s - pad, s - pad, fill=color, width=max(1, s // 9))
@@ -102,6 +157,13 @@ def _cerrar(c, s, color):
 
 
 def _campana(c, s, color):
+    """Dibuja un icono de campana con arcos y un cuerpo central.
+
+    @param c: Canvas donde se dibuja el icono.
+    @param s: Tamaño del icono.
+    @param color: Color del contorno de la campana.
+    @return None: Agrega la campana al canvas.
+    """
     color = _figura(c, color)
     pad = s * 0.25
     cx = s / 2
@@ -116,6 +178,13 @@ def _campana(c, s, color):
 
 
 def _check(c, s, color):
+    """Dibuja un icono de verificación con una marca de check.
+
+    @param c: Canvas donde se dibuja el icono.
+    @param s: Tamaño del icono.
+    @param color: Color de la marca de validación.
+    @return None: Agrega la marca de check al canvas.
+    """
     color = _figura(c, color)
     pad = s * 0.22
     c.create_line(pad, s * 0.55, s * 0.44, s * 0.8, fill=color, width=max(2, s // 7),
@@ -125,6 +194,13 @@ def _check(c, s, color):
 
 
 def _exclamacion(c, s, color):
+    """Dibuja un icono de exclamación con forma vertical y punto.
+
+    @param c: Canvas donde se dibuja el icono.
+    @param s: Tamaño del icono.
+    @param color: Color de la exclamación.
+    @return None: Agrega la figura de advertencia al canvas.
+    """
     color = _figura(c, color)
     cx = s / 2
     c.create_line(cx, s * 0.2, cx, s * 0.62, fill=color, width=max(2, s // 6),
@@ -134,6 +210,13 @@ def _exclamacion(c, s, color):
 
 
 def _calendario(c, s, color):
+    """Dibuja un icono de calendario con panel y líneas internas.
+
+    @param c: Canvas donde se dibuja el icono.
+    @param s: Tamaño del icono.
+    @param color: Color del contorno del calendario.
+    @return None: Agrega el calendario al canvas.
+    """
     color = _figura(c, color)
     pad = s * 0.2
     c.create_rectangle(pad, s * 0.2, s - pad, s - pad, outline=color,
@@ -145,6 +228,13 @@ def _calendario(c, s, color):
 
 
 def _filtro(c, s, color):
+    """Dibuja un icono de filtro con varias barras y bolitas.
+
+    @param c: Canvas donde se dibuja el icono.
+    @param s: Tamaño del icono.
+    @param color: Color del filtro.
+    @return None: Agrega los elementos del filtro al canvas.
+    """
     color = _figura(c, color)
     pad = s * 0.22
     c.create_line(pad, s * 0.28, s - pad, s * 0.28, fill=color, width=max(1, s // 9))
@@ -157,6 +247,13 @@ def _filtro(c, s, color):
 
 
 def _descarga(c, s, color):
+    """Dibuja un icono de descarga con flecha y línea base.
+
+    @param c: Canvas donde se dibuja el icono.
+    @param s: Tamaño del icono.
+    @param color: Color de la descarga.
+    @return None: Agrega la flecha y la línea de descarga al canvas.
+    """
     color = _figura(c, color)
     pad = s * 0.22
     c.create_line(s * 0.3, s * 0.44, s * 0.5, s * 0.64, fill=color, width=max(1, s // 9))
@@ -167,6 +264,13 @@ def _descarga(c, s, color):
 
 
 def _cruz(c, s, color):
+    """Dibuja un icono de cruz con líneas verticales y horizontales.
+
+    @param c: Canvas donde se dibuja el icono.
+    @param s: Tamaño del icono.
+    @param color: Color de la cruz.
+    @return None: Agrega las líneas de la cruz al canvas.
+    """
     color = _figura(c, color)
     pad = s * 0.3
     c.create_line(s * 0.5, pad, s * 0.5, s - pad, fill=color, width=max(1, s // 8))
@@ -174,6 +278,13 @@ def _cruz(c, s, color):
 
 
 def _bolígrafo(c, s, color):
+    """Dibuja un icono de bolígrafo con trazo angular.
+
+    @param c: Canvas donde se dibuja el icono.
+    @param s: Tamaño del icono.
+    @param color: Color del bolígrafo.
+    @return None: Agrega la forma del bolígrafo al canvas.
+    """
     color = _figura(c, color)
     pad = s * 0.2
     c.create_line(pad, s - pad, s * 0.3, s - pad, fill=color, width=max(1, s // 9))
@@ -200,6 +311,15 @@ ICONOS = {
 
 
 def crear_icono(nombre, size=22, color="#94A3B8", bg="#111827", master=None):
+    """Genera un widget de icono para ser usado en la interfaz.
+
+    @param nombre: Nombre del icono a dibujar.
+    @param size: Tamaño del icono en píxeles.
+    @param color: Color del trazo del icono.
+    @param bg: Color de fondo del canvas del icono.
+    @param master: Contenedor principal del widget.
+    @return tk.Canvas: Canvas con el icono dibujado y listo para mostrarse.
+    """
     import tkinter as tk
     if master is None:
         master = tk.Frame()

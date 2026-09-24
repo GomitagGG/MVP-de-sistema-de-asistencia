@@ -13,6 +13,11 @@ from modelos import Usuario
 
 
 def ruta_relativa(ruta):
+    """Resuelve una ruta dentro del proyecto según el entorno de ejecución.
+
+    @param ruta: Ruta relativa del archivo o recurso requerido.
+    @return str: Ruta absoluta final para acceder al recurso.
+    """
     if getattr(sys, "frozen", False):
         base = sys._MEIPASS
     else:
@@ -21,6 +26,11 @@ def ruta_relativa(ruta):
 
 
 def configurar_icono(ventana):
+    """Configura el icono de la aplicación para la ventana principal.
+
+    @param ventana: Objeto de ventana de Tkinter que recibirá el icono.
+    @return None: No devuelve valor; solo aplica el icono a la ventana.
+    """
     try:
         if sys.platform == "win32":
             ventana.iconbitmap(ruta_relativa("icon/Fixmol_icon.ico"))
@@ -66,7 +76,18 @@ MAX_SPLASH_MS = 12000
 
 
 class PantallaCarga(tk.Toplevel):
+    """Muestra la pantalla de carga con animación del logo de la app.
+
+    @param master: Ventana padre sobre la que se monta la pantalla.
+    @param tamano_logo: Tamaño del logo mostrado durante la carga.
+    """
+
     def __init__(self, master, tamano_logo=340):
+        """Inicializa la ventana splash y la animación de carga.
+
+        @param master: Control padre de la ventana.
+        @param tamano_logo: Tamaño del logo a mostrar.
+        """
         super().__init__(master)
         self.overrideredirect(True)
         self.attributes("-topmost", True)
@@ -96,6 +117,12 @@ class PantallaCarga(tk.Toplevel):
         self.lift()
 
     def _centrar(self, w, h):
+        """Centra la ventana splash en la pantalla.
+
+        @param w: Ancho de la ventana.
+        @param h: Alto de la ventana.
+        @return None: Ajusta la geometría de la pantalla.
+        """
         self.update_idletasks()
         sw = self.winfo_screenwidth()
         sh = self.winfo_screenheight()
@@ -106,6 +133,10 @@ class PantallaCarga(tk.Toplevel):
         self.after(30, self._reaplicar_centrado)
 
     def _reaplicar_centrado(self):
+        """Reaplica la posición centrada de la splash si la ventana sigue activa.
+
+        @return None: Actualiza la geometría de la ventana.
+        """
         try:
             self.geometry(f"+{self._x}+{self._y}")
             self.lift()
@@ -113,6 +144,10 @@ class PantallaCarga(tk.Toplevel):
             pass
 
     def _animar(self):
+        """Dibuja y actualiza la animación circular de carga.
+
+        @return None: Repite la animación del arco giratorio.
+        """
         try:
             self.winfo_exists()
         except tk.TclError:
@@ -127,7 +162,16 @@ class PantallaCarga(tk.Toplevel):
 
 
 class LoginApp:
+    """Gestiona la pantalla de login y la autenticación del sistema.
+
+    @return None: Inicializa la interfaz principal y la lógica de acceso.
+    """
+
     def __init__(self):
+        """Inicializa la aplicación de login y la carga de la base de datos.
+
+        @return None: Crea la ventana principal y prepara la UI.
+        """
         try:
             ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("SistemaAsistencia")
         except Exception:
@@ -164,6 +208,10 @@ class LoginApp:
         self.ventana.mainloop()
 
     def _preparar_y_mostrar_login(self):
+        """Prepara la interfaz de login y la muestra con efecto de entrada.
+
+        @return None: Configura y visualiza la pantalla principal de acceso.
+        """
         if self._ui_lista:
             return
         self._ui_lista = True
@@ -182,6 +230,10 @@ class LoginApp:
         self.ventana.deiconify()
 
     def _init_firebase(self):
+        """Inicializa la conexión con Firebase y valida la disponibilidad de Firestore.
+
+        @return None: Carga la instancia de base de datos y marca el estado de conexión.
+        """
         self._firebase_error = ""
         try:
             if not firebase_admin._apps:
@@ -210,6 +262,10 @@ class LoginApp:
             self._firebase_done = True
 
     def _ruta_cache(self):
+        """Devuelve la ruta del caché local de usuarios.
+
+        @return str: Ubicación del archivo JSON del caché.
+        """
         if getattr(sys, "frozen", False):
             carpeta = os.path.join(os.environ.get("APPDATA", os.path.expanduser("~")), "SistemaAsistencia")
         else:
@@ -218,6 +274,10 @@ class LoginApp:
         return os.path.join(carpeta, "cache_usuarios.json")
 
     def _cargar_cache_local(self):
+        """Carga usuarios desde el caché local si existe.
+
+        @return None: Carga los datos del caché en self.cache_usuarios.
+        """
         try:
             with open(self._ruta_cache()) as f:
                 self.cache_usuarios = json.load(f)
@@ -225,11 +285,22 @@ class LoginApp:
             self.cache_usuarios = {}
 
     def _guardar_cache_local(self, usuario, datos):
+        """Guarda la información del usuario en el caché local.
+
+        @param usuario: Nombre del usuario a guardar.
+        @param datos: Diccionario con la información del usuario.
+        @return None: Escribe el registro en el archivo JSON.
+        """
         self.cache_usuarios[usuario] = datos
         with open(self._ruta_cache(), "w") as f:
             json.dump(self.cache_usuarios, f)
 
     def _buscar_en_cache(self, identificador):
+        """Busca un usuario dentro del caché por nombre o correo.
+
+        @param identificador: Nombre o correo del usuario a consultar.
+        @return tuple: Tupla (nombre, documento) si existe; si no, (None, None).
+        """
         identificador = identificador.strip().lower()
         for nombre, doc in self.cache_usuarios.items():
             if nombre.strip().lower() == identificador:
@@ -238,8 +309,13 @@ class LoginApp:
                 return nombre, doc
         return None, None
 
-
     def _centrar_ventana(self, w, h):
+        """Centra la ventana principal en la pantalla.
+
+        @param w: Ancho deseado.
+        @param h: Alto deseado.
+        @return None: Ajusta la posición de la ventana.
+        """
         sw = self.ventana.winfo_screenwidth()
         sh = self.ventana.winfo_screenheight()
         x = (sw - w) // 2
@@ -247,11 +323,19 @@ class LoginApp:
         self.ventana.geometry(f"{w}x{h}+{x}+{y}")
 
     def _construir_ui(self):
+        """Construye la interfaz principal del formulario de login.
+
+        @return None: Crea los paneles y controles visuales.
+        """
         self._crear_barra_titulo()
         self._crear_panel_izquierdo()
         self._crear_panel_derecho()
 
     def _crear_barra_titulo(self):
+        """Crea la barra superior con controles de ventana.
+
+        @return None: Genera la barra de título draggable y botones de control.
+        """
         self.barra_titulo = tk.Frame(self.ventana, bg=COLORES["panel_izq"], height=32)
         self.barra_titulo.pack(fill="x", side="top")
         self.barra_titulo.pack_propagate(False)
@@ -282,6 +366,10 @@ class LoginApp:
         btn_minimizar.bind("<Button-1>", lambda e: self.ventana.overrideredirect(False))
 
     def _crear_panel_izquierdo(self):
+        """Crea el panel visual izquierdo con el logo y nombre de la app.
+
+        @return None: Genera la parte gráfica principal del login.
+        """
         self.panel_izq = tk.Frame(self.ventana, bg=COLORES["panel_izq"], width=300)
         self.panel_izq.pack(side="left", fill="y")
         self.panel_izq.pack_propagate(False)
@@ -313,6 +401,10 @@ class LoginApp:
         lbl_sub.pack()
 
     def _crear_panel_derecho(self):
+        """Crea el panel derecho con el formulario de acceso del usuario.
+
+        @return None: Dibuja los campos de usuario, clave y botón de inicio.
+        """
         panel_der = tk.Frame(self.ventana, bg=COLORES["panel_der"])
         panel_der.pack(side="right", fill="both", expand=True)
 
@@ -403,6 +495,12 @@ class LoginApp:
         self.entry_usuario.focus_set()
 
     def _crear_campo_entry(self, parent, label_text):
+        """Genera un campo de texto con etiqueta para el formulario.
+
+        @param parent: Contenedor del campo.
+        @param label_text: Texto visible de la etiqueta.
+        @return tuple: Par (contenedor, entrada) del campo creado.
+        """
         frame_container = tk.Frame(parent, bg=COLORES["panel_der"])
         frame_container.pack(fill="x", padx=36, pady=(0, 16))
 
@@ -434,12 +532,26 @@ class LoginApp:
         return frame_entry, entry
 
     def _focus_in(self, frame):
+        """Resalta el marco de un campo al recibir el foco.
+
+        @param frame: Marco del campo a destacar.
+        @return None: Cambia el color del borde del campo.
+        """
         frame.config(highlightbackground=COLORES["entry_borde_focus"])
 
     def _focus_out(self, frame):
+        """Restablece el estilo normal del campo cuando pierde el foco.
+
+        @param frame: Marco del campo a restaurar.
+        @return None: Vuelve al color de borde habitual.
+        """
         frame.config(highlightbackground=COLORES["entry_borde"])
 
     def _toggle_password(self):
+        """Alterna la visibilidad de la contraseña ingresada.
+
+        @return None: Muestra u oculta la clave del usuario.
+        """
         self._usuario_visible = not self._usuario_visible
         if self._usuario_visible:
             self.entry_clave.config(show="")
@@ -449,6 +561,11 @@ class LoginApp:
             self.btn_toggle.config(text="\U0001f441")
 
     def _dibujar_boton(self, color):
+        """Dibuja el botón principal del login en un canvas.
+
+        @param color: Color de relleno del botón.
+        @return None: Redibuja el botón con el color indicado.
+        """
         c = self.canvas_boton
         c.delete("all")
         c.update_idletasks()
@@ -464,9 +581,11 @@ class LoginApp:
         c.create_text(w // 2, h // 2, text="INICIAR SESI\u00d3N",
                       fill=COLORES["texto_blanco"], font=("Helvetica", 11, "bold"))
 
-
-
     def _intentar_login(self):
+        """Intenta iniciar sesión con las credenciales ingresadas.
+
+        @return None: Valida usuario y contraseña o muestra errores de validación.
+        """
         usuario = self.entry_usuario.get().strip()
         clave = self.entry_clave.get().strip()
 
@@ -495,6 +614,12 @@ class LoginApp:
         threading.Thread(target=self._verificar_en_firebase, args=(usuario, clave), daemon=True).start()
 
     def _verificar_en_firebase(self, usuario, clave):
+        """Valida las credenciales en Firebase.
+
+        @param usuario: Nombre de usuario ingresado.
+        @param clave: Contraseña ingresada.
+        @return None: Ejecuta la lógica de acceso y errores en el hilo principal.
+        """
         try:
             doc = Usuario.buscar_por_identificador(self.db, usuario)
             if doc is None:
@@ -509,6 +634,12 @@ class LoginApp:
             self.ventana.after(0, self._error_login, f"Error de conexion: {e}")
 
     def _login_exitoso(self, usuario, doc=None):
+        """Procesa un inicio de sesión correcto y redirige según el rol.
+
+        @param usuario: Usuario que inició sesión.
+        @param doc: Documento del usuario con datos adicionales.
+        @return None: Abre la pantalla correspondiente según el rol.
+        """
         doc = doc or {}
         self._registrar_log(usuario, doc.get("correo", ""), "exitoso")
         rol = str(doc.get("rol", "")).lower()
@@ -524,6 +655,11 @@ class LoginApp:
             )
 
     def _error_login(self, msg):
+        """Muestra un error de autenticación y activa la animación de alerta.
+
+        @param msg: Mensaje de error a mostrar.
+        @return None: Presenta el fallo en la interfaz.
+        """
         self._registrar_log(
             self.entry_usuario.get().strip(),
             "",
@@ -533,10 +669,21 @@ class LoginApp:
         self._shake()
 
     def _registrar_log(self, usuario, correo, resultado):
+        """Guarda un registro de acceso en Firestore.
+
+        @param usuario: Nombre del usuario.
+        @param correo: Correo del usuario.
+        @param resultado: Estado del inicio de sesión.
+        @return None: Registra el evento en la colección de login_log.
+        """
         if not usuario:
             return
 
         def _registrar():
+            """Ejecuta la escritura del log de autenticación.
+
+            @return None: Agrega el evento al historial del sistema.
+            """
             try:
                 from datetime import datetime
                 if not self.firebase_listo:
@@ -554,17 +701,36 @@ class LoginApp:
         threading.Thread(target=_registrar, daemon=True).start()
 
     def _mostrar_cargando(self, msg):
+        """Muestra un estado de carga en el formulario.
+
+        @param msg: Texto de carga a mostrar.
+        @return None: Actualiza el texto de error/carga del formulario.
+        """
         self.lbl_error.config(text=f"  \u23f3  {msg}", fg=COLORES["texto_gris"])
 
-
-
     def _mostrar_error(self, msg):
+        """Muestra un mensaje de error en la interfaz.
+
+        @param msg: Mensaje a mostrar.
+        @return None: Actualiza el estado visual del formulario.
+        """
         self.lbl_error.config(text=f"  \u26a0  {msg}", fg=COLORES["error"])
 
     def _mostrar_exito(self, msg):
+        """Muestra un mensaje de éxito en la interfaz.
+
+        @param msg: Mensaje de confirmación.
+        @return None: Actualiza el estado visual del formulario.
+        """
         self.lbl_error.config(text=f"  \u2713  {msg}", fg=COLORES["exito"])
 
     def _shake(self, paso=0, desplazamientos=(6, -6, 4, -4, 2, -2, 0)):
+        """Genera una pequeña animación de vibración en la ventana.
+
+        @param paso: Paso actual de la animación.
+        @param desplazamientos: Lista de offsets a aplicar.
+        @return None: Repite la animación de sacudida.
+        """
         if paso < len(desplazamientos):
             self.ventana.geometry(
                 f"{ANCHO}x{ALTO}+{(self.ventana.winfo_screenwidth() - ANCHO) // 2 + desplazamientos[paso]}"
@@ -573,6 +739,10 @@ class LoginApp:
             self.ventana.after(40, self._shake, paso + 1, desplazamientos)
 
     def _polear_inicio(self):
+        """Controla la duración del splash y cierra la pantalla de carga cuando corresponde.
+
+        @return None: Decide si se termina la pantalla splash o sigue esperando.
+        """
         if self._fade_iniciado:
             return
         transcurrido = (time.monotonic() - self._splash_inicio) * 1000
@@ -583,6 +753,10 @@ class LoginApp:
         self.ventana.after(100, self._polear_inicio)
 
     def _cerrar_splash(self):
+        """Cierra la pantalla de carga y muestra el login.
+
+        @return None: Elimina el splash y llama a la animación de entrada.
+        """
         self._fade_iniciado = True
         try:
             self._splash.destroy()
@@ -593,19 +767,38 @@ class LoginApp:
         self._iniciar_animacion_entrada()
 
     def _iniciar_animacion_entrada(self):
+        """Inicia la animación de fundido de entrada del login.
+
+        @return None: Programa la transición gradual de opacidad.
+        """
         self.ventana.after(30, self._fade_in, 0.0)
 
     def _fade_in(self, alpha):
+        """Aplica un efecto de fundido gradual para mostrar la ventana.
+
+        @param alpha: Nivel actual de opacidad.
+        @return None: Actualiza la opacidad de la ventana.
+        """
         if alpha < 1.0:
             alpha += 0.05
             self.ventana.attributes("-alpha", min(alpha, 1.0))
             self.ventana.after(15, self._fade_in, alpha)
 
     def _iniciar_arrastre(self, e):
+        """Guarda la posición inicial del cursor para mover la ventana.
+
+        @param e: Evento del mouse con coordenadas.
+        @return None: Inicializa el offset de arrastre.
+        """
         self._offset_x = e.x
         self._offset_y = e.y
 
     def _arrastrar(self, e):
+        """Mueve la ventana según el desplazamiento del mouse.
+
+        @param e: Evento del mouse en movimiento.
+        @return None: Actualiza la geometría de la ventana.
+        """
         x = self.ventana.winfo_x() + e.x - self._offset_x
         y = self.ventana.winfo_y() + e.y - self._offset_y
         self.ventana.geometry(f"+{x}+{y}")

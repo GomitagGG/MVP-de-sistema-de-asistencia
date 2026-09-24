@@ -4,6 +4,10 @@ from fake_db import FakeDB
 
 
 def test_flujo_entrada_atrasada_genera_alerta():
+    """Prueba que una entrada tardía genere una alerta de atraso pendiente.
+
+    @return None: Verifica el registro de la alerta con los datos esperados.
+    """
     db = FakeDB()
     m = Marcacion(usuario="juan", correo="j@e.cl", accion="entrada",
                   fecha="2026-09-07", hora="09:45:00")
@@ -22,6 +26,10 @@ def test_flujo_entrada_atrasada_genera_alerta():
 
 
 def test_flujo_entrada_puntual_no_genera_alerta():
+    """Prueba que una entrada a tiempo no genere ninguna alerta.
+
+    @return None: Verifica que el listado de alertas permanezca vacío.
+    """
     db = FakeDB()
     m = Marcacion(usuario="juan", accion="entrada",
                   fecha="2026-09-07", hora="09:15:00")
@@ -35,6 +43,10 @@ def test_flujo_entrada_puntual_no_genera_alerta():
 
 
 def test_flujo_salida_anticipada_genera_alerta():
+    """Prueba que una salida anticipada genere una alerta correspondiente.
+
+    @return None: Verifica la creación de la alerta de salida anticipada.
+    """
     db = FakeDB()
     m = Marcacion(usuario="ana", accion="salida",
                   fecha="2026-09-07", hora="16:00:00")
@@ -50,6 +62,10 @@ def test_flujo_salida_anticipada_genera_alerta():
 
 
 def test_flujo_mismo_dia_no_duplica_alerta():
+    """Prueba que no se dupliquen alertas del mismo tipo para el mismo día.
+
+    @return None: Verifica que el sistema registre una sola alerta por usuario y día.
+    """
     db = FakeDB()
     for _ in range(3):
         m = Marcacion(usuario="juan", accion="entrada",
@@ -62,6 +78,10 @@ def test_flujo_mismo_dia_no_duplica_alerta():
 
 
 def test_flujo_inasistencia_genera_alerta():
+    """Prueba que la ausencia de un trabajador genere una alerta de inasistencia.
+
+    @return None: Verifica la creación de la alerta para el usuario ausente.
+    """
     db = FakeDB()
     db.collection("usuarios").add({
         "usuario": "pedro", "correo": "pedro@e.cl",
@@ -81,6 +101,10 @@ def test_flujo_inasistencia_genera_alerta():
 
 
 def test_flujo_alertas_marcadas_leidas_desaparecen_de_pendientes():
+    """Prueba que las alertas leídas no aparezcan en la vista de pendientes.
+
+    @return None: Verifica la separación entre alertas pendientes y leídas.
+    """
     db = FakeDB()
     a = Alerta.crear(db, Alerta.TIPO_ATRASO, "juan", "2026-09-07", "09:45:00")
     assert len(Alerta.listar(db, estado="pendiente")) == 1

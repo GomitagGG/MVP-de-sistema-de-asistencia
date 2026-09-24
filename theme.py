@@ -41,6 +41,11 @@ FONTS = {
 
 
 def configure_styles(root=None):
+    """Configura los estilos visuales del tema oscuro para la interfaz Tkinter.
+
+    @param root: Raíz de Tkinter sobre la que se aplicará el estilo.
+    @return ttk.Style: Estilo configurado y listo para usar en la aplicación.
+    """
     from tkinter import ttk
     c = COLORS
     f = FONTS

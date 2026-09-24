@@ -10,6 +10,11 @@ from google.cloud.firestore_v1.base_query import FieldFilter
 
 
 def ruta_relativa(ruta):
+    """Resuelve la ruta absoluta de un recurso del proyecto.
+
+    @param ruta: Ruta relativa del archivo o recurso a localizar.
+    @return str: Ruta absoluta compatible con el entorno actual.
+    """
     if getattr(sys, "frozen", False):
         base = sys._MEIPASS
     else:
@@ -40,6 +45,10 @@ COLORES = {
 
 
 def _ruta_cache():
+    """Devuelve la ruta del archivo de caché de usuarios del sistema.
+
+    @return str: Ruta absoluta donde se almacenará la caché local.
+    """
     if getattr(sys, "frozen", False):
         carpeta = os.path.join(os.environ.get("APPDATA", os.path.expanduser("~")), "SistemaAsistencia")
     else:
@@ -49,6 +58,10 @@ def _ruta_cache():
 
 
 def _cargar_cache():
+    """Carga la caché local de usuarios si existe.
+
+    @return dict: Diccionario con los usuarios almacenados en caché.
+    """
     try:
         with open(_ruta_cache()) as f:
             return json.load(f)
@@ -57,6 +70,12 @@ def _cargar_cache():
 
 
 def _guardar_cache(usuario, datos):
+    """Guarda o elimina un usuario de la caché local.
+
+    @param usuario: Identificador del usuario a persistir.
+    @param datos: Datos del usuario o None para eliminarlo.
+    @return None: Actualiza el archivo de caché del sistema.
+    """
     cache = _cargar_cache()
     if datos is None:
         cache.pop(usuario, None)
@@ -70,7 +89,19 @@ def _guardar_cache(usuario, datos):
 
 
 class GestionUsuariosApp:
+    """Ventana principal para gestionar usuarios del sistema.
+
+    @param padre: Ventana padre sobre la cual se abre la interfaz.
+    @param usuario_actual: Usuario actualmente autenticado en la sesión.
+    """
+
     def __init__(self, padre, usuario_actual=""):
+        """Inicializa la ventana de administración de usuarios.
+
+        @param padre: Ventana padre del diálogo.
+        @param usuario_actual: Identificador del usuario actual.
+        @return None: Crea la interfaz y arranca la carga inicial desde la base de datos.
+        """
         self.padre = padre
         self.usuario_actual = usuario_actual
         self.db = None
@@ -98,6 +129,10 @@ class GestionUsuariosApp:
         self.ventana.geometry(f"{w}x{h}+{x}+{y}")
 
     def _inicializar_db(self):
+        """Inicializa la conexión con Firestore y carga los usuarios del sistema.
+
+        @return None: Crea la conexión a la base de datos y revisa el estado de Firebase.
+        """
         try:
             self.db = get_db()
             self.firebase_ok = True
@@ -108,6 +143,10 @@ class GestionUsuariosApp:
                 "Error", f"No se pudo conectar a la base de datos:\n{msg}"))
 
     def _construir_ui(self):
+        """Construye la interfaz principal de gestión de usuarios.
+
+        @return None: Crea la barra de encabezado, la tabla y los botones de acción.
+        """
         header = tk.Frame(self.ventana, bg=COLORES["panel_izq"])
         header.pack(fill="x")
         tk.Label(
@@ -157,6 +196,13 @@ class GestionUsuariosApp:
         barra.pack(fill="x", pady=(10, 0))
 
         def _btn(texto, comando, color):
+            """Crea un botón reutilizable para la barra de acciones.
+
+            @param texto: Texto visible del botón.
+            @param comando: Función asociada al evento de clic.
+            @param color: Color de fondo del botón.
+            @return tk.Button: Botón configurado con estilo del sistema.
+            """
             return tk.Button(
                 barra, text=texto, bg=color, fg=COLORES["texto_blanco"],
                 activebackground=COLORES["accento_oscuro"],
@@ -184,11 +230,20 @@ class GestionUsuariosApp:
         self.entry_buscar.bind("<KeyRelease>", lambda e: self._filtrar())
 
     def _al_seleccionar(self, _evento=None):
+        """Actualiza el usuario seleccionado en la tabla.
+
+        @param _evento: Evento generado por la selección del Treeview.
+        @return None: Guarda el identificador del usuario activo.
+        """
         sel = self.tabla.selection()
         if sel:
             self.seleccion_id = sel[0]
 
     def _filtrar(self):
+        """Filtra los usuarios visibles según el texto buscado.
+
+        @return None: Re-renderiza la tabla con los elementos coincidentes.
+        """
         texto = self.entry_buscar.get().strip().lower()
         for item in self.tabla.get_children():
             self.tabla.delete(item)
@@ -200,11 +255,20 @@ class GestionUsuariosApp:
             self._insertar_fila(u)
 
     def _insertar_fila(self, u):
+        """Añade un usuario a la tabla principal.
+
+        @param u: Diccionario con los datos del usuario.
+        @return None: Inserta la fila en el Treeview.
+        """
         self.tabla.insert("", "end", iid=u.get("__id"),
                           values=(u.get("usuario", ""), u.get("rol", ""),
                                   u.get("nombre", ""), u.get("correo", "")))
 
     def _cargar_usuarios(self):
+        """Carga los usuarios desde Firestore.
+
+        @return None: Actualiza la lista interna de usuarios y refresca la vista.
+        """
         try:
             docs = self.db.collection("usuarios").get()
             self.usuarios = []
@@ -219,6 +283,10 @@ class GestionUsuariosApp:
                 "Error", f"No se pudo cargar los usuarios:\n{msg}"))
 
     def _refrescar_tabla(self):
+        """Refresca la vista de usuarios en la tabla.
+
+        @return None: Elimina y vuelve a poblar la tabla con los usuarios actuales.
+        """
         self.lbl_estado.config(text=f"{len(self.usuarios)} usuario(s) cargado(s).")
         for item in self.tabla.get_children():
             self.tabla.delete(item)
@@ -226,6 +294,10 @@ class GestionUsuariosApp:
             self._insertar_fila(u)
 
     def _obtener_seleccionado(self):
+        """Devuelve el usuario actualmente seleccionado por el usuario.
+
+        @return dict | None: Usuario activo o None si no hay selección.
+        """
         if not self.seleccion_id:
             messagebox.showwarning("Advertencia", "Selecciona un usuario de la lista.")
             return None
@@ -235,17 +307,34 @@ class GestionUsuariosApp:
         return None
 
     def _abrir_crear(self):
+        """Abre el formulario para crear un nuevo usuario.
+
+        @return None: Abre la ventana del formulario de creación.
+        """
         self._abrir_formulario(None)
 
     def _abrir_modificar(self):
+        """Abre el formulario para editar el usuario activo.
+
+        @return None: Carga el usuario seleccionado en el formulario.
+        """
         u = self._obtener_seleccionado()
         if u:
             self._abrir_formulario(u)
 
     def _abrir_formulario(self, usuario_existente):
+        """Abre el formulario de alta o edición para un usuario.
+
+        @param usuario_existente: Usuario existente a modificar o None para crear uno nuevo.
+        @return None: Inicia la ventana de formulario.
+        """
         GestionUsuarioForm(self, usuario_existente)
 
     def _eliminar_seleccionado(self):
+        """Elimina el usuario seleccionado tras confirmación del usuario.
+
+        @return None: Elimina el usuario de Firestore y actualiza la vista.
+        """
         u = self._obtener_seleccionado()
         if not u:
             return
@@ -263,6 +352,11 @@ class GestionUsuariosApp:
         threading.Thread(target=self._eliminar_en_db, args=(u,), daemon=True).start()
 
     def _eliminar_en_db(self, u):
+        """Elimina un usuario en la base de datos y actualiza la caché.
+
+        @param u: Usuario a borrar.
+        @return None: Ejecuta la eliminación en Firestore.
+        """
         try:
             self.db.collection("usuarios").document(u["__id"]).delete()
             _guardar_cache(u.get("usuario"), None)
@@ -275,6 +369,12 @@ class GestionUsuariosApp:
                 "Error", f"No se pudo eliminar el usuario:\n{msg}"))
 
     def _guardar_creado(self, datos, id_documento):
+        """Guarda un usuario nuevo en Firestore.
+
+        @param datos: Datos del usuario a crear.
+        @param id_documento: Identificador del documento en Firestore.
+        @return None: Persiste el nuevo usuario y actualiza la UI.
+        """
         try:
             self.db.collection("usuarios").document(id_documento).set(datos)
             _guardar_cache(datos["usuario"], dict(datos))
@@ -287,6 +387,12 @@ class GestionUsuariosApp:
                 "Error", f"No se pudo guardar el usuario:\n{msg}"))
 
     def _guardar_modificado(self, id_documento, datos):
+        """Actualiza un usuario existente en Firestore.
+
+        @param id_documento: Identificador del documento a actualizar.
+        @param datos: Nuevos valores del usuario.
+        @return None: Guarda los cambios y recarga la vista.
+        """
         try:
             self.db.collection("usuarios").document(id_documento).set(datos)
             _guardar_cache(datos["usuario"], dict(datos))
@@ -300,7 +406,15 @@ class GestionUsuariosApp:
 
 
 class GestionUsuarioForm:
+    """Formulario para crear o editar un usuario del sistema."""
+
     def __init__(self, gestor, usuario_existente):
+        """Inicializa el formulario de entrada de datos.
+
+        @param gestor: Instancia del gestor principal que contiene la base de datos.
+        @param usuario_existente: Usuario a editar o None para alta.
+        @return None: Crea la ventana del formulario.
+        """
         self.gestor = gestor
         self.usuario_existente = usuario_existente
 
@@ -321,6 +435,10 @@ class GestionUsuarioForm:
         self.ventana.geometry(f"{w}x{h}+{x}+{y}")
 
     def _construir_formulario(self):
+        """Construye los campos del formulario de usuario.
+
+        @return None: Genera los widgets para crear o modificar un usuario.
+        """
         cont = tk.Frame(self.ventana, bg=COLORES["bg_oscuro"])
         cont.pack(fill="both", expand=True, padx=20, pady=16)
 
@@ -340,6 +458,12 @@ class GestionUsuarioForm:
         ]
 
         def _campo(clave, etiqueta):
+            """Crea un campo de texto para el formulario.
+
+            @param clave: Nombre lógico del campo.
+            @param etiqueta: Etiqueta visible del campo.
+            @return tk.Entry: Entrada de texto configurada con el estilo del sistema.
+            """
             cont_campo = tk.Frame(cont, bg=COLORES["bg_oscuro"])
             cont_campo.pack(fill="x", pady=5)
             tk.Label(
@@ -409,6 +533,11 @@ class GestionUsuarioForm:
         ).pack(side="left", fill="x", expand=True, padx=(6, 0))
 
     def _validar(self, entradas):
+        """Valida los datos ingresados por el usuario antes de guardar.
+
+        @param entradas: Diccionario con los valores del formulario.
+        @return bool: True si los datos son válidos y False si no lo son.
+        """
         import re
         usuario = entradas["usuario"].get().strip()
         clave = entradas["clave"].get().strip()
@@ -434,6 +563,11 @@ class GestionUsuarioForm:
         return True
 
     def _guardar(self, entradas):
+        """Persiste el contenido del formulario en Firestore.
+
+        @param entradas: Campos del formulario con los valores ingresados.
+        @return None: Guarda el nuevo o modificado usuario.
+        """
         from datetime import datetime
         if not self._validar(entradas):
             return

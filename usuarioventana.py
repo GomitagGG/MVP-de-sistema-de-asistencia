@@ -7,6 +7,11 @@ from modelos import get_db, Marcacion, Alerta
 
 
 def ruta_relativa(ruta):
+    """Devuelve la ruta completa de un archivo relativo al directorio de la app.
+
+    @param ruta: Ruta del recurso dentro del proyecto, por ejemplo "img/logo.png".
+    @return str: Ruta absoluta del archivo, adaptada para ejecución empaquetada o normal.
+    """
     if getattr(sys, "frozen", False):
         base = sys._MEIPASS
     else:
@@ -15,6 +20,11 @@ def ruta_relativa(ruta):
 
 
 def configurar_icono(ventana):
+    """Configura el icono de la ventana principal según la plataforma actual.
+
+    @param ventana: Instancia de la ventana Tkinter donde se aplicará el icono.
+    @return None: No devuelve valor; solo ajusta la configuración visual de la ventana.
+    """
     try:
         if sys.platform == "win32":
             ventana.iconbitmap(ruta_relativa("icon/Fixmol_icon.ico"))
@@ -55,7 +65,19 @@ ALTO = 500
 
 
 class UsuarioApp:
+    """Representa la ventana principal del sistema para que un usuario marque entrada y salida.
+
+    @param usuario: Nombre de usuario autenticado activo en la sesión.
+    @param datos: Diccionario opcional con datos adicionales del usuario como nombre, rol y correo.
+    """
+
     def __init__(self, usuario="", datos=None):
+        """Inicializa la interfaz, carga el estado del usuario y arranca la ventana principal.
+
+        @param usuario: Identificador del usuario actual.
+        @param datos: Datos del perfil del usuario, si existen.
+        @return None: No devuelve valor y crea la UI en el hilo principal de Tkinter.
+        """
         datos = datos or {}
         self.usuario = usuario
         self.nombre = datos.get("nombre") or usuario.capitalize()
@@ -89,6 +111,10 @@ class UsuarioApp:
         self.ventana.mainloop()
 
     def _iniciar_firebase(self):
+        """Inicializa la conexión a la base de datos en un hilo en segundo plano.
+
+        @return None: No devuelve valor; actualiza la referencia a la base de datos y el estado de conexión.
+        """
         try:
             self.db = get_db()
             self.db_ok = True
@@ -97,6 +123,10 @@ class UsuarioApp:
             print("Error Firebase:", e)
 
     def _cargar_jornada_desde_db(self):
+        """Carga la jornada del usuario desde la base de datos y refleja la entrada registrada.
+
+        @return None: No devuelve valor; actualiza la interfaz si ya existe una marca de entrada.
+        """
         try:
             entrada = Marcacion.buscar(self.db, self.usuario, accion=Marcacion.ENTRADA)
             if entrada:
@@ -105,6 +135,12 @@ class UsuarioApp:
             pass
 
     def _centrar_ventana(self, w, h):
+        """Centra la ventana en la pantalla según el ancho y alto indicados.
+
+        @param w: Ancho de la ventana.
+        @param h: Alto de la ventana.
+        @return None: Ajusta la geometría de la ventana en pantalla.
+        """
         sw = self.ventana.winfo_screenwidth()
         sh = self.ventana.winfo_screenheight()
         x = (sw - w) // 2
@@ -112,11 +148,19 @@ class UsuarioApp:
         self.ventana.geometry(f"{w}x{h}+{x}+{y}")
 
     def _construir_ui(self):
+        """Construye los elementos visuales de la ventana principal.
+
+        @return None: Crea la barra, panel izquierdo y panel derecho de la interfaz.
+        """
         self._crear_barra_titulo()
         self._crear_panel_izquierdo()
         self._crear_panel_derecho()
 
     def _crear_barra_titulo(self):
+        """Genera la barra superior con título y controles de cierre/minimizar.
+
+        @return None: Crea la barra de título interactiva para la ventana.
+        """
         self.barra_titulo = tk.Frame(self.ventana, bg=COLORES["panel_izq"], height=32)
         self.barra_titulo.pack(fill="x", side="top")
         self.barra_titulo.pack_propagate(False)
@@ -147,6 +191,10 @@ class UsuarioApp:
         btn_minimizar.bind("<Button-1>", lambda e: self.ventana.overrideredirect(False))
 
     def _crear_panel_izquierdo(self):
+        """Crea el panel lateral izquierdo con branding, información y accesos rápidos.
+
+        @return None: Genera la navegación lateral y los botones de sesión y administración.
+        """
         self.panel_izq = tk.Frame(self.ventana, bg=COLORES["panel_izq"], width=300)
         self.panel_izq.pack(side="left", fill="y")
         self.panel_izq.pack_propagate(False)
@@ -220,6 +268,10 @@ class UsuarioApp:
             self.btn_inasistencias.pack(side="bottom", pady=(0, 8), padx=40, fill="x")
 
     def _crear_panel_derecho(self):
+        """Genera el panel principal de marcación con reloj, estados y botón de acción.
+
+        @return None: Construye la interfaz central del usuario para registrar asistencia.
+        """
         panel_der = tk.Frame(self.ventana, bg=COLORES["panel_der"])
         panel_der.pack(side="right", fill="both", expand=True)
 
@@ -249,7 +301,6 @@ class UsuarioApp:
         self.lbl_reloj.pack(pady=(0, 20))
         self._actualizar_reloj()
 
-        # Tarjeta de estado de la jornada
         card = tk.Frame(
             frame_form, bg=COLORES["card_bg"],
             highlightthickness=1, highlightbackground=COLORES["entry_borde"],
@@ -310,7 +361,6 @@ class UsuarioApp:
         )
         self.lbl_estado.pack(pady=(0, 4))
 
-        # Botón de marcación (canvas, estilo del MVP)
         self.canvas_boton = tk.Canvas(
             frame_form, height=46, bg=COLORES["panel_der"],
             highlightthickness=0, cursor="hand2",
@@ -322,6 +372,13 @@ class UsuarioApp:
         self.canvas_boton.bind("<Leave>", lambda e: self._dibujar_boton())
 
     def _crear_fila_card(self, parent, texto, fila):
+        """Crea una fila dentro de una tarjeta con etiqueta y valor de hora.
+
+        @param parent: Contenedor padre donde se insertará la fila.
+        @param texto: Etiqueta que describe el tipo de hora a mostrar.
+        @param fila: Índice de la fila, aunque no se usa para lógica funcional.
+        @return tk.Label: Etiqueta del valor asociado a la fila.
+        """
         fila_frame = tk.Frame(parent, bg=COLORES["card_bg"])
         fila_frame.pack(fill="x", padx=16, pady=12)
 
@@ -338,11 +395,20 @@ class UsuarioApp:
         return lbl
 
     def _actualizar_reloj(self):
+        """Actualiza la hora mostrada en la interfaz cada segundo.
+
+        @return None: Reprograma la actualización del reloj en el hilo de Tkinter.
+        """
         from datetime import datetime
         self.lbl_reloj.config(text=datetime.now().strftime("%H:%M:%S"))
         self.ventana.after(1000, self._actualizar_reloj)
 
     def _dibujar_boton(self, color=None):
+        """Dibuja el botón principal de marcación con el color según el tipo de acción.
+
+        @param color: Color opcional para sobreescribir el color base del botón.
+        @return None: Actualiza el widget canvas con la apariencia visual del botón.
+        """
         if color is None:
             color = COLORES["accento_oscuro"] if self._modo_marcacion == "salida" else COLORES["accento"]
         c = self.canvas_boton
@@ -362,6 +428,10 @@ class UsuarioApp:
                       fill=COLORES["texto_blanco"], font=("Helvetica", 11, "bold"))
 
     def _marcar(self):
+        """Inicia el proceso de marcación de asistencia en segundo plano.
+
+        @return None: Ejecuta la operación de guardar la marca sin bloquear la interfaz.
+        """
         if not self.db_ok or self.db is None:
             self._mostrar_estado("Conectando a la base de datos...", exito=False)
             return
@@ -369,6 +439,10 @@ class UsuarioApp:
         threading.Thread(target=self._guardar_marcacion, daemon=True).start()
 
     def _guardar_marcacion(self):
+        """Guarda la marca de entrada o salida en la base de datos con validaciones de negocio.
+
+        @return None: Actualiza la jornada y los estados de la UI según el resultado.
+        """
         tipo = self._modo_marcacion
         try:
             if tipo == Marcacion.ENTRADA:
@@ -405,6 +479,13 @@ class UsuarioApp:
             self._mostrar_estado(f"  \u26a0  Error al guardar: {e}", exito=False)
 
     def _marcacion_guardada(self, marcacion, atrasado=False, salida_anticipada=False):
+        """Actualiza la interfaz tras guardar una marca de asistencia correctamente.
+
+        @param marcacion: Objeto de marcación recién guardado.
+        @param atrasado: Indica si la entrada fue tarde.
+        @param salida_anticipada: Indica si la salida se registró antes de tiempo.
+        @return None: Cambia el estado visual y de jornada según la nueva marca.
+        """
         tipo = marcacion.accion
         self._jornada[tipo] = marcacion.hora
         if tipo == Marcacion.ENTRADA:
@@ -428,12 +509,22 @@ class UsuarioApp:
         self._dibujar_boton()
 
     def _mostrar_estado(self, msg, exito=False):
+        """Muestra un mensaje de estado con color según sea correcto o advertencia.
+
+        @param msg: Texto a mostrar al usuario.
+        @param exito: Indica si el estado es positivo o de error/alerta.
+        @return None: Actualiza la etiqueta de estado de la UI.
+        """
         self.lbl_estado.config(
             text=msg,
             fg=COLORES["exito"] if exito else COLORES["error"],
         )
 
     def _fijar_hora_ahora(self):
+        """Rellena el selector de horario con la hora actual del sistema.
+
+        @return None: Sincroniza los campos del tiempo con la hora local actual.
+        """
         from datetime import datetime
         ahora = datetime.now()
         self.spn_hh.delete(0, tk.END)
@@ -442,6 +533,10 @@ class UsuarioApp:
         self.spn_mm.insert(0, f"{ahora.minute:02d}")
 
     def _hora_seleccionada(self):
+        """Obtiene la hora elegida por el usuario en formato HH:MM:SS.
+
+        @return str: Hora seleccionada o la hora actual si la entrada es inválida.
+        """
         from datetime import datetime
         try:
             hh = max(0, min(23, int(self.spn_hh.get())))
@@ -451,6 +546,11 @@ class UsuarioApp:
             return datetime.now().strftime("%H:%M:%S")
 
     def _aplicar_entrada_bd(self, ent):
+        """Carga la hora de entrada de la base de datos y muestra el estado asociado.
+
+        @param ent: Diccionario con los datos de la marcación de entrada.
+        @return None: Actualiza la interfaz para reflejar la jornada ya registrada.
+        """
         hora = ent.get("hora") or ""
         self._jornada["entrada"] = hora
         self.lbl_entrada.config(text=hora)
@@ -463,41 +563,80 @@ class UsuarioApp:
         self._dibujar_boton()
 
     def _abrir_gestion_usuarios(self):
+        """Abre la pantalla de gestión de usuarios desde la ventana actual.
+
+        @return None: Carga la vista de administración de usuarios.
+        """
         import gestion_usuarios
         gestion_usuarios.GestionUsuariosApp(self.ventana, self.usuario)
 
     def _abrir_gestion_registros(self):
+        """Abre la pantalla de gestión de registros del sistema.
+
+        @return None: Inicia la vista de administración de registros.
+        """
         import gestion_registros
         gestion_registros.GestionRegistrosApp(self.ventana, self.usuario)
 
     def _abrir_reporte_inasistencias(self):
+        """Abre el módulo de reportes de inasistencias para el usuario administrador.
+
+        @return None: Carga la interfaz del reporte de inasistencias.
+        """
         import gestion_registros
         gestion_registros.ReporteInasistenciasApp(self.ventana)
 
     def _cerrar_sesion(self):
+        """Cierra la sesión actual y vuelve a la pantalla de login.
+
+        @return None: Cierra la ventana principal y reinicia la autenticación.
+        """
         self.ventana.destroy()
         subprocess_login()
 
     def _iniciar_animacion_entrada(self):
+        """Inicia la animación de aparición de la ventana principal.
+
+        @return None: Programa la transición visual de entrada de la UI.
+        """
         self.ventana.after(30, self._fade_in, 0.0)
 
     def _fade_in(self, alpha):
+        """Desvanece la ventana hasta dejarla visible a nivel del usuario.
+
+        @param alpha: Valor actual de transparencia de la ventana.
+        @return None: Actualiza la transparencia y reprograma la siguiente etapa de la animación.
+        """
         if alpha < 1.0:
             alpha += 0.05
             self.ventana.attributes("-alpha", min(alpha, 1.0))
             self.ventana.after(15, self._fade_in, alpha)
 
     def _iniciar_arrastre(self, e):
+        """Guarda la posición inicial del cursor para permitir arrastrar la ventana.
+
+        @param e: Evento del mouse capturado al presionar el botón izquierdo.
+        @return None: Registra el desplazamiento inicial del arrastre.
+        """
         self._offset_x = e.x
         self._offset_y = e.y
 
     def _arrastrar(self, e):
+        """Mueve la ventana según el desplazamiento actual del mouse.
+
+        @param e: Evento del mouse durante el arrastre de la ventana.
+        @return None: Reposiciona la ventana en la pantalla.
+        """
         x = self.ventana.winfo_x() + e.x - self._offset_x
         y = self.ventana.winfo_y() + e.y - self._offset_y
         self.ventana.geometry(f"+{x}+{y}")
 
 
 def subprocess_login():
+    """Reabre la pantalla de inicio de sesión en un proceso hijo.
+
+    @return None: Ejecuta la aplicación de login con una variable de entorno que indica el retorno.
+    """
     import subprocess
     env = dict(os.environ)
     env["SA_VOLVER_LOGIN"] = "1"

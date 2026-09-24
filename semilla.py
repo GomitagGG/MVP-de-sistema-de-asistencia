@@ -9,6 +9,11 @@ from google.cloud.firestore_v1.base_query import FieldFilter
 
 
 def ruta_relativa(ruta):
+    """Resuelve la ruta absoluta de un recurso dentro del proyecto.
+
+    @param ruta: Ruta relativa del archivo o recurso a resolver.
+    @return str: Ruta absoluta completa para acceder al recurso.
+    """
     if getattr(sys, "frozen", False):
         base = sys._MEIPASS
     else:
@@ -17,6 +22,10 @@ def ruta_relativa(ruta):
 
 
 def get_db():
+    """Obtiene la instancia de Firestore inicializada con la configuración del proyecto.
+
+    @return firestore.Client: Cliente de Firestore listo para operar.
+    """
     if not firebase_admin._apps:
         key_file = "config/firebase-key.json"
         if not os.path.exists(ruta_relativa(key_file)):
@@ -60,6 +69,11 @@ TRABAJADORES = [
 
 
 def crear_config(db):
+    """Crea la configuración base de la empresa en Firestore.
+
+    @param db: Cliente de Firestore donde se almacenará la configuración.
+    @return None: Guarda la información de la empresa en la colección config.
+    """
     db.collection("config").document("empresa").set({
         "nombre": "Empresa Qu\u00edmica",
         "hora_entrada": HORA_ENTRADA_LIMITE,
@@ -68,6 +82,11 @@ def crear_config(db):
 
 
 def crear_usuarios(db):
+    """Genera los usuarios administradores y trabajadores iniciales del sistema.
+
+    @param db: Cliente de Firestore donde se crearán los usuarios.
+    @return None: Inserta los documentos de usuario en la colección usuarios.
+    """
     batch = db.batch()
     batch.set(db.collection("usuarios").document("admin"), {
         "usuario": "admin",
@@ -88,6 +107,10 @@ def crear_usuarios(db):
 
 
 def dias_desde_inicio_mes():
+    """Devuelve la lista de días hábiles desde el inicio del mes hasta hoy.
+
+    @return list[datetime]: Fechas laborales dentro del mes actual.
+    """
     dias = []
     hoy = datetime.now()
     primero = hoy.replace(day=1)
@@ -100,6 +123,11 @@ def dias_desde_inicio_mes():
 
 
 def limpiar_colecciones(db):
+    """Borra los datos de las colecciones principales antes de sembrar la base.
+
+    @param db: Cliente de Firestore a limpiar.
+    @return None: Elimina los documentos de usuarios, marcaciones, alertas y login_log.
+    """
     for coleccion in ("usuarios", "marcaciones", "alertas", "login_log"):
         n = 0
         batch = db.batch()
@@ -116,6 +144,10 @@ def limpiar_colecciones(db):
 
 
 def hora_entrada_random():
+    """Genera una hora de entrada aleatoria para una jornada laboral.
+
+    @return str: Hora de entrada en formato HH:MM:SS.
+    """
     if random.random() < 0.65:
         return f"09:{random.randint(0, 29):02d}:00"
     if random.random() < 0.7:
@@ -124,6 +156,10 @@ def hora_entrada_random():
 
 
 def hora_salida_random():
+    """Genera una hora de salida aleatoria para una jornada laboral.
+
+    @return str: Hora de salida en formato HH:MM:SS.
+    """
     if random.random() < 0.3:
         return f"16:{random.randint(0, 59):02d}:00"
     if random.random() < 0.5:
@@ -132,6 +168,11 @@ def hora_salida_random():
 
 
 def crear_marcaciones(db):
+    """Crea una base de marcaciones aleatorias para los trabajadores.
+
+    @param db: Cliente de Firestore donde se insertarán las marcaciones.
+    @return int: Cantidad total de marcaciones creadas.
+    """
     total = 0
     dias = dias_desde_inicio_mes()
     fecha_hoy = datetime.now().strftime("%Y-%m-%d")
@@ -194,6 +235,11 @@ def crear_marcaciones(db):
 
 
 def crear_logins(db):
+    """Crea registros de logins aleatorios para simular actividad del sistema.
+
+    @param db: Cliente de Firestore donde se registrarán los logins.
+    @return int: Cantidad total de registros de acceso creados.
+    """
     total = 0
     for d in dias_desde_inicio_mes():
         batch = db.batch()
@@ -220,6 +266,10 @@ def crear_logins(db):
 
 
 def main():
+    """Función principal que sembrará la base de datos con usuarios, marcaciones y logs.
+
+    @return None: Ejecuta la carga inicial de datos para pruebas y demo.
+    """
     db = get_db()
     print("Limpiando datos anteriores...")
     limpiar_colecciones(db)

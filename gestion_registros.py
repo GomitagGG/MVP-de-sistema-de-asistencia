@@ -9,6 +9,11 @@ from modelos import get_db
 
 
 def ruta_relativa(ruta):
+    """Resuelve la ruta absoluta de un recurso del proyecto.
+
+    @param ruta: Ruta relativa del archivo o recurso a localizar.
+    @return str: Ruta absoluta compatible con el entorno actual.
+    """
     if getattr(sys, "frozen", False):
         base = sys._MEIPASS
     else:
@@ -39,6 +44,10 @@ COLORES = {
 
 
 def _ruta_cache():
+    """Devuelve la ruta del archivo de caché de registros del sistema.
+
+    @return str: Ruta absoluta donde se almacenará la caché local.
+    """
     if getattr(sys, "frozen", False):
         carpeta = os.path.join(os.environ.get("APPDATA", os.path.expanduser("~")), "SistemaAsistencia")
     else:
@@ -48,6 +57,10 @@ def _ruta_cache():
 
 
 def _cargar_cache():
+    """Carga la caché local del sistema si existe.
+
+    @return dict: Diccionario con los registros almacenados en caché.
+    """
     try:
         with open(_ruta_cache()) as f:
             return json.load(f)
@@ -56,6 +69,12 @@ def _cargar_cache():
 
 
 def _guardar_cache(id_registro, datos):
+    """Guarda o elimina un registro de la caché local.
+
+    @param id_registro: Identificador del registro a persistir.
+    @param datos: Datos del registro o None para eliminarlo.
+    @return None: Actualiza el archivo de caché del sistema.
+    """
     cache = _cargar_cache()
     if datos is None:
         cache.pop(id_registro, None)
@@ -69,10 +88,23 @@ def _guardar_cache(id_registro, datos):
 
 
 def crear_id_registro(usuario, fecha, tipo):
+    """Genera un identificador único para un registro de marcación.
+
+    @param usuario: Nombre del usuario asociado al registro.
+    @param fecha: Fecha del evento en formato AAAA-MM-DD.
+    @param tipo: Tipo del registro, por ejemplo entrada o salida.
+    @return str: Identificador único generado para el registro.
+    """
     return f"{usuario}_{fecha}_{tipo}"
 
 
 def _dias_habiles(fecha_inicio, fecha_fin):
+    """Obtiene la lista de días hábiles dentro de un rango de fechas.
+
+    @param fecha_inicio: Fecha inicial del rango en formato AAAA-MM-DD.
+    @param fecha_fin: Fecha final del rango en formato AAAA-MM-DD.
+    @return list: Lista de fechas hábiles en formato ISO.
+    """
     from datetime import date, timedelta
     inicio = date.fromisoformat(fecha_inicio)
     fin = date.fromisoformat(fecha_fin)
@@ -86,6 +118,14 @@ def _dias_habiles(fecha_inicio, fecha_fin):
 
 
 def detectar_inasistencias(marcaciones, usuarios, fecha_inicio, fecha_fin):
+    """Detecta los usuarios ausentes durante un intervalo de fechas.
+
+    @param marcaciones: Lista de registros de marcación disponibles.
+    @param usuarios: Lista de usuarios evaluados.
+    @param fecha_inicio: Fecha inicial del rango evaluado.
+    @param fecha_fin: Fecha final del rango evaluado.
+    @return list: Lista de inasistencias con usuario y fecha.
+    """
     presentes = set()
     for m in marcaciones:
         if m.get("usuario") and m.get("fecha"):
@@ -104,6 +144,11 @@ def detectar_inasistencias(marcaciones, usuarios, fecha_inicio, fecha_fin):
 
 
 def ultimo_dia_mes(fecha_inicio):
+    """Devuelve la fecha del último día del mes indicado.
+
+    @param fecha_inicio: Fecha con formato AAAA-MM-DD.
+    @return str: Fecha del último día del mes en formato ISO.
+    """
     from datetime import date, timedelta
     ano, mes = fecha_inicio.split("-")[:2]
     if mes == "12":
@@ -115,7 +160,19 @@ def ultimo_dia_mes(fecha_inicio):
 
 
 class GestionRegistrosApp:
+    """Ventana principal para gestionar los registros de asistencia.
+
+    @param padre: Ventana padre sobre la cual se abre la interfaz.
+    @param usuario_actual: Usuario actualmente autenticado en la sesión.
+    """
+
     def __init__(self, padre, usuario_actual=""):
+        """Inicializa la ventana de administración de registros.
+
+        @param padre: Ventana padre del diálogo.
+        @param usuario_actual: Identificador del usuario actual.
+        @return None: Crea la interfaz y arranca la carga inicial desde la base de datos.
+        """
         self.padre = padre
         self.usuario_actual = usuario_actual
         self.db = None
@@ -151,6 +208,10 @@ class GestionRegistrosApp:
                 "Error", f"No se pudo conectar a la base de datos:\n{msg}"))
 
     def _construir_ui(self):
+        """Construye la interfaz principal de gestión de registros.
+
+        @return None: Crea la barra de encabezado, la tabla y los botones de acción.
+        """
         header = tk.Frame(self.ventana, bg=COLORES["panel_izq"])
         header.pack(fill="x")
         tk.Label(
@@ -227,11 +288,20 @@ class GestionRegistrosApp:
         self.entry_buscar.bind("<KeyRelease>", lambda e: self._filtrar())
 
     def _al_seleccionar(self, _evento=None):
+        """Actualiza el registro seleccionado en la tabla.
+
+        @param _evento: Evento generado por la selección del Treeview.
+        @return None: Guarda el identificador del registro activo.
+        """
         sel = self.tabla.selection()
         if sel:
             self.seleccion_id = sel[0]
 
     def _filtrar(self):
+        """Filtra los registros visibles según el texto buscado.
+
+        @return None: Re-renderiza la tabla con los elementos coincidentes.
+        """
         texto = self.entry_buscar.get().strip().lower()
         for item in self.tabla.get_children():
             self.tabla.delete(item)
@@ -243,11 +313,20 @@ class GestionRegistrosApp:
             self._insertar_fila(r)
 
     def _insertar_fila(self, r):
+        """Añade un registro a la tabla principal.
+
+        @param r: Diccionario con los datos del registro.
+        @return None: Inserta la fila en el Treeview.
+        """
         self.tabla.insert("", "end", iid=r.get("__id"),
                           values=(r.get("usuario", ""), r.get("fecha", ""),
                                   r.get("hora", ""), r.get("tipo", "")))
 
     def _cargar_registros(self):
+        """Carga los registros de marcación desde Firestore.
+
+        @return None: Actualiza la lista interna de registros y refresca la vista.
+        """
         try:
             docs = self.db.collection("marcaciones").get()
             self.registros = []
@@ -263,6 +342,10 @@ class GestionRegistrosApp:
                 "Error", f"No se pudo cargar los registros:\n{msg}"))
 
     def _refrescar_tabla(self):
+        """Refresca la vista de registros en la tabla.
+
+        @return None: Elimina y vuelve a poblar la tabla con los registros actuales.
+        """
         self.lbl_estado.config(text=f"{len(self.registros)} registro(s) cargado(s).")
         for item in self.tabla.get_children():
             self.tabla.delete(item)
@@ -270,6 +353,10 @@ class GestionRegistrosApp:
             self._insertar_fila(r)
 
     def _obtener_seleccionado(self):
+        """Devuelve el registro actualmente seleccionado por el usuario.
+
+        @return dict | None: Registro activo o None si no hay selección.
+        """
         if not self.seleccion_id:
             messagebox.showwarning("Advertencia", "Selecciona un registro de la lista.")
             return None
@@ -279,17 +366,34 @@ class GestionRegistrosApp:
         return None
 
     def _abrir_crear(self):
+        """Abre el formulario para crear un nuevo registro.
+
+        @return None: Abre la ventana del formulario de creación.
+        """
         self._abrir_formulario(None)
 
     def _abrir_modificar(self):
+        """Abre el formulario para editar el registro activo.
+
+        @return None: Carga el registro seleccionado en el formulario.
+        """
         r = self._obtener_seleccionado()
         if r:
             self._abrir_formulario(r)
 
     def _abrir_formulario(self, registro_existente):
+        """Abre el formulario de alta o edición para un registro.
+
+        @param registro_existente: Registro existente a modificar o None para crear uno nuevo.
+        @return None: Inicia la ventana de formulario.
+        """
         GestionRegistroForm(self, registro_existente)
 
     def _eliminar_seleccionado(self):
+        """Elimina el registro seleccionado tras confirmación del usuario.
+
+        @return None: Elimina el registro de Firestore y actualiza la vista.
+        """
         r = self._obtener_seleccionado()
         if not r:
             return
@@ -304,6 +408,11 @@ class GestionRegistrosApp:
         threading.Thread(target=self._eliminar_en_db, args=(r,), daemon=True).start()
 
     def _eliminar_en_db(self, r):
+        """Elimina un registro en la base de datos y actualiza la caché.
+
+        @param r: Registro a borrar.
+        @return None: Ejecuta la eliminación en Firestore.
+        """
         try:
             self.db.collection("marcaciones").document(r["__id"]).delete()
             _guardar_cache(r["__id"], None)
@@ -316,6 +425,12 @@ class GestionRegistrosApp:
                 "Error", f"No se pudo eliminar el registro:\n{msg}"))
 
     def _guardar_creado(self, datos, id_documento):
+        """Guarda un registro nuevo en Firestore.
+
+        @param datos: Datos del registro a crear.
+        @param id_documento: Identificador del documento en Firestore.
+        @return None: Persiste el nuevo registro y actualiza la UI.
+        """
         try:
             self.db.collection("marcaciones").document(id_documento).set(datos)
             _guardar_cache(id_documento, dict(datos))
@@ -328,6 +443,12 @@ class GestionRegistrosApp:
                 "Error", f"No se pudo guardar el registro:\n{msg}"))
 
     def _guardar_modificado(self, id_documento, datos):
+        """Actualiza un registro existente en Firestore.
+
+        @param id_documento: Identificador del documento a actualizar.
+        @param datos: Nuevos valores del registro.
+        @return None: Guarda los cambios y recarga la vista.
+        """
         try:
             self.db.collection("marcaciones").document(id_documento).set(datos)
             _guardar_cache(id_documento, dict(datos))
@@ -341,7 +462,15 @@ class GestionRegistrosApp:
 
 
 class GestionRegistroForm:
+    """Formulario para crear o editar un registro de marcación."""
+
     def __init__(self, gestor, registro_existente):
+        """Inicializa el formulario de entrada de datos.
+
+        @param gestor: Instancia del gestor principal que contiene la base de datos.
+        @param registro_existente: Registro a editar o None para alta.
+        @return None: Crea la ventana del formulario.
+        """
         self.gestor = gestor
         self.registro_existente = registro_existente
 
@@ -362,6 +491,10 @@ class GestionRegistroForm:
         self.ventana.geometry(f"{w}x{h}+{x}+{y}")
 
     def _construir_formulario(self):
+        """Construye los campos del formulario de registro.
+
+        @return None: Genera los widgets para crear o modificar un registro.
+        """
         cont = tk.Frame(self.ventana, bg=COLORES["bg_oscuro"])
         cont.pack(fill="both", expand=True, padx=20, pady=16)
 
@@ -467,6 +600,11 @@ class GestionRegistroForm:
         ).pack(side="left", fill="x", expand=True, padx=(6, 0))
 
     def _validar(self, entradas):
+        """Valida los datos ingresados por el usuario antes de guardar.
+
+        @param entradas: Diccionario con los valores del formulario.
+        @return bool: True si los datos son válidos y False si no lo son.
+        """
         import datetime
         import re
         usuario = entradas["usuario"][0].get().strip()
@@ -506,6 +644,11 @@ class GestionRegistroForm:
         return True
 
     def _guardar(self, entradas):
+        """Persiste el contenido del formulario en Firestore.
+
+        @param entradas: Campos del formulario con los valores ingresados.
+        @return None: Guarda el nuevo o modificado registro.
+        """
         if not self._validar(entradas):
             return
 
@@ -531,7 +674,14 @@ class GestionRegistroForm:
 
 
 class ReporteInasistenciasApp:
+    """Genera un reporte mensual de inasistencias por usuario."""
+
     def __init__(self, padre):
+        """Inicializa la ventana del reporte de ausencias.
+
+        @param padre: Ventana padre sobre la cual se abre el reporte.
+        @return None: Crea la ventana y lanza la carga de datos.
+        """
         self.padre = padre
         self.db = None
         self.usuarios = []
@@ -564,6 +714,10 @@ class ReporteInasistenciasApp:
                 "Error", f"No se pudo conectar a la base de datos:\n{msg}"))
 
     def _construir_ui(self):
+        """Construye la interfaz del reporte de inasistencias.
+
+        @return None: Crea la cabecera, el selector de mes y la tabla de resultados.
+        """
         from datetime import datetime
         self.mes_actual = datetime.now().strftime("%Y-%m")
 
@@ -630,6 +784,10 @@ class ReporteInasistenciasApp:
         self.tabla.configure(yscrollcommand=scroll.set)
 
     def _generar_meses(self):
+        """Genera una lista de meses recientes para elegir en el reporte.
+
+        @return list: Lista de strings con meses en formato AAAA-MM.
+        """
         from datetime import datetime
         meses = []
         now = datetime.now()
@@ -643,6 +801,10 @@ class ReporteInasistenciasApp:
         return meses
 
     def _cargar_datos(self):
+        """Carga los usuarios del sistema para el reporte.
+
+        @return None: Obtiene la lista de usuarios activos en la base de datos.
+        """
         try:
             self.usuarios = []
             for d in self.db.collection("usuarios").get():
@@ -654,10 +816,18 @@ class ReporteInasistenciasApp:
                 "Error", f"No se pudo cargar los datos:\n{msg}"))
 
     def _aplicar_reporte(self):
+        """Ejecuta el cálculo del reporte en un hilo separado.
+
+        @return None: Inicia la generación del reporte para el mes seleccionado.
+        """
         self.lbl_estado.config(text="Cargando...", fg=COLORES["texto_gris"])
         threading.Thread(target=self._calcular, daemon=True).start()
 
     def _calcular(self):
+        """Calcula las inasistencias del mes actual o seleccionado.
+
+        @return None: Genera la lista de ausencias para mostrar en la tabla.
+        """
         try:
             mes = self.var_mes.get().strip()
             fecha_inicio = f"{mes}-01"
@@ -675,10 +845,19 @@ class ReporteInasistenciasApp:
                 text=f"Error: {msg}", fg=COLORES["error"]))
 
     def _usuarios_con_marcaciones(self, registros):
+        """Filtra los usuarios que tienen al menos una marcación registrada.
+
+        @param registros: Lista de registros de marcación cargados.
+        @return list: Usuarios activos con al menos una marca registrada.
+        """
         con_marcas = {m.get("usuario") for m in registros if m.get("usuario")}
         return [u for u in self.usuarios if u.get("usuario") in con_marcas]
 
     def _refrescar_tabla(self):
+        """Actualiza la tabla con las inasistencias calculadas.
+
+        @return None: Muestra los registros de ausencia para el mes seleccionado.
+        """
         for item in self.tabla.get_children():
             self.tabla.delete(item)
         nombres = {u.get("usuario"): u.get("nombre", "") for u in self.usuarios}
